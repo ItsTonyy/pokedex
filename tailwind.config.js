@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+/*eslint-env node*/
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -18,6 +19,70 @@ module.exports = {
     },
     extend: {
       colors: {
+        /* --- project --- */
+        'type-bug': '#8cb230',
+        'type-dark': '#58575f',
+        'type-dragon': '#0f6ac0',
+        'type-eletric': '#eed535',
+        'type-fairy': '#ed6ec7',
+        'type-fighting': '#d04164',
+        'type-fire': '#fd7d24',
+        'type-flying': '#748fc9',
+        'type-ghost': '#556aae',
+        'type-grass': '#62b957',
+        'type-ground': '#dd7748',
+        'type-ice': '#61cec0',
+        'type-normal': '#9da0aa',
+        'type-poison': '#a552cc',
+        'type-psychic': '#ea5d60',
+        'type-rock': '#baab82',
+        'type-steel': '#417d9a',
+        'type-water': '#4a90da',
+
+        'background-type-bug': '#6bd674',
+        'background-type-dark': '#6f6e78',
+        'background-type-dragon': '#7383b9',
+        'background-type-eletric': '#f2cb55',
+        'background-type-fairy': '#eba8c3',
+        'background-type-fighting': '#eb4971',
+        'background-type-fire': '#ffa756',
+        'background-type-flying': '#83a2e3',
+        'background-type-ghost': '#8571be',
+        'background-type-grass': '#8bbe8a',
+        'background-type-ground': '#f78551',
+        'background-type-ice': '#91d8df',
+        'background-type-normal': '#b5b9c4',
+        'background-type-poison': '#9f6397',
+        'background-type-psychic': '#ff6568',
+        'background-type-rock': '#d4c294',
+        'background-type-steel': '#4c91b2',
+        'background-type-water': '#58abf6',
+
+        'background-white': '#ffffff',
+        'background-default-input': '#f2f2f2',
+        'background-pressed-input': '#e2e2e2',
+        'background-modal': 'rgb(var(--that-black-color) / .50 )',
+
+        'text-white': '#ffffff',
+        'text-black': '#17171b',
+        'text-grey': '#747476',
+        'text-number': 'rgb(var(--that-black-color) / .60 )',
+
+        'gradient-vector': 'bg-gradient-to-b from-gray-50 to-zinc-100',
+        'gradient-pokeball': 'bg-gradient-to-b from-gray-200 to-zinc-50',
+        'gradient-vector-grey': 'bg-gradient-to-br from-gray-300 to-zinc-50',
+        'gradient-pokeball-grey': 'bg-gradient-to-br from-gray-300 to-gray-100',
+
+        'height-short': '#ffc5e6',
+        'height-medium': '#aebfd7',
+        'height-tall': '#aaacb8',
+
+        'weight-light': '#99cd7c',
+        'weight-normal': '#57b2dc',
+        'weight-heavy': '#5a92a5',
+
+        
+        /* --- shadcn --- */
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -52,6 +117,9 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"]
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -71,6 +139,15 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+    },
+    fontSize: {
+      title: '6.25rem',
+      applicationTitle: '2rem',
+      pokemonName: '1.625rem',
+      filterTitle: '1rem',
+      description: '1rem',
+      pokemonNumber: '0.75rem',
+      pokemonType: '0.75rem'
     },
   },
   plugins: [require("tailwindcss-animate")],
