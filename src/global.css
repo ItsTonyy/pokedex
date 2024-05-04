@@ -70,9 +70,39 @@
 
   @layer base {
     * {
-      @apply border-border;
+      @apply border-border font-roboto m-0 p-0;
     }
     body {
       @apply bg-background text-foreground;
+    }
+  }
+
+  @layer components {
+    .title {
+      @apply text-title font-bold
+    }
+
+    .applicationTitle {
+      @apply text-applicationTitle font-bold
+    }
+
+    .pokemonName {
+      @apply text-pokemonName font-bold
+    }
+
+    .filterTitle {
+      @apply text-filterTitle font-bold
+    }
+
+    .description {
+      @apply text-description font-normal
+    }
+
+    .pokemonNumber {
+      @apply text-pokemonNumber font-bold
+    }
+
+    .pokemonType {
+      @apply text-pokemonType font-normal
     }
   }

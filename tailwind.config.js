@@ -139,15 +139,26 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      height: {
+        screen: ['100vh', '100svh'],
+      }
     },
     fontSize: {
-      title: '6.25rem',
+      title: '5.25rem',
       applicationTitle: '2rem',
       pokemonName: '1.625rem',
       filterTitle: '1rem',
       description: '1rem',
       pokemonNumber: '0.75rem',
-      pokemonType: '0.75rem'
+      pokemonType: '0.75rem',
+
+      sm: '0.8rem',
+      base: '1rem',
+      xl: '1.25rem',
+      '2xl': '1.563rem',
+      '3xl': '1.953rem',
+      '4xl': '2.441rem',
+      '5xl': '3.052rem'
     },
   },
   plugins: [require("tailwindcss-animate")],
