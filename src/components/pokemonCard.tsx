@@ -1,66 +1,87 @@
 interface PokemonCardProps {
   name: string;
   id: number;
-  type: string;
+  mainType: string;
   image: string;
+  typesLength: number;
+  allTypesPokemon: [];
 }
 
 export const PokemonCard: React.FC<PokemonCardProps> = ({
   name,
   id,
   image,
-  type,
+  mainType,
+  typesLength,
+  allTypesPokemon,
 }) => {
   return (
     <div
       className={`relative h-28 p-3 flex flex-row mb-3 shadow-xl rounded-xl ${
-        type === 'grass'
+        mainType === 'grass'
           ? 'bg-background-type-grass'
-          : type === 'dark'
+          : mainType === 'dark'
           ? 'bg-background-type-dark'
-          : type === 'dragon'
+          : mainType === 'dragon'
           ? 'bg-type-dragon'
-          : type === 'fairy'
+          : mainType === 'fairy'
           ? 'bg-background-type-fairy'
-          : type === 'fighting'
+          : mainType === 'fighting'
           ? 'bg-background-type-fighting'
-          : type === 'fire'
+          : mainType === 'fire'
           ? 'bg-background-type-fire'
-          : type === 'ghost'
+          : mainType === 'ghost'
           ? 'bg-background-type-ghost'
-          : type === 'bug'
+          : mainType === 'bug'
           ? 'bg-background-type-bug'
-          : type === 'ground'
+          : mainType === 'ground'
           ? 'bg-background-type-ground'
-          : type === 'normal'
+          : mainType === 'normal'
           ? 'bg-background-type-normal'
-          : type === 'poison'
+          : mainType === 'poison'
           ? 'bg-background-type-poison'
-          : type === 'psychic'
+          : mainType === 'psychic'
           ? 'bg-background-type-psychic'
-          : type === 'steel'
+          : mainType === 'steel'
           ? 'bg-background-type-steel'
-          : type === 'water'
+          : mainType === 'water'
           ? 'bg-background-type-water'
-          : type === 'eletric'
+          : mainType === 'eletric'
           ? 'bg-background-type-eletric'
-          : type === 'flying'
+          : mainType === 'flying'
           ? 'bg-background-type-flying'
-          : type === 'ice'
+          : mainType === 'ice'
           ? 'bg-background-type-ice'
           : 'bg-background-type-rock'
       }`}
     >
       <div className='flex flex-col'>
-        <span className="text-slate-600 font-medium">#{id}</span>
+        <span className='text-slate-600 font-medium'>#{id}</span>
         <span className='pokemonName text-slate-100 capitalize'>{name}</span>
         <div>
-          <span className="p-1 bg-type-grass rounded-md text-slate-100 capitalize">teste</span>
+          {typesLength === 1 ? (
+            <span className='p-1 bg-type-grass rounded-md text-slate-100 capitalize'>
+              {allTypesPokemon[0].type.name}
+            </span>
+          ) : (
+            <div>
+              <span className='p-1 bg-type-grass rounded-md text-slate-100 capitalize'>
+                {allTypesPokemon[0].type.name}
+              </span>{' '}
+              <span className='p-1 bg-type-grass rounded-md text-slate-100 capitalize'>
+                {allTypesPokemon[1].type.name}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="absolute right-0 bottom-2">
-        <img src={image} alt='Pokemon Photo' className="w-[130px] h-[130px] hover:rotate-12 hover:transition-transform" />
+      <div className='absolute right-0 bottom-2'>
+        <img
+          src={image}
+          alt='Pokemon Photo'
+          className='w-[130px] h-[130px] hover:rotate-12 hover:transition-transform'
+        />
       </div>
     </div>
   );

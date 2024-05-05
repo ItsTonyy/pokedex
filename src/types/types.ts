@@ -71,3 +71,5 @@ export interface pokemonDefaultType {
   status: number,
   statusText: string
 }
+
+export type pokemonsObject = Record<number, pokemonDefaultType>

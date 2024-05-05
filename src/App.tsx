@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { PokemonCard } from './components/pokemonCard';
-import { pokemonDefaultType } from './types/types';
+import { pokemonDefaultType, pokemonsObject } from './types/types';
 import axios from 'axios';
 //import InfiniteScroll from 'react-infinite-scroll-component';
 
 function App() {
   const [pokemonName, setPokemonName] = useState('');
-  const [pokemonsDefault, setPokemonsDefault] = useState([]);
-  console.log(pokemonsDefault)
+  const [pokemonsDefault, setPokemonsDefault] = useState<pokemonsObject>([]);
+  //para pegar o tipo do pokemon => (lembra do index) pokemon.data.types[0 ou 1].type.name)
+ //console.log(pokemonsDefault[0].data.types)
  
   useEffect(() => {
     PokemonsDefault();
@@ -76,8 +77,10 @@ function App() {
             <PokemonCard
               name={pokemon.data.name}
               id={pokemon.data.id}
-              type={pokemon.data.types[0].type.name}
+              mainType={pokemon.data.types[0].type.name}
               image={pokemon.data.sprites.other['official-artwork'].front_default}
+              typesLength={pokemon.data.types.length}
+              allTypesPokemon={pokemon.data.types}
             />
           ))}
         </div>
