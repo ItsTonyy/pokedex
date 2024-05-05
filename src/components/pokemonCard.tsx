@@ -55,12 +55,12 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
         <span className="text-slate-600 font-medium">#{id}</span>
         <span className='pokemonName text-slate-100 capitalize'>{name}</span>
         <div>
-          <span className="p-1 bg-type-grass rounded-md text-slate-100">teste</span>
+          <span className="p-1 bg-type-grass rounded-md text-slate-100 capitalize">teste</span>
         </div>
       </div>
 
       <div className="absolute right-0 bottom-2">
-        <img src={image} alt='Pokemon Photo' className="w-[130px] h-[130px]" />
+        <img src={image} alt='Pokemon Photo' className="w-[130px] h-[130px] hover:rotate-12 hover:transition-transform" />
       </div>
     </div>
   );

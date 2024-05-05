@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { PokemonCard } from './components/pokemonCard';
-import { pokemonDefaultType, pokemonType } from './types/types';
+import { pokemonDefaultType } from './types/types';
 import axios from 'axios';
 //import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -11,7 +11,6 @@ function App() {
   const [pokemonsDefault, setPokemonsDefault] = useState([]);
   console.log(pokemonsDefault)
  
-
   useEffect(() => {
     PokemonsDefault();
   }, []);
@@ -46,8 +45,8 @@ function App() {
   }
 
   return (
-    <div className='bg-slate-100 flex h-screen p-14 border-2 border-red-200 justify-center'>
-      <div className='flex flex-col xl:min-w-full border-2 border-red-200'>
+    <div className='bg-gray-50 flex p-14 border-2 border-red-200 justify-center'>
+      <div className='flex flex-col xl:min-w-full '>
         <header>
           <h1 className='title'>Pokédex</h1>
           <p className='text-xl -mt-3'>
