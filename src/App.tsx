@@ -18,7 +18,7 @@ function App() {
 
   const PokemonsDefault = async () => {
     const endpoints = [];
-    for (let i = 1; i < 31; i++) {
+    for (let i = 1; i < 29; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
@@ -46,7 +46,7 @@ function App() {
   }
 
   return (
-    <div className='bg-gray-50 flex p-14 border-2 border-red-200 justify-center'>
+    <div className='bg-background-white flex py-14 px-56 border-2 border-red-200 justify-center'>
       <div className='flex flex-col xl:min-w-full '>
         <header>
           <h1 className='title'>Pokédex</h1>
@@ -57,7 +57,7 @@ function App() {
 
         <div className='my-8 flex flex-col space-y-3 md:space-y-0 md:space-x-3 md:flex-row md:items-center'>
           <Input
-            className='w-full min-w-[300px] md:w-2/5 md:h-11 '
+            className='w-full min-w-[300px] md:w-2/5 md:h-11 bg-background-default-input'
             placeholder='What Pokémon are you looking for?'
             id='inputPokemon'
             onChange={(event) => setPokemonName(event.target.value)}
@@ -72,15 +72,15 @@ function App() {
           </Button>
         </div>
 
-        <div className='grid grid-cols-5 gap-5'>
+        <div className='grid grid-cols-4 gap-5'>
           {pokemonsDefault.map((pokemon: pokemonDefaultType) => (
             <PokemonCard
               name={pokemon.data.name}
               id={pokemon.data.id}
               mainType={pokemon.data.types[0].type.name}
-              image={pokemon.data.sprites.other['official-artwork'].front_default}
+              secondType={pokemon.data.types[1]?.type.name}
               typesLength={pokemon.data.types.length}
-              allTypesPokemon={pokemon.data.types}
+              image={pokemon.data.sprites.other['official-artwork'].front_default}
             />
           ))}
         </div>

@@ -117,6 +117,11 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      saturate: {
+        110: '1.10',
+        115: '1.15',
+        120: '1.20',
+      },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"]
       },
@@ -141,7 +146,10 @@ module.exports = {
       },
       height: {
         screen: ['100vh', '100svh'],
-      }
+      },
+      width: {
+        '3.5': '0.875rem',
+      },
     },
     fontSize: {
       title: '5.25rem',
