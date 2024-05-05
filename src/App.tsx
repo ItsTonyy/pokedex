@@ -1,14 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import InfiniteScroll from 'react-infinite-scroll-component';
+import { PokemonCard } from './components/pokemonCard';
+import { pokemonDefaultType, pokemonType } from './types/types';
+import axios from 'axios';
+//import InfiniteScroll from 'react-infinite-scroll-component';
 
 function App() {
   const [pokemonName, setPokemonName] = useState('');
+  const [pokemonsDefault, setPokemonsDefault] = useState([]);
+  console.log(pokemonsDefault)
+ 
 
-  console.log(pokemonName);
+  useEffect(() => {
+    PokemonsDefault();
+  }, []);
 
-  async function PokemonSubmit() {
+  const PokemonsDefault = async () => {
+    const endpoints = [];
+    for (let i = 1; i < 31; i++) {
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const response = axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((res) => setPokemonsDefault(res));
+  };
+
+  async function pokemonSubmit() {
     try {
       const response = await fetch(
         `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`
@@ -20,7 +40,6 @@ function App() {
 
       const data = await response.json();
       console.log(data);
-
     } catch (error) {
       console.log(error);
     }
@@ -47,13 +66,23 @@ function App() {
             variant={'destructive'}
             size={'lg'}
             className='text-base font-semibold max-w-24 h-8 md:h-10'
-            onClick={PokemonSubmit}
+            onClick={pokemonSubmit}
           >
             Submit
           </Button>
         </div>
+
+        <div className='grid grid-cols-5 gap-5'>
+          {pokemonsDefault.map((pokemon: pokemonDefaultType) => (
+            <PokemonCard
+              name={pokemon.data.name}
+              id={pokemon.data.id}
+              type={pokemon.data.types[0].type.name}
+              image={pokemon.data.sprites.other['official-artwork'].front_default}
+            />
+          ))}
+        </div>
       </div>
-      
     </div>
   );
 }
