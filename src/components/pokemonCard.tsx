@@ -1,11 +1,4 @@
-interface PokemonCardProps {
-  name: string;
-  id: number;
-  mainType: string;
-  secondType: string;
-  typesLength: number;
-  image: string;
-}
+import { PokemonCardProps } from "@/types/types";
 
 export const PokemonCard: React.FC<PokemonCardProps> = ({
   name,
@@ -125,10 +118,11 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       : secondType === 'ice'
       ? 'bg-type-ice'
       : 'bg-type-rock';
-// C:\Users\HOME\Documents\Code\VSCode\Projects\pokedex\src\assets\TypesIcons\fairy.png
+  // C:\Users\HOME\Documents\Code\VSCode\Projects\pokedex\src\assets\TypesIcons\fairy.png
   return (
     <div
-      className={`relative group h-28 p-3 flex flex-row mb-3 shadow-xl rounded-lg ${backgroundColorTernary}`}
+      className={`relative group hover:scale-105 duration-300
+      ease-in-out h-28 p-3 flex flex-row mb-3 shadow-xl rounded-lg ${backgroundColorTernary}`}
     >
       <div className='flex flex-col'>
         <span className='text-slate-700 font-medium'>#{id}</span>
@@ -137,34 +131,48 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
         </span>
         <div>
           {typesLength === 1 ? (
-            <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}>
-              <img src={`src/assets/TypesIcons/${mainType}.png`} alt="typeImage" className="w-3.5"/> 
-              <span
-              className={`text-slate-100 text-sm capitalize `}
+            <div
+              className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}
             >
-              {mainType}
-            </span>
+              <img
+                src={`src/assets/TypesIcons/${mainType}.png`}
+                alt='typeImage'
+                className='w-3.5'
+              />
+              <span className={`text-slate-100 text-sm capitalize `}>
+                {mainType}
+              </span>
             </div>
-            
           ) : (
-            <div className="flex flex-row gap-2">
-              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}>
-                <img src={`src/assets/TypesIcons/${mainType}.png`} alt="typeImage" className="w-3.5"/> 
+            <div className='flex flex-row gap-2'>
+              <div
+                className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}
+              >
+                <img
+                  src={`src/assets/TypesIcons/${mainType}.png`}
+                  alt='typeImage'
+                  className='w-3.5'
+                />
                 <span
                   className={`${Type1ColorTernary} text-sm text-slate-100 capitalize`}
                 >
                   {mainType}
                 </span>{' '}
               </div>
-              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type2ColorTernary}`}>
-                <img src={`src/assets/TypesIcons/${secondType}.png`} alt="typeImage" className="w-3.5"/> 
+              <div
+                className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type2ColorTernary}`}
+              >
+                <img
+                  src={`src/assets/TypesIcons/${secondType}.png`}
+                  alt='typeImage'
+                  className='w-3.5'
+                />
                 <span
                   className={`${Type2ColorTernary} text-sm text-slate-100 capitalize`}
                 >
                   {secondType}
                 </span>
               </div>
-              
             </div>
           )}
         </div>
@@ -175,7 +183,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
           src={image}
           alt='Pokemon Photo'
           className='w-[130px] h-[130px] group-hover:scale-110 group-hover:rotate-6 duration-500
-           transition-transform ease-in-out filter saturate-110'
+           ease-in-out filter saturate-110'
         />
       </div>
     </div>

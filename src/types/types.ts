@@ -73,3 +73,12 @@ export interface pokemonDefaultType {
 }
 
 export type pokemonsObject = Record<number, pokemonDefaultType>
+
+export interface PokemonCardProps {
+  name: string;
+  id: number;
+  mainType: string;
+  secondType: string;
+  typesLength: number;
+  image: string;
+}

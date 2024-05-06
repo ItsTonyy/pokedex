@@ -150,6 +150,9 @@ module.exports = {
       width: {
         '3.5': '0.875rem',
       },
+      backgroundImage: {
+        'pokeball-white': 'url(assets/BackgroundImages/bg-pokeball-white.svg)'
+      }
     },
     fontSize: {
       title: '5.25rem',
@@ -167,6 +170,9 @@ module.exports = {
       '3xl': '1.953rem',
       '4xl': '2.441rem',
       '5xl': '3.052rem'
+    },
+    backgroundSize: {
+      '80%': '80%',
     },
   },
   plugins: [require("tailwindcss-animate")],

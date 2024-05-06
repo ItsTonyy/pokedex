@@ -10,8 +10,8 @@ function App() {
   const [pokemonName, setPokemonName] = useState('');
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonsObject>([]);
   //para pegar o tipo do pokemon => (lembra do index) pokemon.data.types[0 ou 1].type.name)
- //console.log(pokemonsDefault[0].data.types)
- 
+  //console.log(pokemonsDefault[0].data.types)
+
   useEffect(() => {
     PokemonsDefault();
   }, []);
@@ -46,7 +46,8 @@ function App() {
   }
 
   return (
-    <div className='bg-background-white flex py-14 px-56 border-2 border-red-200 justify-center'>
+    <div className='bg-neutral-200 flex py-14 px-56 justify-center bg-pokeball-white bg-no-repeat
+     bg-top bg-80%'>
       <div className='flex flex-col xl:min-w-full '>
         <header>
           <h1 className='title'>Pokédex</h1>
@@ -80,7 +81,9 @@ function App() {
               mainType={pokemon.data.types[0].type.name}
               secondType={pokemon.data.types[1]?.type.name}
               typesLength={pokemon.data.types.length}
-              image={pokemon.data.sprites.other['official-artwork'].front_default}
+              image={
+                pokemon.data.sprites.other['official-artwork'].front_default
+              }
             />
           ))}
         </div>
