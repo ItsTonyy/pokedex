@@ -151,8 +151,15 @@ module.exports = {
         '3.5': '0.875rem',
       },
       backgroundImage: {
-        'pokeball-white': 'url(assets/BackgroundImages/bg-pokeball-white.svg)'
-      }
+        'pokeball-white': 'url(assets/BackgroundImages/bg-pokeball-white.svg)',
+        'card-pokeball-white': 'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
+        '6x3-grad': 'url(assets/BackgroundImages/6x3-grad.svg)'
+      },
+      backgroundSize: {
+        'auto': 'auto',
+        'cover': 'cover',
+        'contain': 'contain',
+      },
     },
     fontSize: {
       title: '5.25rem',
@@ -172,6 +179,14 @@ module.exports = {
       '5xl': '3.052rem'
     },
     backgroundSize: {
+      '10%': '10%',
+      '20%': '20%',
+      '30%': '30%',
+      '40%': '40%',
+      '45%': '45%',
+      '50%': '50%',
+      '60%': '60%',
+      '70%': '70%',
       '80%': '80%',
     },
   },

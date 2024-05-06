@@ -46,7 +46,7 @@ function App() {
   }
 
   return (
-    <div className='bg-neutral-200 flex py-14 px-56 justify-center bg-pokeball-white bg-no-repeat
+    <div className='bg-background-white flex py-14 px-56 justify-center bg-pokeball-white bg-no-repeat
      bg-top bg-80%'>
       <div className='flex flex-col xl:min-w-full '>
         <header>

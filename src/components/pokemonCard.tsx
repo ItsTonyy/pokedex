@@ -121,8 +121,10 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   // C:\Users\HOME\Documents\Code\VSCode\Projects\pokedex\src\assets\TypesIcons\fairy.png
   return (
     <div
-      className={`relative group hover:scale-105 duration-300
-      ease-in-out h-28 p-3 flex flex-row mb-3 shadow-xl rounded-lg ${backgroundColorTernary}`}
+      className={`relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
+       shadow-2xl shadow-gray-400 rounded-lg ${backgroundColorTernary} cursor-pointer
+       bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
+       before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:right-2/4 before:top-0`}
     >
       <div className='flex flex-col'>
         <span className='text-slate-700 font-medium'>#{id}</span>
