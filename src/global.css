@@ -87,7 +87,7 @@
     }
 
     .pokemonName {
-      @apply text-pokemonName font-bold
+      @apply text-pokemonName font-extrabold
     }
 
     .filterTitle {

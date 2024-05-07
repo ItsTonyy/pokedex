@@ -1,8 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+  SheetFooter,
+} from '@/components/ui/sheet';
+import { Label } from './components/ui/label';
 import { PokemonCard } from './components/pokemonCard';
-import { pokemonsObject, pokemonDefaultType } from './types/types';
+import { PokemonSheetCard } from './components/PokemonSheetCard';
+import { pokemonDefaultType } from './types/types';
 import { Search } from 'lucide-react';
 import axios from 'axios';
 //import InfiniteScroll from 'react-infinite-scroll-component';
@@ -12,6 +24,7 @@ function App() {
   const [pokemonsDefault, setPokemonsDefault] = useState<
     pokemonDefaultType[] | undefined
   >([]);
+  console.log(pokemonsDefault);
 
   useEffect(() => {
     PokemonsDefault();
@@ -66,29 +79,55 @@ function App() {
         </header>
 
         <div className='relative'>
-          <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900 z-10'/>
+          <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900 z-10' />
           <Input
-          className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
+            className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
              focus:bg-background-pressed-input text-base'
-          placeholder='What Pokémon are you looking for?'
-          id='inputPokemon'
-          onChange={(event) => setPokemonName(event.target.value)}
-          onKeyUp={handleKeyUp}
-        />
+            placeholder='What Pokémon are you looking for?'
+            id='inputPokemon'
+            onChange={(event) => setPokemonName(event.target.value)}
+            onKeyUp={handleKeyUp}
+          />
         </div>
-        
+
         <div className='grid grid-cols-4 gap-5'>
           {pokemonsDefault?.map((pokemon) => (
-            <PokemonCard
-              name={pokemon.data.name}
-              id={pokemon.data.id}
-              mainType={pokemon.data.types[0].type.name}
-              secondType={pokemon.data.types[1]?.type.name}
-              typesLength={pokemon.data.types.length}
-              image={
-                pokemon.data.sprites.other['official-artwork'].front_default
-              }
-            />
+            <Sheet key={pokemon.data.id}>
+              <SheetTrigger asChild>
+                <div>
+                  <PokemonCard
+                    name={pokemon.data.name}
+                    id={pokemon.data.id}
+                    mainType={pokemon.data.types[0].type.name}
+                    secondType={pokemon.data.types[1]?.type.name}
+                    typesLength={pokemon.data.types.length}
+                    image={
+                      pokemon.data.sprites.other['official-artwork']
+                        .front_default
+                    }
+                  />
+                </div>
+              </SheetTrigger>
+
+              <SheetContent
+                className={`p-0 m-0 border-none bg-background-type-${pokemon.data.types[0].type.name}`}
+              >
+                <div>
+                  <PokemonSheetCard
+                    name={pokemon.data.name}
+                    id={pokemon.data.id}
+                    mainType={pokemon.data.types[0].type.name}
+                    secondType={pokemon.data.types[1]?.type.name}
+                    typesLength={pokemon.data.types.length}
+                    image={
+                      pokemon.data.sprites.other['official-artwork']
+                        .front_default
+                    }
+                  />
+                </div>
+                <div className='bg-white h-full rounded-t-4xl'></div>
+              </SheetContent>
+            </Sheet>
           ))}
         </div>
       </div>

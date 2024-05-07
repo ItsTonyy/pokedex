@@ -1,20 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 /*eslint-env node*/
 module.exports = {
-  darkMode: ["class"],
+  darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  prefix: "",
+  prefix: '',
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: '2rem',
       screens: {
-        "2xl": "1400px",
+        '2xl': '1400px',
       },
     },
     extend: {
@@ -81,40 +81,39 @@ module.exports = {
         'weight-normal': '#57b2dc',
         'weight-heavy': '#5a92a5',
 
-        
         /* --- shadcn --- */
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
       },
       saturate: {
@@ -123,61 +122,57 @@ module.exports = {
         120: '1.20',
       },
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"]
+        roboto: ['Roboto', 'sans-serif'],
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+        '4xl': '2rem',
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
       height: {
         screen: ['100vh', '100svh'],
       },
       width: {
-        '3.5': '0.875rem',
+        3.5: '0.875rem',
       },
       backgroundImage: {
         'pokeball-white': 'url(assets/BackgroundImages/bg-pokeball-white.svg)',
-        'card-pokeball-white': 'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
+        'card-pokeball-white':
+          'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
         '6x3-grad': 'url(assets/BackgroundImages/6x3-grad.svg)',
-        'searchIcon': 'url(assets/Other/search.svg)'
+        searchIcon: 'url(assets/Other/search.svg)',
+        'pokeball-white-sheet':
+          'url(assets/BackgroundImages/bg-pokeball-white-sheet.svg)',
       },
       backgroundSize: {
-        'auto': 'auto',
-        'cover': 'cover',
-        'contain': 'contain',
+        auto: 'auto',
+        cover: 'cover',
+        contain: 'contain',
       },
-    },
-    fontSize: {
-      title: '5.25rem',
-      applicationTitle: '2rem',
-      pokemonName: '1.625rem',
-      filterTitle: '1rem',
-      description: '1rem',
-      pokemonNumber: '0.75rem',
-      pokemonType: '0.75rem',
-
-      sm: '0.8rem',
-      base: '1rem',
-      xl: '1.25rem',
-      '2xl': '1.563rem',
-      '3xl': '1.953rem',
-      '4xl': '2.441rem',
-      '5xl': '3.052rem'
+      fontSize: {
+        title: '5.25rem',
+        applicationTitle: '2rem',
+        pokemonName: '1.625rem',
+        filterTitle: '1rem',
+        description: '1rem',
+        pokemonNumber: '0.75rem',
+        pokemonType: '0.75rem',
+      },
     },
     backgroundSize: {
       '10%': '10%',
@@ -190,7 +185,7 @@ module.exports = {
       '70%': '70%',
       '75%': '75%',
       '80%': '80%',
-    },
+    }
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [require('tailwindcss-animate')],
+};

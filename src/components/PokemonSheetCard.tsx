@@ -1,6 +1,6 @@
-import { PokemonCardProps } from "@/types/types";
+import { PokemonCardProps } from '@/types/types';
 
-export const PokemonCard: React.FC<PokemonCardProps> = ({
+export const PokemonSheetCard: React.FC<PokemonCardProps> = ({
   name,
   id,
   image,
@@ -121,14 +121,27 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
 
   return (
     <div
-      className={`relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-400 rounded-lg ${backgroundColorTernary} cursor-pointer
-       bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
-       before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:right-2/4 before:top-0`}
+      className={`relative py-20 flex flex-row justify-evenly items-center
+       ${backgroundColorTernary} cursor-pointer
+       before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:left-2/4 before:top-0`}
     >
+      <div className=''>
+        <img
+          src='src/assets/BackgroundImages/bg-pokeball-white-sheet.svg'
+          alt=''
+          className='w-[145px] absolute top-24 left-9 object-cover'
+        />
+        <img
+          src={image}
+          alt='Pokemon Photo'
+          className='w-[130px] h-[130px]
+           filter saturate-110'
+        />
+      </div>
+
       <div className='flex flex-col'>
-        <span className='text-slate-700 font-bold'>#{id}</span>
-        <span className='pokemonName text-slate-100 capitalize drop-shadow'>
+        <span className='text-slate-900 font-extrabold'>#{id}</span>
+        <span className='font-extrabold text-3xl text-slate-100 capitalize drop-shadow'>
           {name}
         </span>
         <div>
@@ -178,15 +191,6 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
             </div>
           )}
         </div>
-      </div>
-
-      <div className='absolute right-0 bottom-2'>
-        <img
-          src={image}
-          alt='Pokemon Photo'
-          className='w-[130px] h-[130px] group-hover:scale-110 group-hover:rotate-6 duration-500
-           ease-in-out filter saturate-110'
-        />
       </div>
     </div>
   );
