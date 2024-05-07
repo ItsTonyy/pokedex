@@ -1,3 +1,5 @@
+
+
 export interface pokemonType {
   abilities: [];
   base_experience: number;
@@ -59,7 +61,22 @@ export interface pokemonType {
     versions: object;
   };
   stats: [];
-  types: [];
+  types: [{
+    0: {
+      slot: number,
+      type: {
+        name: string,
+        url: string
+      }
+    },
+    1?: {
+      slot: number,
+      type: {
+        name: string,
+        url: string
+      }
+    }
+  }];
   weight: number;
 }
 
@@ -72,7 +89,7 @@ export interface pokemonDefaultType {
   statusText: string
 }
 
-export type pokemonsObject = Record<number, pokemonDefaultType>
+export type pokemonsObject = Record<number, pokemonDefaultType | undefined>
 
 export interface PokemonCardProps {
   name: string;

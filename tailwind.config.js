@@ -153,7 +153,8 @@ module.exports = {
       backgroundImage: {
         'pokeball-white': 'url(assets/BackgroundImages/bg-pokeball-white.svg)',
         'card-pokeball-white': 'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
-        '6x3-grad': 'url(assets/BackgroundImages/6x3-grad.svg)'
+        '6x3-grad': 'url(assets/BackgroundImages/6x3-grad.svg)',
+        'searchIcon': 'url(assets/Other/search.svg)'
       },
       backgroundSize: {
         'auto': 'auto',
@@ -187,6 +188,7 @@ module.exports = {
       '50%': '50%',
       '60%': '60%',
       '70%': '70%',
+      '75%': '75%',
       '80%': '80%',
     },
   },
