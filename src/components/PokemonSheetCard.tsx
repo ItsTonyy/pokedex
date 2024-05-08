@@ -119,9 +119,11 @@ export const PokemonSheetCard: React.FC<PokemonCardProps> = ({
       ? 'bg-type-ice'
       : 'bg-type-rock';
 
+      const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`
+
   return (
     <div
-      className={`relative py-20 flex flex-row justify-evenly items-center
+      className={`relative pb-12 pt-20 flex flex-row justify-evenly items-center
        ${backgroundColorTernary} cursor-pointer
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:left-2/4 before:top-0`}
     >
@@ -129,7 +131,7 @@ export const PokemonSheetCard: React.FC<PokemonCardProps> = ({
         <img
           src='src/assets/BackgroundImages/bg-pokeball-white-sheet.svg'
           alt=''
-          className='w-[145px] absolute top-24 left-9 object-cover'
+          className='w-[145px] absolute top-13 left-9 object-cover'
         />
         <img
           src={image}
@@ -140,7 +142,7 @@ export const PokemonSheetCard: React.FC<PokemonCardProps> = ({
       </div>
 
       <div className='flex flex-col'>
-        <span className='text-slate-900 font-extrabold'>#{id}</span>
+        <span className='text-slate-900 font-extrabold'>{idCondicional}</span>
         <span className='font-extrabold text-3xl text-slate-100 capitalize drop-shadow'>
           {name}
         </span>

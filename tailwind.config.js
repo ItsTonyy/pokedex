@@ -173,6 +173,9 @@ module.exports = {
         pokemonNumber: '0.75rem',
         pokemonType: '0.75rem',
       },
+      scale: {
+        '115': '1.15'
+      }
     },
     backgroundSize: {
       '10%': '10%',

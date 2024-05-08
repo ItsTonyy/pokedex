@@ -119,6 +119,9 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-type-ice'
       : 'bg-type-rock';
 
+      const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}` 
+
+
   return (
     <div
       className={`relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
@@ -127,8 +130,8 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:right-2/4 before:top-0`}
     >
       <div className='flex flex-col'>
-        <span className='text-slate-700 font-bold'>#{id}</span>
-        <span className='pokemonName text-slate-100 capitalize drop-shadow'>
+        <span className='text-slate-700 font-bold text-sm'>{idCondicional}</span>
+        <span className='pokemonName text-slate-100 capitalize drop-shadow will-change-transform'>
           {name}
         </span>
         <div>

@@ -24,7 +24,6 @@ function App() {
   const [pokemonsDefault, setPokemonsDefault] = useState<
     pokemonDefaultType[] | undefined
   >([]);
-  console.log(pokemonsDefault);
 
   useEffect(() => {
     PokemonsDefault();
@@ -68,7 +67,7 @@ function App() {
   return (
     <div
       className='bg-background-white flex py-14 px-56 justify-center bg-pokeball-white bg-no-repeat
-     bg-top bg-75%'
+     bg-top bg-75% antialiased'
     >
       <div className='flex flex-col xl:min-w-full '>
         <header>
@@ -124,6 +123,17 @@ function App() {
                         .front_default
                     }
                   />
+                </div>
+                <div className='flex justify-between px-6'>
+                  <button className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115 hover:underline duration-300 ease-in-out will-change-transform focus:font-bold focus:scale-115 focus:underline'>
+                    About
+                  </button>
+                  <button className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115 hover:underline duration-300 ease-in-out will-change-transform focus:font-bold focus:scale-115 focus:underline'>
+                    Stats
+                  </button>
+                  <button className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115 hover:underline duration-300 ease-in-out will-change-transform focus:font-bold focus:scale-115 focus:underline'>
+                    Evolutions
+                  </button>
                 </div>
                 <div className='bg-white h-full rounded-t-4xl'></div>
               </SheetContent>
