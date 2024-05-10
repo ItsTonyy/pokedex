@@ -14,7 +14,7 @@ import { PokemonCard } from './components/PokemonCard';
 import { PokemonHeaderSheet } from './components/PokemonHeaderSheet';
 import { PokemonStatsSheet } from './components/PokemonStatsSheet';
 import { PokemonAboutSheet } from './components/PokemonAboutSheet';
-import { pokemonDefaultType, PokemonFlavorType } from './types/types';
+import { pokemonDefaultType, PokemonSpeciesType } from './types/types';
 import { Search } from 'lucide-react';
 import axios from 'axios';
 
@@ -23,11 +23,11 @@ import axios from 'axios';
 function App() {
   const [pokemonName, setPokemonName] = useState('');
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
-  const [pokemonsSpecies, setPokemonsSpecies] = useState<PokemonFlavorType[]>([]);
+  const [pokemonsSpecies, setPokemonsSpecies] = useState<PokemonSpeciesType[]>([]);
   const [about, setAbout] = useState(true);
   const [stats, setStats] = useState(false);
   const [evolutions, setEvolutions] = useState(false);
-  
+
   //console.log(pokemonsDefault[26].data.base_experience)
   //console.log(pokemonsDefault[25].data.types[0].type.name)
   //console.log(pokemonsSpecies[0].data.flavor_text_entries[0].flavor_text)
@@ -129,7 +129,7 @@ function App() {
         <div className='grid grid-cols-4 gap-5'>
           {pokemonsDefault?.map((pokemon) => (
             <Sheet key={pokemon.data.id}>
-              <SheetTrigger asChild>
+              <SheetTrigger asChild onClick={aboutClicked}>
                 <div>
                   <PokemonCard
                     name={pokemon.data.name}
