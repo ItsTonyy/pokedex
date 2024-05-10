@@ -23,7 +23,7 @@ module.exports = {
         'type-bug': '#8cb230',
         'type-dark': '#58575f',
         'type-dragon': '#0f6ac0',
-        'type-eletric': '#eed535',
+        'type-electric': '#eed535',
         'type-fairy': '#ed6ec7',
         'type-fighting': '#d04164',
         'type-fire': '#fd7d24',
@@ -42,7 +42,7 @@ module.exports = {
         'background-type-bug': '#6bd674',
         'background-type-dark': '#6f6e78',
         'background-type-dragon': '#7383b9',
-        'background-type-eletric': '#f2cb55',
+        'background-type-electric': '#f2cb55',
         'background-type-fairy': '#eba8c3',
         'background-type-fighting': '#eb4971',
         'background-type-fire': '#ffa756',
@@ -146,6 +146,7 @@ module.exports = {
       },
       height: {
         screen: ['100vh', '100svh'],
+        1.5: '0.375rem'
       },
       width: {
         3.5: '0.875rem',
@@ -172,6 +173,8 @@ module.exports = {
         description: '1rem',
         pokemonNumber: '0.75rem',
         pokemonType: '0.75rem',
+
+        'specialSmall': '0.8rem',
       },
       scale: {
         '115': '1.15'

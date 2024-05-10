@@ -1,4 +1,4 @@
-import { PokemonCardProps } from "@/types/types";
+import { PokemonCardProps } from '@/types/types';
 
 export const PokemonCard: React.FC<PokemonCardProps> = ({
   name,
@@ -8,6 +8,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   typesLength,
   secondType,
 }) => {
+
   const backgroundColorTernary =
     mainType === 'grass'
       ? 'bg-background-type-grass'
@@ -38,14 +39,14 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       : mainType === 'water'
       ? 'bg-background-type-water'
       : mainType === 'eletric'
-      ? 'bg-background-type-eletric'
+      ? 'bg-background-type-electric'
       : mainType === 'flying'
       ? 'bg-background-type-flying'
       : mainType === 'ice'
       ? 'bg-background-type-ice'
       : 'bg-background-type-rock';
 
-  const Type1ColorTernary =
+      const Type1ColorTernary =
     mainType === 'grass'
       ? 'bg-type-grass'
       : mainType === 'dark'
@@ -74,7 +75,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-type-steel'
       : mainType === 'water'
       ? 'bg-type-water'
-      : mainType === 'eletric'
+      : mainType === 'electric'
       ? 'bg-type-eletric'
       : mainType === 'flying'
       ? 'bg-type-flying'
@@ -111,7 +112,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-type-steel'
       : secondType === 'water'
       ? 'bg-type-water'
-      : secondType === 'eletric'
+      : secondType === 'electric'
       ? 'bg-type-eletric'
       : secondType === 'flying'
       ? 'bg-type-flying'
@@ -119,18 +120,28 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-type-ice'
       : 'bg-type-rock';
 
-      const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}` 
-
-
+  
+  const idCondicional =
+    id < 10
+      ? `#000${id}`
+      : id < 100
+      ? `#00${id}`
+      : id < 1000
+      ? `#0${id}`
+      : `#${id}`;
+      
   return (
     <div
-      className={`relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-400 rounded-lg ${backgroundColorTernary} cursor-pointer
+      className={`${backgroundColorTernary} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
+       shadow-2xl shadow-gray-400 rounded-lg cursor-pointer
        bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
-       before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:right-2/4 before:top-0`}
+       before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
+       before:right-2/4 before:top-0`}
     >
       <div className='flex flex-col'>
-        <span className='text-slate-700 font-bold text-sm'>{idCondicional}</span>
+        <span className='text-slate-700 font-bold text-sm'>
+          {idCondicional}
+        </span>
         <span className='pokemonName text-slate-100 capitalize drop-shadow will-change-transform'>
           {name}
         </span>
@@ -158,9 +169,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
                   alt='typeImage'
                   className='w-3.5'
                 />
-                <span
-                  className={`${Type1ColorTernary} text-sm text-slate-100 capitalize`}
-                >
+                <span className={`text-sm text-slate-100 capitalize`}>
                   {mainType}
                 </span>{' '}
               </div>
@@ -172,9 +181,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
                   alt='typeImage'
                   className='w-3.5'
                 />
-                <span
-                  className={`${Type2ColorTernary} text-sm text-slate-100 capitalize`}
-                >
+                <span className={`text-sm text-slate-100 capitalize`}>
                   {secondType}
                 </span>
               </div>
