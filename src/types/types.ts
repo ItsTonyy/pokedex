@@ -1,18 +1,20 @@
+import { AxiosHeaders } from "axios";
+
 interface pokemonStats {
-  base_stat: number,
-  effort: number,
+  base_stat: number;
+  effort: number;
   stat: {
-    name: string,
-    url: string
-  }
+    name: string;
+    url: string;
+  };
 }
 
 interface typesType {
-  slot: number,
+  slot: number;
   type: {
-    name: string,
-    url: string
-  } 
+    name: string;
+    url: string;
+  };
 }
 
 export interface dataPokemonDefaultType {
@@ -81,15 +83,15 @@ export interface dataPokemonDefaultType {
 }
 
 export interface pokemonDefaultType {
-  config: object,
-  data: dataPokemonDefaultType,
-  headers: object,
-  request: object,
-  status: number,
-  statusText: string
+  config: object;
+  data: dataPokemonDefaultType;
+  headers: object;
+  request?: XMLHttpRequest;
+  status: number;
+  statusText: string;
 }
 
-export type pokemonsObject = Record<number, pokemonDefaultType | undefined>
+export type pokemonsObject = Record<number, pokemonDefaultType | undefined>;
 
 export interface PokemonCardProps {
   name: string;
@@ -101,15 +103,15 @@ export interface PokemonCardProps {
 }
 
 export interface flavorTextProps {
-  flavor_text: string,
+  flavor_text: string;
   language: {
-    name: string,
-    url: string
-  },
-  version: {  
-    name: string,
-    url: string
-  }
+    name: string;
+    url: string;
+  };
+  version: {
+    name: string;
+    url: string;
+  };
 }
 
 export interface PokemonSheetProps {
@@ -128,61 +130,100 @@ export interface PokemonSheetProps {
 }
 
 export interface dataSpeciesType {
-  base_happiness: number,
-  capture_rate: number,
-  color: object,
-  egg_groups: [],
-  evolution_chain: object,
-  evolves_from_species: object,
-  flavor_text_entries: flavorTextProps[],
-  form_descriptions: [],
-  forms_switchable: boolean,
-  gender_rate: number,
-  genera: [],
-  generation: object,
-  growth_rate: object,
-  habitat: object,
-  has_gender_differences: boolean,
-  hatch_counter: number,
-  id: number,
-  is_baby: boolean,
-  is_legendary: boolean,
-  is_mythical: boolean,
-  name: string,
-  names: [],
-  order: number,
-  pal_park_encounters: [],
-  pokedex_number: [],
-  shape: object,
-  varieties: []
+  base_happiness: number;
+  capture_rate: number;
+  color: object;
+  egg_groups: [];
+  evolution_chain: object;
+  evolves_from_species: object;
+  flavor_text_entries: flavorTextProps[];
+  form_descriptions: [];
+  forms_switchable: boolean;
+  gender_rate: number;
+  genera: [];
+  generation: object;
+  growth_rate: {
+    name: string,
+    url: string
+  };
+  habitat: object;
+  has_gender_differences: boolean;
+  hatch_counter: number;
+  id: number;
+  is_baby: boolean;
+  is_legendary: boolean;
+  is_mythical: boolean;
+  name: string;
+  names: [];
+  order: number;
+  pal_park_encounters: [];
+  pokedex_number: [];
+  shape: object;
+  varieties: [];
 }
 
 export interface PokemonSpeciesType {
-  config: object,
-  data: dataSpeciesType,
-  headers: object,
-  request: object,
-  status: number,
-  statusText: string
+  config: object;
+  data: dataSpeciesType;
+  headers: object;
+  request?: XMLHttpRequest;
+  status: number;
+  statusText: string;
 }
 
 export interface PokemonStatsSheetType {
-  mainType: string
-  hp: number,
-  attack: number,
-  defense: number,
-  spAttack: number,
-  spDefense: number,
-  speed: number
+  mainType: string;
+  hp: number;
+  attack: number;
+  defense: number;
+  spAttack: number;
+  spDefense: number;
+  speed: number;
 }
 
 export interface PokemonAboutSheetType {
-  pokemonsSpeciesArray?: PokemonSpeciesType[],
-  height?: number,
-  weight?: number,
-  captureRate?: number,
-  baseHappiness?: number,
-  baseExp?: number,
-  growthRate?: string,
+  pokemonsSpeciesArray: PokemonSpeciesType[];
+  height: number;
+  weight: number;
+  captureRate?: number;
+  baseHappiness?: number;
+  baseExp: number;
+  growthRate?: string;
+  id: number;
+}
+
+export interface PokemonEvoDataType {
+  id: number;
+  baby_trigger_item: null;
+  chain: {
+    is_baby: boolean;
+    species: {
+      name: string;
+      url: string;
+    };
+    evolution_details: object | null,
+    evolves_to: {
+      is_baby: boolean,
+      species: {
+        name: string,
+        url: string
+      },
+      evolution_details: object,
+      evolves_to: []
+    }[]
+  };
+}
+
+export interface PokemonEvoType {
+  config: object;
+  data: PokemonEvoDataType;
+  headers: object;
+  request?: XMLHttpRequest;
+  status: number;
+  statusText: string;
+}
+
+export interface PokemonEvoSheetType {
+  PokemonEvo: PokemonEvoType[],
   id: number
 }

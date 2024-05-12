@@ -133,7 +133,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
   return (
     <div
       className={`${backgroundColorTernary} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-400 rounded-lg cursor-pointer
+       shadow-2xl shadow-gray-400 rounded-lg cursor-pointer lg:min-w-72
        bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
        before:right-2/4 before:top-0`}
