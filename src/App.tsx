@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { PokemonCard } from './components/PokemonCard';
@@ -15,21 +15,23 @@ function App() {
   const [pokemonName, setPokemonName] = useState('');
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
   const [pokemonsSpecies, setPokemonsSpecies] = useState<PokemonSpeciesType[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [pokemonEvo, setPokemonEvo] = useState<PokemonEvoType[]>([]);
   const [about, setAbout] = useState(true);
   const [stats, setStats] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
 
   useEffect(() => {
     PokemonsDefaultObject();
-  }, [])
+  }, []);
 
   useEffect(() => {
     PokemonsFlavorObject();
     PokemonsEvoObject();
   }, [pokemonsDefault.length]);
 
-  console.log(pokemonsSpecies)
+  console.log(pokemonsSpecies);
 
   const PokemonsDefaultObject = useCallback(() => {
     const endpoints = [];
@@ -41,7 +43,7 @@ function App() {
     const response = axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((res) => setPokemonsDefault(res));
-  }, [])
+  }, []);
 
   const PokemonsDefaultObjectInfiniteScroll = () => {
     const endpoints = [];
@@ -52,7 +54,7 @@ function App() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const response = axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((res) => setPokemonsDefault(pokemonsDefault => [...pokemonsDefault, ...res]));
+      .then((res) => setPokemonsDefault((pokemonsDefault) => [...pokemonsDefault, ...res]));
   };
 
   const PokemonsFlavorObject = useCallback(() => {
@@ -94,7 +96,7 @@ function App() {
     }
   }
 
-  const handleKeyUp = (event) => {
+  const handleKeyUp = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       pokemonSubmit();
     }
@@ -119,30 +121,36 @@ function App() {
   };
 
   return (
-    <div
-      className='bg-background-white min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center bg-pokeball-white bg-no-repeat
-     bg-top bg-75% antialiased'
+    <InfiniteScroll
+      dataLength={pokemonsDefault.length}
+      next={PokemonsDefaultObjectInfiniteScroll}
+      hasMore={true}
+      loader={<h2>Loading...</h2>}
     >
-      <div className='flex flex-col xl:min-w-full '>
-        <header>
-          <h1 className='title'>Pokédex</h1>
-          <p className='text-xl -mt-3'>Search for Pokémon by name or using the National Pokédex Number</p>
-        </header>
+      <div
+        className='bg-background-white min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center bg-pokeball-white bg-no-repeat
+     bg-top bg-75% antialiased'
+      >
+        <div className='flex flex-col xl:min-w-full '>
+          <header>
+            <h1 className='title'>Pokédex</h1>
+            <p className='text-xl -mt-3'>Search for Pokémon by name or using the National Pokédex Number</p>
+          </header>
 
-        <div className='relative'>
-          <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900' />
-          <Input
-            className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
+          <div className='relative'>
+            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900' />
+            <Input
+              className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
              focus:bg-background-pressed-input text-base shadow-md'
-            placeholder='What Pokémon are you looking for?'
-            id='inputPokemon'
-            onChange={(event) => setPokemonName(event.target.value)}
-            onKeyUp={handleKeyUp}
-          />
-        </div>
+              placeholder='What Pokémon are you looking for?'
+              id='inputPokemon'
+              onChange={(event) => setPokemonName(event.target.value)}
+              onKeyUp={handleKeyUp}
+            />
+          </div>
 
-        {/* ------ Main Part of the App ------*/}
-        <InfiniteScroll dataLength={pokemonsDefault.length} next={PokemonsDefaultObjectInfiniteScroll} hasMore={true} loader={<h2>Loading...</h2>}>
+          {/* ------ Main Part of the App ------*/}
+
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5'>
             {pokemonsDefault?.map((pokemon) => (
               <Sheet key={pokemon.data.id}>
@@ -232,9 +240,9 @@ function App() {
               </Sheet>
             ))}
           </div>
-        </InfiniteScroll>
+        </div>
       </div>
-    </div>
+    </InfiniteScroll>
   );
 }
 
