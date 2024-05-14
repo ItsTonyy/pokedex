@@ -22,31 +22,24 @@
 
 # Pokédex Project Phases: Catching 'Em All, One Phase at a Time!
 
-### Phase 1: Foundation & Functionality (PC-only):
+### Phase 1: Foundation & Functionality (PC-only): ✅
 
-**Core Features**: Build the core functionality of the Pokédex, focusing on **PC usage**. This includes:
+**Core Features**: Building the core functionality of the Pokédex, focusing on **PC usage**. This includes:
 - Displaying detailed Pokémon information
-- Implementing filtering and search options
 - Showcasing evolutions and variants
-- Enabling basic user interaction (sorting, favoriting, etc.)
 - Data Integration: Connect to the PokeAPI for comprehensive Pokémon data.
 
-### Phase 2: Gotta Catch 'Em Mobile (Full Responsiveness):
+### Phase 2: Master Trainer Status (Adding Complexity): ⌛
+- Enabling basic user interaction (sorting, favoriting, etc.)
+- Implementing filtering and search options
+
+### Phase 3: Gotta Catch 'Em Mobile (Full Responsiveness): ⌛
 
 - Responsive Design: Adapt the website to seamlessly function on various screen sizes, ensuring optimal mobile usability.
 - Touch Optimization: Optimize interaction for touchscreens, including buttons, navigation, and scrolling.
 
-### Phase 3: Speed Up Your Journey (Performance Enhancements):
+### Phase 4: Speed Up Your Journey (Performance Enhancements): ⌛
 
 - Code Optimization: Refactor code for efficiency and reduce unnecessary processing.
 - Image Optimization: Reduce image sizes for faster loading times.
 - Caching Strategies: Implement caching mechanisms to improve responsiveness.
-
-### Phase 4: Master Trainer Status (Adding Complexity):
-
-- Advanced Features: Enhance the user experience with additional features:
-- Additional Touches: Refine the design, add animations
-- Move & ability search
-- Pokémon comparison tool (?)
-
- 
