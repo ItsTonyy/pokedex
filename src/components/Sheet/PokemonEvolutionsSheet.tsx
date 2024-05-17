@@ -1,44 +1,90 @@
 import { PokemonEvoSheetType } from '@/types/types';
+import { PokemonEvoType } from '@/types/types';
+import { pokemonDefaultType } from '@/types/types';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { CircleArrowDown  } from 'lucide-react';
 
-export const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ PokemonEvo, id }) => {
-  //console.log(pokemonEvo[0].data.chain.evolves_to[0].evolves_to[0].species.name)
-  let evo1 = []
-  let evo2 = []
-  let evo3 = []
-  let evo4 = []
-  let evo5 = []
-  let evo6 = []
-  let evo7 = []
-  let evo8 = []
-  let evo9 = []
+const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ PokemonEvo, id }) => {
+  const [pokemonSprites, setPokemonSprites] = useState<string[]>([]);
 
-  const EvoFilter = () => {
-    let evoChain = [];
-    let evoData = PokemonEvo[id].data.chain;
-    let evoDataNested = PokemonEvo[id].data.chain.evolves_to[0].species.name
+  useEffect(() => {
+    getPokemonsImage(evolutionsObject);
+  }, []);
+
+  interface evolutionObjectType {
+    speciesName: string;
+    speciesUrl: string;
+  }
+
+  function getNestedEvolutions(PokemonEvo: PokemonEvoType[]) {
+    const evoChain = [];
+    let evoData = PokemonEvo[id - 1].data.chain;
 
     do {
-      const numberOfEvolutions = evoData.evolves_to.length;
-
       evoChain.push({
-        speciesName: evoData.evolves_to[0].species.name,
-        speciesUrl: evoData.evolves_to[0].species.url
+        speciesName: evoData.species.name,
+        speciesUrl: evoData.species.url,
       });
-      // pokemonEvo[0].data.chain.evolves_to[0].species.name
-      if (numberOfEvolutions > 1) {
-        for (let i = 1; i < numberOfEvolutions; i++) {
-          evoChain.push({
-            speciesName: evoData.evolves_to[i].species.name,
-            speciesUrl: evoData.evolves_to[i].species.url
-          });
-        }
-      }
 
-      evoData = evoData.evolves_to[0];
-    } while (evoData.hasOwnProperty('evolves_to') && evoData != undefined);
+      evoData = evoData['evolves_to'][0];
+    } while (!!evoData && Object.prototype.hasOwnProperty.call(evoData, 'evolves_to'));
 
     return evoChain;
+  }
+
+  const evolutionsObject = getNestedEvolutions(PokemonEvo);
+
+  const getPokemonsImage = async (evolutionsObject: evolutionObjectType[]): Promise<string[]> => {
+    const endpoints = [];
+    let pokemonDefaultLikeObject: pokemonDefaultType[] = [];
+    let pokemonSpritesUrl: string[] = [];
+
+    for (let i = 0; i < evolutionsObject.length; i++) {
+      const pokemonName = evolutionsObject[i].speciesName;
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+    const fetchEndpointToGetImages: string[] = await axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((res) => {
+        pokemonDefaultLikeObject = res;
+        pokemonSpritesUrl = pokemonDefaultLikeObject.map((pokemon) => pokemon.data.sprites.front_default);
+        setPokemonSprites(pokemonSpritesUrl);
+      })
+      .catch((error) => {
+        console.log('Error fetching pokemon data: ', error);
+        return [];
+      });
+
+    return fetchEndpointToGetImages;
   };
 
-  return <h2 className='font-medium text-xl mb-2'>Evolution Chain</h2>;
+  return (
+    <div>
+      <h2 className='font-medium text-xl mb-2'>Evolution Chain</h2>
+      <div className='mt-2'>
+        {pokemonSprites.length > 1
+          ? pokemonSprites.map((imageUrl) => {
+              return (
+                <div key={imageUrl} className='flex justify-center items-center flex-col space-y-3'>
+                  <img src={imageUrl} alt='PokemonSprite' className='w-24 last:hidden'/>
+                  <CircleArrowDown  />
+                </div>
+              );
+            })
+          : pokemonSprites.map((imageUrl) => {
+              return (
+                <div>
+                  <img src={imageUrl} alt='PokemonSprite' />
+                </div>
+              );
+            })}
+      </div>
+    </div>
+  );
 };
+
+export default PokemonEvolutionsSheet;

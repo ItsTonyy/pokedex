@@ -1,6 +1,6 @@
 import { PokemonSheetProps } from '@/types/types';
 
-export const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
+const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
   name,
   id,
   image,
@@ -8,11 +8,48 @@ export const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
   typesLength,
   secondType,
 }) => {
+  const backgroundColorTernary =
+    mainType === 'grass'
+      ? 'bg-background-type-grass'
+      : mainType === 'dark'
+      ? 'bg-background-type-dark'
+      : mainType === 'dragon'
+      ? 'bg-background-type-dragon'
+      : mainType === 'fairy'
+      ? 'bg-background-type-fairy'
+      : mainType === 'fighting'
+      ? 'bg-background-type-fighting'
+      : mainType === 'fire'
+      ? 'bg-background-type-fire'
+      : mainType === 'ghost'
+      ? 'bg-background-type-ghost'
+      : mainType === 'bug'
+      ? 'bg-background-type-bug'
+      : mainType === 'ground'
+      ? 'bg-background-type-ground'
+      : mainType === 'normal'
+      ? 'bg-background-type-normal'
+      : mainType === 'poison'
+      ? 'bg-background-type-poison'
+      : mainType === 'psychic'
+      ? 'bg-background-type-psychic'
+      : mainType === 'steel'
+      ? 'bg-background-type-steel'
+      : mainType === 'water'
+      ? 'bg-background-type-water'
+      : mainType === 'electric'
+      ? 'bg-background-type-electric'
+      : mainType === 'flying'
+      ? 'bg-background-type-flying'
+      : mainType === 'ice'
+      ? 'bg-background-type-ice'
+      : 'bg-background-type-rock';
+
   const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`
   
   return (
     <div
-      className={`bg-background-type-${mainType} relative pb-8 pt-20 flex flex-row justify-evenly items-center cursor-pointer
+      className={`${backgroundColorTernary} relative pb-8 pt-20 flex flex-row justify-evenly items-center cursor-pointer
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:left-2/4 before:top-0`}
     >
       <div className=''>
@@ -87,3 +124,5 @@ export const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
     </div>
   );
 };
+
+export default PokemonHeaderSheet;

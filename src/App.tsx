@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback, KeyboardEvent } from 'react';
+import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
+import PokemonStatsSheet from './components/Sheet/PokemonStatsSheet';
+import PokemonAboutSheet from './components/Sheet/PokemonAboutSheet';
+import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
 import { Input } from '@/components/ui/input';
+import Loader from './components/ui/loader';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { PokemonCard } from './components/PokemonCard';
-import { PokemonHeaderSheet } from './components/Sheet/PokemonHeaderSheet';
-import { PokemonStatsSheet } from './components/Sheet/PokemonStatsSheet';
-import { PokemonAboutSheet } from './components/Sheet/PokemonAboutSheet';
-import { PokemonEvolutionsSheet } from './components/Sheet/PokemonEvolutionsSheet';
+import PokemonCard from './components/PokemonCard';
 import { pokemonDefaultType, PokemonSpeciesType, PokemonEvoType } from './types/types';
 import { Search } from 'lucide-react';
 import axios from 'axios';
@@ -22,6 +23,9 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
 
+  //console.log(pokemonsSpecies[0].data.evolution_chain.url)
+  //console.log(pokemonEvo)
+
   useEffect(() => {
     PokemonsDefaultObject();
   }, []);
@@ -31,54 +35,65 @@ function App() {
     PokemonsEvoObject();
   }, [pokemonsDefault.length]);
 
-  console.log(pokemonsSpecies);
-
-  const PokemonsDefaultObject = useCallback(() => {
+  const PokemonsDefaultObject = useCallback(async () => {
     const endpoints = [];
     for (let i = 1; i < 29; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = axios
+    const response = await axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((res) => setPokemonsDefault(res));
   }, []);
 
-  const PokemonsDefaultObjectInfiniteScroll = () => {
+  const PokemonsDefaultObjectInfiniteScroll = async () => {
     const endpoints = [];
     for (let i = pokemonsDefault.length + 1; i < pokemonsDefault.length + 12; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = axios
+    const response = await axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((res) => setPokemonsDefault((pokemonsDefault) => [...pokemonsDefault, ...res]));
   };
 
-  const PokemonsFlavorObject = useCallback(() => {
+  const PokemonsFlavorObject = useCallback(async () => {
     const endpoints = [];
     for (let i = 1; i < pokemonsDefault.length; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = axios
+    const response = await axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((res) => setPokemonsSpecies(res));
   }, [pokemonsDefault.length]);
 
-  const PokemonsEvoObject = useCallback(() => {
-    const endpoints = [];
+  const PokemonsEvoObject = useCallback(async () => {
+    let speciesUrls: string[] = [];
+    let speciesObject: any[] = []
+    let endpoints = [];
+
     for (let i = 1; i < pokemonsDefault.length; i++) {
-      endpoints.push(`https://pokeapi.co/api/v2/evolution-chain/${i}`);
+      speciesUrls.push(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
+    }
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const fetchSpeciesObject = await axios
+      .all(speciesUrls.map((speciesUrl) => axios.get(speciesUrl)))
+      .then((res) => speciesObject = res);
+
+    for (let i = 0; i < speciesObject.length; i++) {
+      endpoints.push(speciesObject[i].data.evolution_chain.url);
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = axios
+    const fetchEndpointsUrls = await axios
       .all(endpoints.map((endpoint) => axios.get(endpoint)))
       .then((res) => setPokemonEvo(res));
+
   }, [pokemonsDefault.length]);
 
   async function pokemonSubmit() {
@@ -125,11 +140,11 @@ function App() {
       dataLength={pokemonsDefault.length}
       next={PokemonsDefaultObjectInfiniteScroll}
       hasMore={true}
-      loader={<h2>Loading...</h2>}
+      loader={<h2></h2>}
     >
       <div
-        className='bg-background-white min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center bg-pokeball-white bg-no-repeat
-     bg-top bg-75% antialiased'
+        className='bg-background-white min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
+        bg-pokeball-white bg-no-repeat bg-top bg-75% antialiased'
       >
         <div className='flex flex-col xl:min-w-full '>
           <header>
@@ -186,8 +201,8 @@ function App() {
                     <button
                       onClick={aboutClicked}
                       className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
-                   hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
-                   focus:scale-115 focus:underline focus:outline-none'
+                    hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
+                    focus:scale-115 focus:underline focus:outline-none'
                     >
                       About
                     </button>
@@ -195,8 +210,8 @@ function App() {
                     <button
                       onClick={statsClicked}
                       className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
-                   hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
-                   focus:scale-115 focus:underline focus:outline-none'
+                    hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
+                    focus:scale-115 focus:underline focus:outline-none'
                     >
                       Stats
                     </button>
@@ -204,8 +219,8 @@ function App() {
                     <button
                       onClick={evolutionsClicked}
                       className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
-                   hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
-                   focus:scale-115 focus:underline focus:outline-none'
+                    hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
+                    focus:scale-115 focus:underline focus:outline-none'
                     >
                       Evolutions
                     </button>
@@ -234,7 +249,9 @@ function App() {
                       />
                     </div>
                   ) : (
-                    <div className='bg-neutral-50 h-full rounded-t-4xl p-8'></div>
+                    <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
+                     <PokemonEvolutionsSheet PokemonEvo={pokemonEvo} id={pokemon.data.id}/>
+                    </div>
                   )}
                 </SheetContent>
               </Sheet>

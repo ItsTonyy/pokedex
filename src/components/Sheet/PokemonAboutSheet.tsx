@@ -1,6 +1,6 @@
 import { PokemonAboutSheetType } from '@/types/types';
 
-export const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
+const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   pokemonsSpeciesArray,
   height,
   weight,
@@ -62,3 +62,5 @@ export const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     </div>
   );
 };
+
+export default PokemonAboutSheet;

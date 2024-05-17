@@ -1,6 +1,6 @@
 import { PokemonCardProps } from '@/types/types';
 
-export const PokemonCard: React.FC<PokemonCardProps> = ({
+const PokemonCard: React.FC<PokemonCardProps> = ({
   name,
   id,
   image,
@@ -15,7 +15,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       : mainType === 'dark'
       ? 'bg-background-type-dark'
       : mainType === 'dragon'
-      ? 'bg-type-dragon'
+      ? 'bg-background-type-dragon'
       : mainType === 'fairy'
       ? 'bg-background-type-fairy'
       : mainType === 'fighting'
@@ -38,7 +38,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-background-type-steel'
       : mainType === 'water'
       ? 'bg-background-type-water'
-      : mainType === 'eletric'
+      : mainType === 'electric'
       ? 'bg-background-type-electric'
       : mainType === 'flying'
       ? 'bg-background-type-flying'
@@ -76,7 +76,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       : mainType === 'water'
       ? 'bg-type-water'
       : mainType === 'electric'
-      ? 'bg-type-eletric'
+      ? 'bg-type-electric'
       : mainType === 'flying'
       ? 'bg-type-flying'
       : mainType === 'ice'
@@ -113,7 +113,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
       : secondType === 'water'
       ? 'bg-type-water'
       : secondType === 'electric'
-      ? 'bg-type-eletric'
+      ? 'bg-type-electric'
       : secondType === 'flying'
       ? 'bg-type-flying'
       : secondType === 'ice'
@@ -201,3 +201,5 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({
     </div>
   );
 };
+
+export default PokemonCard

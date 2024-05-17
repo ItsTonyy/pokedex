@@ -134,7 +134,7 @@ export interface dataSpeciesType {
   capture_rate: number;
   color: object;
   egg_groups: [];
-  evolution_chain: object;
+  evolution_chain: { url:string };
   evolves_from_species: object;
   flavor_text_entries: flavorTextProps[];
   form_descriptions: [];
@@ -227,3 +227,5 @@ export interface PokemonEvoSheetType {
   PokemonEvo: PokemonEvoType[],
   id: number
 }
+
+
