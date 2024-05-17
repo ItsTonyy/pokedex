@@ -182,7 +182,6 @@ export interface PokemonStatsSheetType {
 }
 
 export interface PokemonAboutSheetType {
-  pokemonsSpeciesArray: PokemonSpeciesType[];
   height: number;
   weight: number;
   captureRate?: number;
@@ -224,7 +223,6 @@ export interface PokemonEvoType {
 }
 
 export interface PokemonEvoSheetType {
-  PokemonEvo: PokemonEvoType[],
   id: number
 }
 
