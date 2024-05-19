@@ -1,5 +1,5 @@
 import { PokemonEvoSheetType } from '@/types/types';
-import { PokemonEvoType } from '@/types/types';
+import { PokemonEvoDataType } from '@/types/types';
 import { pokemonDefaultType } from '@/types/types';
 import { PokemonSpeciesType } from '@/types/types';
 import axios from 'axios';
@@ -7,13 +7,13 @@ import { useEffect, useState, useCallback } from 'react';
 import { CircleArrowRight } from 'lucide-react';
 
 const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
-  const [pokemonEvo, setPokemonEvo] = useState<PokemonEvoType[]>([]);
+  const [pokemonEvo, setPokemonEvo] = useState<PokemonEvoDataType[]>([]);
   const [pokemonSprites, setPokemonSprites] = useState<string[]>([]);
 
   useEffect(() => {
     PokemonsEvoObject();
     getPokemonsImage(evolutionsObject);
-  }, []);
+  }, [id]);
 
   interface evolutionObjectType {
     speciesName: string;
@@ -23,7 +23,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
   const PokemonsEvoObject = useCallback(async () => {
     const speciesUrls: string[] = [];
     let speciesObject: PokemonSpeciesType[] = [];
-    const endpoints = [];
+    const endpoint = [];
 
     speciesUrls.push(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
 
@@ -32,53 +32,51 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
       .all(speciesUrls.map((speciesUrl) => axios.get(speciesUrl)))
       .then((res) => (speciesObject = res));
 
-    endpoints.push(speciesObject[id].data.evolution_chain.url);
-    
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const fetchEndpointsUrls = await axios
-      .all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((res) => setPokemonEvo(res));
-  }, [id])
+    endpoint.push(speciesObject[0].data.evolution_chain.url);
 
-  const getNestedEvolutions = (pokemonEvo: PokemonEvoType[]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const fetchEndpointsUrls = await axios.get(endpoint[0]).then((res) => setPokemonEvo([res.data]));
+  }, [id]);
+
+  const getNestedEvolutions = (pokemonEvo: PokemonEvoDataType[]) => {
     const evoChain = [];
-    let evoData = pokemonEvo[id - 1].data.chain;
+    let evoData = pokemonEvo[0]?.chain;
 
     do {
       evoChain.push({
-        speciesName: evoData.species.name,
-        speciesUrl: evoData.species.url,
+        speciesName: evoData?.species.name,
+        speciesUrl: evoData?.species.url,
       });
 
-      evoData = evoData['evolves_to'][0];
+      evoData = evoData?.evolves_to[0];
     } while (!!evoData && Object.prototype.hasOwnProperty.call(evoData, 'evolves_to'));
 
     return evoChain;
   };
 
   const evolutionsObject = getNestedEvolutions(pokemonEvo);
+  console.log(evolutionsObject);
 
   const getPokemonsImage = async (evolutionsObject: evolutionObjectType[]): Promise<string[]> => {
     const endpoints = [];
-    let pokemonDefaultLikeObject: pokemonDefaultType[] = [];
     let pokemonSpritesUrl: string[] = [];
 
-    const pokemonName = evolutionsObject[id].speciesName;
-    endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-    
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (let i = 0; i < evolutionsObject?.length; i++) {
+      const pokemonName = evolutionsObject[i]?.speciesName;
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    }
 
-    const fetchEndpointToGetImages: Promise<string[]> = await axios
-      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+    const fetchEndpointToGetImages = await axios
+      .all(endpoints?.map((endpoint) => axios.get(endpoint)))
       .then((res) => {
-        pokemonDefaultLikeObject = res;
-        pokemonSpritesUrl = pokemonDefaultLikeObject.map((pokemon) => pokemon.data.sprites.front_default);
+        pokemonSpritesUrl = res.map((pokemon) => pokemon.data.sprites.front_default);
         setPokemonSprites(pokemonSpritesUrl);
+        return;
       })
       .catch((error) => {
-        throw new Error(`Error fetching pokemon data: ${error}`)
+        console.log(`Error fetching pokemon data: ${error}`);
+        return;
       });
-
     return fetchEndpointToGetImages;
   };
 
@@ -86,8 +84,8 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
     <div>
       <h2 className='font-medium text-xl mb-2'>Evolution Chain</h2>
       <div className='mt-2 flex flex-row w-full justify-center'>
-        {pokemonSprites.length > 1
-          ? pokemonSprites.map((imageUrl, index) => {
+        {pokemonSprites?.length > 1
+          ? pokemonSprites?.map((imageUrl, index) => {
               const name = evolutionsObject[index].speciesName;
               return (
                 <div key={imageUrl} className='flex justify-center items-center w-auto h-auto'>
@@ -119,7 +117,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
                 </div>
               );
             })
-          : pokemonSprites.map((imageUrl) => {
+          : pokemonSprites?.map((imageUrl) => {
               return (
                 <div>
                   <img src={imageUrl} alt='PokemonSprite' />

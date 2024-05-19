@@ -6,8 +6,6 @@ import axios from 'axios';
 const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({ height, weight, baseExp, id }) => {
   const [pokemonsSpecies, setPokemonsSpecies] = useState<PokemonSpeciesType[]>([]);
 
-  console.log(pokemonsSpecies)
-
   useEffect(() => {
     PokemonsFlavorObject();
   }, []);
@@ -23,8 +21,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({ height, weight, ba
       .then((res) => setPokemonsSpecies(res));
   }, [id]);
 
-  const flavorTextReceived = pokemonsSpecies[0]?.data.flavor_text_entries[1].flavor_text
-      
+  const flavorTextReceived = pokemonsSpecies[0]?.data.flavor_text_entries[1].flavor_text;
 
   const flavorTextFixed = flavorTextReceived
     ?.replace('POKéMON', 'pokémon')
@@ -66,7 +63,9 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({ height, weight, ba
       </div>
       <div className='flex'>
         <span className='pr-2 font-light'>Base Happiness:</span>
-        <span className='text-gray-500'>{!pokemonsSpecies ? 0 : pokemonsSpecies[0]?.data.base_happiness}</span>
+        <span className='text-gray-500'>
+          {!pokemonsSpecies ? 0 : pokemonsSpecies[0]?.data.base_happiness}
+        </span>
       </div>
       <div className='flex'>
         <span className='pr-2 font-light'>Base Experience:</span>
