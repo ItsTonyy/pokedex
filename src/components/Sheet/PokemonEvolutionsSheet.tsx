@@ -12,13 +12,18 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
 
   useEffect(() => {
     PokemonsEvoObject();
+  }, []);
+
+  useEffect(() => {
     getPokemonsImage(evolutionsObject);
-  }, [id]);
+  }, [pokemonEvo]);
 
   interface evolutionObjectType {
     speciesName: string;
     speciesUrl: string;
   }
+
+  console.log(pokemonEvo)
 
   const PokemonsEvoObject = useCallback(async () => {
     const speciesUrls: string[] = [];
@@ -55,7 +60,6 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
   };
 
   const evolutionsObject = getNestedEvolutions(pokemonEvo);
-  console.log(evolutionsObject);
 
   const getPokemonsImage = async (evolutionsObject: evolutionObjectType[]): Promise<string[]> => {
     const endpoints = [];
@@ -65,7 +69,8 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
       const pokemonName = evolutionsObject[i]?.speciesName;
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     }
-
+   console.log(endpoints)
+    // O problema está aqui embaixo
     const fetchEndpointToGetImages = await axios
       .all(endpoints?.map((endpoint) => axios.get(endpoint)))
       .then((res) => {
