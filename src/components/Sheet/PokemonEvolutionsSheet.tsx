@@ -61,7 +61,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
 
   const evolutionsObject = getNestedEvolutions(pokemonEvo);
 
-  const getPokemonsImage = async (evolutionsObject: evolutionObjectType[]): Promise<string[]> => {
+  const getPokemonsImage = useCallback(async (evolutionsObject: evolutionObjectType[]): Promise<string[]> => {
     const endpoints = [];
     let pokemonSpritesUrl: string[] = [];
 
@@ -83,7 +83,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
         return;
       });
     return fetchEndpointToGetImages;
-  };
+  }, [evolutionsObject]);
 
   return (
     <div>
@@ -93,13 +93,13 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
           ? pokemonSprites?.map((imageUrl, index) => {
               const name = evolutionsObject[index].speciesName;
               return (
-                <div key={imageUrl} className='flex justify-center items-center w-auto h-auto'>
+                <div key={imageUrl} className='flex justify-center items-center w-1/3 h-auto'>
                   {index === pokemonSprites.length - 1 ? (
                     <div className='flex flex-col items-center'>
                       <img
                         src={imageUrl}
                         alt='PokemonSprite'
-                        className='w-[138px] h-full hover:scale-110 duration-500 ease-in-out'
+                        className='w-[100px] h-full hover:scale-110 duration-500 ease-in-out max-w-max max-h-max'
                       />
 
                       <span className='font-light text-sm'>{name}</span>
@@ -110,7 +110,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
                         <img
                           src={imageUrl}
                           alt='PokemonSprite'
-                          className='w-[138px] h-full hover:scale-110 duration-500 ease-in-out'
+                          className='w-[138px] h-full hover:scale-110 duration-500 ease-in-out max-w-max max-h-max'
                         />
 
                         <span className='font-light text-sm'>{name}</span>
