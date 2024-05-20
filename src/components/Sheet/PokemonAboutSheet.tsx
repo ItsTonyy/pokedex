@@ -154,16 +154,20 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
       <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Breeding</h2>
       <div className='flex flex-row'>
         <span className='pr-2 font-light'>Gender:</span>
-        <div className='flex flex-row space-x-4'>
-          <div className='flex flex-row items-center gap-1'>
-            <img src="\src\assets\female.png" alt="Female Icon" className='w-4 h-4' />
-            <span className='text-female'>{12.5 * pokemonsSpecies?.data?.gender_rate}%</span>
+        {pokemonsSpecies?.data?.gender_rate === -1 ? (
+          <span className='text-purple-700 font-medium'>Genderless</span>
+        ) : (
+          <div className='flex flex-row space-x-4'>
+            <div className='flex flex-row items-center gap-1'>
+              <img src='\src\assets\female.png' alt='Female Icon' className='w-4 h-4' />
+              <span className='text-female'>{12.5 * pokemonsSpecies?.data?.gender_rate}%</span>
+            </div>
+            <div className='flex flex-row items-center gap-2'>
+              <img src='\src\assets\male.png' alt='Male Icon' className='w-4 h-4' />
+              <span className='text-male'>{100 - 12.5 * pokemonsSpecies?.data?.gender_rate}%</span>
+            </div>
           </div>
-          <div className='flex flex-row items-center gap-2'>
-            <img src="\src\assets\male.png" alt="Male Icon" className='w-4 h-4'/>
-            <span className='text-male'>{100 - (12.5 * pokemonsSpecies?.data?.gender_rate)}%</span>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
