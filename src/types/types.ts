@@ -1,4 +1,4 @@
-import { AxiosHeaders } from "axios";
+import { AxiosHeaders } from 'axios';
 
 interface pokemonStats {
   base_stat: number;
@@ -18,7 +18,7 @@ interface typesType {
 }
 
 export interface dataPokemonDefaultType {
-  abilities: [];
+  abilities: abilityType[];
   base_experience: number;
   cries: {
     latest: string;
@@ -134,7 +134,7 @@ export interface dataSpeciesType {
   capture_rate: number;
   color: object;
   egg_groups: [];
-  evolution_chain: { url:string };
+  evolution_chain: { url: string };
   evolves_from_species: object;
   flavor_text_entries: flavorTextProps[];
   form_descriptions: [];
@@ -143,8 +143,8 @@ export interface dataSpeciesType {
   genera: [];
   generation: object;
   growth_rate: {
-    name: string,
-    url: string
+    name: string;
+    url: string;
   };
   habitat: object;
   has_gender_differences: boolean;
@@ -189,6 +189,8 @@ export interface PokemonAboutSheetType {
   baseExp: number;
   growthRate?: string;
   id: number;
+  mainType: string;
+  abilities: abilityType[];
 }
 
 export interface PokemonEvoDataType {
@@ -200,16 +202,16 @@ export interface PokemonEvoDataType {
       name: string;
       url: string;
     };
-    evolution_details: object | null,
+    evolution_details: object | null;
     evolves_to: {
-      is_baby: boolean,
+      is_baby: boolean;
       species: {
-        name: string,
-        url: string
-      },
-      evolution_details: object,
-      evolves_to: []
-    }[]
+        name: string;
+        url: string;
+      };
+      evolution_details: object;
+      evolves_to: [];
+    }[];
   };
 }
 
@@ -223,7 +225,48 @@ export interface PokemonEvoType {
 }
 
 export interface PokemonEvoSheetType {
-  id: number
+  id: number;
+  mainType: string;
 }
 
+export interface abilityType {
+  ability: {
+    name: string;
+    url: string;
+  };
+  is_hidden: boolean;
+  slot: number;
+}
 
+interface damageRelationsType {
+  name: string, 
+  url: string
+}
+
+interface pokemonTypesData {
+  damage_relations: {
+    double_damage_from: damageRelationsType[],
+    double_damage_to: damageRelationsType[],
+    half_damage_from: damageRelationsType[],
+    half_damage_to: damageRelationsType[],
+    no_damage_from: damageRelationsType[],
+    no_damage_to: damageRelationsType[]
+  };
+  game_indices: object[];
+  generation: object;
+  id: number;
+  move_damage_class: object[];
+  name: string;
+  names: object[];
+  past_damage_relations: [];
+  pokemon: object[];
+}
+
+export interface PokemonTypesType {
+  config: object;
+  data: pokemonTypesData;
+  headers: object;
+  request?: XMLHttpRequest;
+  status: number;
+  statusText: string;
+}

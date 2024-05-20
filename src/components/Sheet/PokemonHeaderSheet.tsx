@@ -52,7 +52,7 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
       className={`${backgroundColorTernary} relative pb-8 pt-20 flex flex-row justify-evenly items-center cursor-pointer
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat before:left-2/4 before:top-0`}
     >
-      <div className=''>
+      <div>
         <img
           src='src/assets/BackgroundImages/bg-pokeball-white-sheet.svg'
           alt=''

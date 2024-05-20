@@ -1,8 +1,7 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
-import Loader from './components/ui/loader';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { pokemonDefaultType, PokemonSpeciesType, PokemonEvoType } from './types/types';
+import { pokemonDefaultType} from './types/types';
 import { Search } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -27,7 +26,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
 
-  //console.log(pokemonsSpecies[0].data.evolution_chain.url)
+  //console.log(pokemonsDefault[0].data.abilities)
 
   useEffect(() => {
     PokemonsDefaultObject();
@@ -154,7 +153,6 @@ function App() {
                       secondType={pokemon.data.types[1]?.type.name}
                       typesLength={pokemon.data.types.length}
                       image={pokemon.data.sprites.other['official-artwork'].front_default}
-                      // [pokemon.data.id].data.flavor_text_entries[0].flavor_text
                     />
                   </div>
 
@@ -194,6 +192,8 @@ function App() {
                         height={pokemon.data.height}
                         weight={pokemon.data.weight}
                         baseExp={pokemon.data.base_experience}
+                        mainType={pokemon.data.types[0].type.name}
+                        abilities={pokemon.data.abilities}
                       />
                     </div>
                   ) : stats ? (
@@ -210,7 +210,7 @@ function App() {
                     </div>
                   ) : (
                     <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
-                      <PokemonEvolutionsSheet id={pokemon.data.id} />
+                      <PokemonEvolutionsSheet id={pokemon.data.id} mainType={pokemon.data.types[0].type.name} />
                     </div>
                   )}
                 </SheetContent>
