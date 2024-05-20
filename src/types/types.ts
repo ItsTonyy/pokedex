@@ -172,6 +172,7 @@ export interface PokemonSpeciesType {
 }
 
 export interface PokemonStatsSheetType {
+  name: string;
   mainType: string;
   hp: number;
   attack: number;

@@ -81,6 +81,9 @@ module.exports = {
         'weight-normal': '#57b2dc',
         'weight-heavy': '#5a92a5',
 
+        'female': '#E576BF',
+        'male': '#42C0FB',
+
         /* --- shadcn --- */
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

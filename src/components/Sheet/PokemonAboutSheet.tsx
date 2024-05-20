@@ -1,9 +1,9 @@
 import { PokemonAboutSheetType } from '@/types/types';
 import { useEffect, useState, useCallback } from 'react';
 import { PokemonSpeciesType } from '@/types/types';
-import { abilityType } from '@/types/types';
 import { PokemonTypesType } from '@/types/types';
 import axios from 'axios';
+import { spawn } from 'child_process';
 
 const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   height,
@@ -13,15 +13,13 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   mainType,
   abilities,
 }) => {
-  const [pokemonsSpecies, setPokemonsSpecies] = useState<PokemonSpeciesType[]>([]);
+  const [pokemonsSpecies, setPokemonsSpecies] = useState<PokemonSpeciesType>(Object);
   const [pokemonTypes, setPokemonTypes] = useState<PokemonTypesType>(Object);
 
   useEffect(() => {
     PokemonsSpeciesObject(id);
     PokemonsTypesObject(mainType);
   }, [id]);
-
-  //console.log(pokemonTypes.data.damage_relations.double_damage_from)
 
   const PokemonsTypesObject = useCallback(async (mainType: string) => {
     const endpoints = [];
@@ -39,7 +37,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     const response = await axios.get(endpoints[0]).then((res) => setPokemonsSpecies(res));
   }, []);
 
-  const flavorTextReceived = pokemonsSpecies[0]?.data.flavor_text_entries[1].flavor_text;
+  const flavorTextReceived = pokemonsSpecies?.data?.flavor_text_entries[1].flavor_text;
 
   const flavorTextFixed = flavorTextReceived
     ?.replace('POKéMON', 'pokémon')
@@ -93,7 +91,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
       ? 'text-type-ice'
       : 'text-type-rock';
 
-  const doubleDamageFromArray = pokemonTypes?.data?.damage_relations?.double_damage_from
+  const doubleDamageFromArray = pokemonTypes?.data?.damage_relations?.double_damage_from;
 
   return (
     <div className='space-y-3 flex flex-col'>
@@ -115,7 +113,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         <span className='pr-2 font-light'>Abilities:</span>
         <div className='flex flex-col'>
           {abilities.map((ability, index) => (
-            <span className='text-gray-500'>
+            <span className='text-gray-500' key={index}>
               {ability.is_hidden === false
                 ? `${index + 1}. ${ability.ability.name}`
                 : `${index + 1}. ${ability.ability.name} (hidden ability)`}
@@ -124,10 +122,10 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         </div>
       </div>
       <div className='flex'>
-        <span className='pr-2 font-light'>Weaknessess:</span>
-        {doubleDamageFromArray?.map((doubleDamageItem) => (
-          <div className={`bg-type-${doubleDamageItem.name} p-1 rounded mr-2`}>
-          <img src={`src/assets/TypesIcons/${doubleDamageItem.name}.png`} alt="DoubleDamageImage" />
+        <span className='pr-2 font-light'>Weaknesses:</span>
+        {doubleDamageFromArray?.map((doubleDamageItem, index) => (
+          <div className={`bg-type-${doubleDamageItem.name} p-1 rounded mr-2`} key={index}>
+            <img src={`src/assets/TypesIcons/${doubleDamageItem.name}.png`} alt='DoubleDamageImage' />
           </div>
         ))}
       </div>
@@ -136,13 +134,11 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
 
       <div className='flex'>
         <span className='pr-2 font-light'>Capture Rate:</span>
-        <span className='text-gray-500'>{!pokemonsSpecies ? 0 : pokemonsSpecies[0]?.data.capture_rate}</span>
+        <span className='text-gray-500'>{pokemonsSpecies?.data?.capture_rate}</span>
       </div>
       <div className='flex'>
-        <span className='pr-2 font-light'>Base Happiness:</span>
-        <span className='text-gray-500'>
-          {!pokemonsSpecies ? 0 : pokemonsSpecies[0]?.data.base_happiness}
-        </span>
+        <span className='pr-2 font-light'>Base Friendship:</span>
+        <span className='text-gray-500'>{pokemonsSpecies?.data?.base_happiness}</span>
       </div>
       <div className='flex'>
         <span className='pr-2 font-light'>Base Experience:</span>
@@ -151,8 +147,23 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
       <div className='flex'>
         <span className='pr-2 font-light'>Growth Rate:</span>
         <span className='text-gray-500'>
-          {!pokemonsSpecies ? null : pokemonsSpecies[0]?.data.growth_rate.name}
+          {!pokemonsSpecies ? null : pokemonsSpecies?.data?.growth_rate.name}
         </span>
+      </div>
+
+      <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Breeding</h2>
+      <div className='flex flex-row'>
+        <span className='pr-2 font-light'>Gender:</span>
+        <div className='flex flex-row space-x-4'>
+          <div className='flex flex-row items-center gap-1'>
+            <img src="\src\assets\female.png" alt="Female Icon" className='w-4 h-4' />
+            <span className='text-female'>{12.5 * pokemonsSpecies?.data?.gender_rate}%</span>
+          </div>
+          <div className='flex flex-row items-center gap-2'>
+            <img src="\src\assets\male.png" alt="Male Icon" className='w-4 h-4'/>
+            <span className='text-male'>{100 - (12.5 * pokemonsSpecies?.data?.gender_rate)}%</span>
+          </div>
+        </div>
       </div>
     </div>
   );

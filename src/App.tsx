@@ -1,7 +1,7 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { pokemonDefaultType} from './types/types';
+import { pokemonDefaultType } from './types/types';
 import { Search } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -26,7 +26,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
 
-  //console.log(pokemonsDefault[0].data.abilities)
+  //console.log(pokemonsDefault[0].data)
 
   useEffect(() => {
     PokemonsDefaultObject();
@@ -160,8 +160,8 @@ function App() {
                     <button
                       onClick={aboutClicked}
                       className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
-                    hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
-                    focus:scale-115 focus:underline focus:outline-none'
+                    duration-300 ease-in-out hover:font-bold focus:font-bold
+                    focus:scale-115 focus:outline-none'
                     >
                       About
                     </button>
@@ -169,8 +169,8 @@ function App() {
                     <button
                       onClick={statsClicked}
                       className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
-                    hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
-                    focus:scale-115 focus:underline focus:outline-none'
+                    duration-300 ease-in-out hover:font-bold focus:font-bold
+                    focus:scale-115 focus:outline-none'
                     >
                       Stats
                     </button>
@@ -178,8 +178,8 @@ function App() {
                     <button
                       onClick={evolutionsClicked}
                       className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
-                    hover:underline duration-300 ease-in-out will-change-transform focus:font-bold
-                    focus:scale-115 focus:underline focus:outline-none'
+                    duration-300 ease-in-out hover:font-bold focus:font-bold
+                    focus:scale-115 focus:outline-none'
                     >
                       Evolutions
                     </button>
@@ -199,6 +199,7 @@ function App() {
                   ) : stats ? (
                     <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
                       <PokemonStatsSheet
+                        name={pokemon.data.name}
                         mainType={pokemon.data.types[0].type.name}
                         hp={pokemon.data.stats[0].base_stat}
                         attack={pokemon.data.stats[1].base_stat}
@@ -210,7 +211,10 @@ function App() {
                     </div>
                   ) : (
                     <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
-                      <PokemonEvolutionsSheet id={pokemon.data.id} mainType={pokemon.data.types[0].type.name} />
+                      <PokemonEvolutionsSheet
+                        id={pokemon.data.id}
+                        mainType={pokemon.data.types[0].type.name}
+                      />
                     </div>
                   )}
                 </SheetContent>
