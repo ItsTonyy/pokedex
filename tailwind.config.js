@@ -142,10 +142,15 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        myAnimation: {
+          from: {transform: 'translateX(30%)'},
+          to: {transform: 'translateX(-45%)'},
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        textAnimation: 'myAnimation 30s alternate linear infinite',
       },
       height: {
         screen: ['100vh', '100svh'],

@@ -124,3 +124,11 @@
   background: #b5b5b5;
   border-radius: 5px;
 }
+
+.outline-title {
+  -webkit-text-stroke: 1.5px white;
+  -webkit-text-stroke-width: 2px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

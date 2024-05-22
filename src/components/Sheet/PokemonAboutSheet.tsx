@@ -105,7 +105,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         <p className='text-gray-500'>{flavorTextFixed}</p>
       </div>
 
-      <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Pokédex Data</h2>
+      <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Data</h2>
 
       <div className='flex'>
         <span className='pr-2 font-light'>Height:</span>
