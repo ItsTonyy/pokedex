@@ -75,7 +75,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
 
   return (
     <div className='space-y-3 flex flex-col'>
-      <h2 className={`font-medium text-xl mb-2 ${textColorTernary}`}>Base Stats</h2>
+      <h2 className={`font-medium text-xl ${textColorTernary}`}>Base Stats</h2>
 
       <div className='flex flex-row items-center'>
         <div className='flex justify-between items-center w-[33%] mr-4'>

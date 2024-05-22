@@ -3,7 +3,6 @@ import { useEffect, useState, useCallback } from 'react';
 import { PokemonSpeciesType } from '@/types/types';
 import { PokemonTypesType } from '@/types/types';
 import axios from 'axios';
-import { spawn } from 'child_process';
 
 const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   height,
@@ -37,10 +36,15 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     const response = await axios.get(endpoints[0]).then((res) => setPokemonsSpecies(res));
   }, []);
 
-  const flavorTextReceived = pokemonsSpecies?.data?.flavor_text_entries[1].flavor_text;
+  // getting only the flavor texts in english
+  const filteredFlavorText = pokemonsSpecies?.data?.flavor_text_entries.filter(
+    (element) => element.language.name === 'en'
+  )[0]?.flavor_text;
 
-  const flavorTextFixed = flavorTextReceived
+  const flavorTextFixed = filteredFlavorText
     ?.replace('POKéMON', 'pokémon')
+    .replace('DIGLETT', 'diglett')
+    .replace('TELEPORT', 'teleport')
     .replace(/\f/g, '\n')
     .replace(/\u00ad\n/g, '')
     .replace(/\u00ad/g, '')
@@ -92,9 +96,11 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
       : 'text-type-rock';
 
   const doubleDamageFromArray = pokemonTypes?.data?.damage_relations?.double_damage_from;
+  const eggGroups = pokemonsSpecies?.data?.egg_groups;
+  const hatchCounter = pokemonsSpecies?.data?.hatch_counter;
 
   return (
-    <div className='space-y-3 flex flex-col'>
+    <div className='space-y-[0.5rem] flex flex-col'>
       <div>
         <p className='text-gray-500'>{flavorTextFixed}</p>
       </div>
@@ -121,7 +127,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
           ))}
         </div>
       </div>
-      <div className='flex'>
+      <div className='flex items-center'>
         <span className='pr-2 font-light'>Weaknesses:</span>
         {doubleDamageFromArray?.map((doubleDamageItem, index) => (
           <div className={`bg-type-${doubleDamageItem.name} p-1 rounded mr-2`} key={index}>
@@ -152,6 +158,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
       </div>
 
       <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Breeding</h2>
+
       <div className='flex flex-row'>
         <span className='pr-2 font-light'>Gender:</span>
         {pokemonsSpecies?.data?.gender_rate === -1 ? (
@@ -168,6 +175,32 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
             </div>
           </div>
         )}
+      </div>
+
+      <div className='flex flex-row'>
+        <span className='pr-2 font-light'>Egg Groups:</span>
+        <div>
+          {eggGroups?.length === 1
+            ? eggGroups?.map((eggGroup) => (
+                <span className='text-gray-500 capitalize'> {`${eggGroup?.name}`}</span>
+              ))
+            : eggGroups?.map((eggGroup, index) =>
+                index === 0 ? (
+                  <span className='text-gray-500 capitalize'> {`${eggGroup?.name}, `}</span>
+                ) : (
+                  <span className='text-gray-500 capitalize'> {` ${eggGroup?.name}`}</span>
+                )
+              )}
+        </div>
+      </div>
+
+      <div className='flex flex-row items-center'>
+        <span className='pr-2 font-light'>Egg Cycles:</span>
+        <span className='text-gray-600 pr-1'>{hatchCounter}</span>
+        <span className='text-xs text-gray-500'>
+          {' '}
+          ~({`${hatchCounter * 128} - ${hatchCounter * 257}`}) steps
+        </span>
       </div>
     </div>
   );

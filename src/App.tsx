@@ -104,7 +104,7 @@ function App() {
     >
       <div
         className='bg-background-white min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
-        bg-pokeball-white bg-no-repeat bg-top bg-75% antialiased'
+        bg-pokeball-white bg-no-repeat bg-top bg-75% antialiased scroll-smooth'
       >
         <div className='flex flex-col xl:min-w-full '>
           <header>
@@ -186,7 +186,7 @@ function App() {
                   </div>
 
                   {about ? (
-                    <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
+                    <div className='h-full bg-neutral-50 rounded-t-4xl p-8'>
                       <PokemonAboutSheet
                         id={pokemon.data.id}
                         height={pokemon.data.height}

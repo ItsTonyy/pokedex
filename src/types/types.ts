@@ -1,4 +1,7 @@
-import { AxiosHeaders } from 'axios';
+interface NameAPIResource {
+  name: string,
+  url: string
+}
 
 interface pokemonStats {
   base_stat: number;
@@ -133,7 +136,7 @@ export interface dataSpeciesType {
   base_happiness: number;
   capture_rate: number;
   color: object;
-  egg_groups: [];
+  egg_groups: NameAPIResource[]
   evolution_chain: { url: string };
   evolves_from_species: object;
   flavor_text_entries: flavorTextProps[];
@@ -240,18 +243,18 @@ export interface abilityType {
 }
 
 interface damageRelationsType {
-  name: string, 
-  url: string
+  name: string;
+  url: string;
 }
 
 interface pokemonTypesData {
   damage_relations: {
-    double_damage_from: damageRelationsType[],
-    double_damage_to: damageRelationsType[],
-    half_damage_from: damageRelationsType[],
-    half_damage_to: damageRelationsType[],
-    no_damage_from: damageRelationsType[],
-    no_damage_to: damageRelationsType[]
+    double_damage_from: damageRelationsType[];
+    double_damage_to: damageRelationsType[];
+    half_damage_from: damageRelationsType[];
+    half_damage_to: damageRelationsType[];
+    no_damage_from: damageRelationsType[];
+    no_damage_to: damageRelationsType[];
   };
   game_indices: object[];
   generation: object;
