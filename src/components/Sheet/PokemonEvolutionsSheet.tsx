@@ -149,7 +149,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
                         <span className='font-light text-sm'>{name}</span>
                       </div>
 
-                      <CircleArrowRight className='max-w-max max-h-max'/>
+                      <CircleArrowRight className='max-w-max max-h-max' />
                     </>
                   )}
                 </div>

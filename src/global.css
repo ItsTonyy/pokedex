@@ -2,120 +2,255 @@
 @tailwind components;
 @tailwind utilities;
 
-  @layer base {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 240 10% 3.9%;
+@layer base {
+  :root {
+    /* ShadCn stuff */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
 
-      --primary: 240 5.9% 10%;
-      --primary-foreground: 0 0% 98%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
 
-      --secondary: 240 4.8% 95.9%;
-      --secondary-foreground: 240 5.9% 10%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
 
-      --muted: 240 4.8% 95.9%;
-      --muted-foreground: 240 3.8% 46.1%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
 
-      --accent: 240 4.8% 95.9%;
-      --accent-foreground: 240 5.9% 10%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-      --border: 240 5.9% 90%;
-      --input: 240 5.9% 90%;
-      --ring: 240 10% 3.9%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
 
-      --radius: 0.5rem;
+    --radius: 0.5rem;
 
-      --that-black-color: 23 23 27;
-    }
+    --that-black-color: 23 23 27;
 
-    .dark {
-      --background: 240 10% 3.9%;
-      --foreground: 0 0% 98%;
+    /* My stuff*/
+    --type-bug: 140, 178, 48;
+    --type-dark: 88, 87, 95;
+    --type-dragon: 15, 106, 192;
+    --type-electric: 230, 191, 73;
+    --type-fairy: 237, 110, 199;
+    --type-fighting: 208, 65, 100;
+    --type-fire: 253, 125, 36;
+    --type-flying: 116, 143, 201;
+    --type-ghost: 85, 106, 174;
+    --type-grass: 98, 185, 87;
+    --type-ground: 221, 119, 72;
+    --type-ice: 97, 206, 192;
+    --type-normal: 157, 160, 170;
+    --type-poison: 165, 82, 204;
+    --type-psychic: 234, 93, 96;
+    --type-rock: 186, 171, 130;
+    --type-steel: 65, 125, 154;
+    --type-water: 74, 144, 218;
 
-      --card: 240 10% 3.9%;
-      --card-foreground: 0 0% 98%;
+    --background-type-bug: 107, 214, 116;
+    --background-type-dark: 111, 110, 120;
+    --background-type-dragon: 115, 131, 185;
+    --background-type-electric: 212, 186, 121;
+    --background-type-fairy: 235, 168, 195;
+    --background-type-fighting: 235, 73, 113;
+    --background-type-fire: 255, 167, 86;
+    --background-type-flying: 131, 162, 227;
+    --background-type-ghost: 133, 113, 190;
+    --background-type-grass: 139, 190, 138;
+    --background-type-ground: 247, 133, 81;
+    --background-type-ice: 145, 216, 223;
+    --background-type-normal: 181, 185, 196;
+    --background-type-poison: 159, 99, 151;
+    --background-type-psychic: 255, 101, 104;
+    --background-type-rock: 212, 194, 148;
+    --background-type-steel: 76, 145, 178;
+    --background-type-water: 88, 171, 246;
 
-      --popover: 240 10% 3.9%;
-      --popover-foreground: 0 0% 98%;
+    --background-color: 255, 255, 255;
+    --background-default-input: 242, 242, 242;
+    --background-pressed-input: 226, 226, 226;
+    --background-modal: rgb(var(--that-black-color) / 0.5);
 
-      --primary: 0 0% 98%;
-      --primary-foreground: 240 5.9% 10%;
+    --text-white: 255, 255, 255;
+    --text-black: 23, 23, 27;
+    --text-grey: 116, 116, 118;
+    --text-number: rgb(var(--that-black-color) / 0.6);
 
-      --secondary: 240 3.7% 15.9%;
-      --secondary-foreground: 0 0% 98%;
+    --gradient-vector: bg-gradient-to-b from-gray-50 to-zinc-100;
+    --gradient-pokeball: bg-gradient-to-b from-gray-200 to-zinc-50;
+    --gradient-vector-grey: bg-gradient-to-br from-gray-300 to-zinc-50;
+    --gradient-pokeball-grey: bg-gradient-to-br from-gray-300 to-gray-100;
 
-      --muted: 240 3.7% 15.9%;
-      --muted-foreground: 240 5% 64.9%;
+    --height-short: 255, 197, 230;
+    --height-medium: 174, 191, 215;
+    --height-tall: 170, 172, 184;
 
-      --accent: 240 3.7% 15.9%;
-      --accent-foreground: 0 0% 98%;
+    --weight-light: 153, 205, 124;
+    --weight-normal: 87, 178, 220;
+    --weight-heavy: 90, 146, 165;
 
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 0 0% 98%;
-
-      --border: 240 3.7% 15.9%;
-      --input: 240 3.7% 15.9%;
-      --ring: 240 4.9% 83.9%;
-    }
+    --female: 229, 118, 191;
+    --male: 66, 192, 251;
   }
 
-  @layer base {
-    * {
-      @apply border-border font-roboto m-0 p-0;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  body {
+    background-color: var(--background);
   }
 
-  @layer components {
-    .title {
-      @apply text-title font-bold
-    }
+  .dark {
+    /* ShadCn stuff */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    .applicationTitle {
-      @apply text-applicationTitle font-bold
-    }
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    .pokemonName {
-      @apply text-pokemonName font-extrabold
-    }
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    .filterTitle {
-      @apply text-filterTitle font-bold
-    }
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
 
-    .description {
-      @apply text-description font-normal
-    }
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    .pokemonNumber {
-      @apply text-pokemonNumber font-bold
-    }
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    .pokemonType {
-      @apply text-pokemonType font-normal
-    }
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+
+    /* My stuff */
+    --type-dark: 50, 50, 57;
+    --type-dragon: 0, 68, 121;
+    --type-electric: 151, 117, 12;
+    --type-fairy: 151, 26, 119;
+    --type-fighting: 116, 0, 27;
+    --type-fire: 139, 61, 0;
+    --type-flying: 29, 53, 103;
+    --type-ghost: 19, 36, 92;
+    --type-grass: 21, 99, 22;
+    --type-ground: 96, 23, 0;
+    --type-ice: 24, 91, 81;
+    --type-normal: 71, 73, 83;
+    --type-poison: 77, 10, 113;
+    --type-psychic: 126, 0, 3;
+    --type-rock: 98, 74, 40;
+    --type-steel: 0, 27, 49;
+    --type-water: 5, 56, 111;
+
+    --background-type-bug: 42, 128, 50;
+    --background-type-dark: 35, 34, 42;
+    --background-type-dragon: 54, 66, 108;
+    --background-type-electric: 127, 106, 53;
+    --background-type-fairy: 148, 84, 105;
+    --background-type-fighting: 133, 0, 31;
+    --background-type-fire: 177, 90, 22;
+    --background-type-flying: 53, 78, 129;
+    --background-type-ghost: 51, 36, 95;
+    --background-type-grass: 42, 98, 51;
+    --background-type-ground: 135, 44, 6;
+    --background-type-ice: 66, 123, 129;
+    --background-type-normal: 97, 99, 110;
+    --background-type-poison: 77, 20, 90;
+    --background-type-psychic: 167, 13, 15;
+    --background-type-rock: 126, 102, 66;
+    --background-type-steel: 7, 58, 82;
+    --background-type-water: 21, 82, 149;
+
+    --background-color: 34, 34, 34;
+    --background-default-input: 242, 242, 242;
+    --background-pressed-input: 226, 226, 226;
+    --background-modal: rgb(var(--that-black-color) / 0.5);
+
+    --text-white: 255, 255, 255;
+    --text-black: 23, 23, 27;
+    --text-grey: 116, 116, 118;
+    --text-number: rgb(var(--that-black-color) / 0.6);
+
+    --gradient-vector: bg-gradient-to-b from-gray-50 to-zinc-100;
+    --gradient-pokeball: bg-gradient-to-b from-gray-200 to-zinc-50;
+    --gradient-vector-grey: bg-gradient-to-br from-gray-300 to-zinc-50;
+    --gradient-pokeball-grey: bg-gradient-to-br from-gray-300 to-gray-100;
+
+    --height-short: 214, 163, 192;
+    --height-medium: 129, 143, 163;
+    --height-tall: 132, 134, 145;
+
+    --weight-light: 116, 156, 93;
+    --weight-normal: 44, 122, 158;
+    --weight-heavy: 60, 110, 128;
+
+    --female: 186, 84, 151;
+    --male: 42, 151, 201;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border font-roboto m-0 p-0;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .title {
+    @apply text-title font-bold;
   }
 
-  /*ScrollBar Style */
-  /* width */
+  .applicationTitle {
+    @apply text-applicationTitle font-bold;
+  }
+
+  .pokemonName {
+    @apply text-pokemonName font-extrabold;
+  }
+
+  .filterTitle {
+    @apply text-filterTitle font-bold;
+  }
+
+  .description {
+    @apply text-description font-normal;
+  }
+
+  .pokemonNumber {
+    @apply text-pokemonNumber font-bold;
+  }
+
+  .pokemonType {
+    @apply text-pokemonType font-normal;
+  }
+}
+
+/*ScrollBar Style */
+/* width */
 ::-webkit-scrollbar {
   width: 0.7rem;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 5px;
 }
 

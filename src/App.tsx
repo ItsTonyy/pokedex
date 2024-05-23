@@ -30,6 +30,18 @@ function App() {
 
   useEffect(() => {
     PokemonsDefaultObject();
+
+    const selectedTheme = localStorage.getItem('theme');
+
+    if(selectedTheme) {
+      document.body.classList.add(selectedTheme);
+    } else if(window.matchMedia('(prefers-color-scheme: dark)')) {
+      document.body.classList.add('dark')
+    } else {
+      document.body.classList.add('light')
+    }
+
+
   }, []);
 
   const PokemonsDefaultObject = async () => {
@@ -103,8 +115,8 @@ function App() {
       loader={<h2></h2>}
     >
       <div
-        className='bg-background-white min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
-        bg-pokeball-white bg-no-repeat bg-top bg-75% antialiased scroll-smooth'
+        className='bg-background-color min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
+        bg-pokeball-white dark:bg-pokeball-dark bg-no-repeat bg-top bg-75% antialiased scroll-smooth'
       >
         <div className='flex flex-col xl:min-w-full '>
           <header>
@@ -113,10 +125,10 @@ function App() {
           </header>
 
           <div className='relative'>
-            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900' />
+            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900 dark:text-gray-400' />
             <Input
               className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
-             focus:bg-background-pressed-input text-base shadow-md'
+             focus:bg-background-pressed-input text-base shadow-md dark:border-zinc-500'
               placeholder='What Pokémon are you looking for?'
               id='inputPokemon'
               onChange={(event) => setPokemonName(event.target.value)}

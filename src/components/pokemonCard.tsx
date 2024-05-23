@@ -133,13 +133,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   return (
     <div
       className={`${backgroundColorTernary} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-400 rounded-lg cursor-pointer lg:min-w-72
+       shadow-2xl shadow-gray-800 rounded-lg cursor-pointer lg:min-w-72
        bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
        before:right-2/4 before:top-0`}
     >
       <div className='flex flex-col'>
-        <span className='text-slate-700 font-bold text-sm'>
+        <span className='text-slate-700 font-bold text-sm dark:text-gray-100'>
           {idCondicional}
         </span>
         <span className='pokemonName text-slate-100 capitalize drop-shadow will-change-transform'>
@@ -195,7 +195,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
           src={image}
           alt='Pokemon Photo'
           className='w-[130px] h-[130px] group-hover:scale-110 group-hover:rotate-6 duration-500
-           ease-in-out filter saturate-110'
+           ease-in-out filter saturate-110 dark:filter dark:saturate-110 dark:brightness-85 dark:contrast-125'
         />
       </div>
     </div>
