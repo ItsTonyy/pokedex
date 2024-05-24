@@ -1,6 +1,7 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from './components/ui/tooltip';
 import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
 import { Search, Sun, Moon } from 'lucide-react';
@@ -25,18 +26,18 @@ function App() {
   const [stats, setStats] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
-  const [theme, setTheme] = useState(null)
+  const [theme, setTheme] = useState(null);
 
   //console.log(pokemonsDefault[0].data)
 
   useEffect(() => {
     PokemonsDefaultObject();
     if (localStorage.theme === 'dark') {
-      document.documentElement.classList.add('dark')
-      localStorage.theme = 'dark'
+      document.documentElement.classList.add('dark');
+      localStorage.theme = 'dark';
     } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.theme = 'light'
+      document.documentElement.classList.remove('dark');
+      localStorage.theme = 'light';
     }
   }, []);
 
@@ -104,16 +105,16 @@ function App() {
   };
 
   const handleThemeSwitch = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
+    setTheme(theme === 'dark' ? 'light' : 'dark');
 
-    if(theme === 'dark') {
-      localStorage.theme = 'light'
-      document.documentElement.classList.remove('dark')
+    if (theme === 'dark') {
+      localStorage.theme = 'light';
+      document.documentElement.classList.remove('dark');
     } else {
-      localStorage.theme = 'dark'
-      document.documentElement.classList.add('dark')
+      localStorage.theme = 'dark';
+      document.documentElement.classList.add('dark');
     }
-  }
+  };
 
   return (
     <InfiniteScroll
@@ -128,18 +129,32 @@ function App() {
       >
         <div className='flex flex-col xl:min-w-full relative'>
           <header className='flex flex-col'>
-            <h1 className='title'>Pokédex</h1>
+            <h1 className='title drop-shadow-lg'>Pokédex</h1>
             <div className='flex justify-between items-center'>
-              <p className='text-xl -mt-3'>Search for Pokémon by name or using the National Pokédex Number</p>
-              <Button onClick={handleThemeSwitch}>{localStorage.theme === 'dark' ? <Sun /> : <Moon />}</Button>
+              <p className='text-xl'>Search for Pokémon by name or using the National Pokédex Number</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Button
+                      onClick={handleThemeSwitch}
+                      className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
+                    >
+                      {localStorage.theme === 'dark' ? <Sun /> : <Moon />}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{localStorage.theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode'}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </header>
 
           <div className='relative'>
-            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-900 dark:text-gray-400' />
+            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-900 dark:text-zinc-300' />
             <Input
               className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
-             focus:bg-background-pressed-input text-base shadow-md dark:border-zinc-500'
+             focus:bg-zinc-100 text-base shadow-md dark:border-zinc-400 dark:border-2 dark:focus:bg-zinc-800'
               placeholder='What Pokémon are you looking for?'
               id='inputPokemon'
               onChange={(event) => setPokemonName(event.target.value)}
@@ -209,7 +224,7 @@ function App() {
                   </div>
 
                   {about ? (
-                    <div className='h-full bg-neutral-50 rounded-t-4xl p-8'>
+                    <div className='h-full bg-background-color rounded-t-4xl p-8'>
                       <PokemonAboutSheet
                         id={pokemon.data.id}
                         height={pokemon.data.height}
@@ -220,7 +235,7 @@ function App() {
                       />
                     </div>
                   ) : stats ? (
-                    <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
+                    <div className='bg-background-color h-full rounded-t-4xl p-8'>
                       <PokemonStatsSheet
                         name={pokemon.data.name}
                         mainType={pokemon.data.types[0].type.name}
@@ -233,7 +248,7 @@ function App() {
                       />
                     </div>
                   ) : (
-                    <div className='bg-neutral-50 h-full rounded-t-4xl p-8'>
+                    <div className='bg-background-color h-full rounded-t-4xl p-8'>
                       <PokemonEvolutionsSheet
                         id={pokemon.data.id}
                         mainType={pokemon.data.types[0].type.name}

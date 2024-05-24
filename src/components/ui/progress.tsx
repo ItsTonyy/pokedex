@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
-    fill?: `background-type-${string}`;
+    fill?: `background-light-type-${string}` | `background-type-${string}` | `bg-background-light-type-${string}` | `bg-background-type-${string}`;
   }
 >(({ className, value, fill = 'primary', ...props }, ref) => (
   <ProgressPrimitive.Root

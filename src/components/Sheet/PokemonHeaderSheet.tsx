@@ -8,123 +8,86 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
   typesLength,
   secondType,
 }) => {
-  const backgroundColorTernary =
-    mainType === 'grass'
-      ? 'bg-background-type-grass'
-      : mainType === 'dark'
-      ? 'bg-background-type-dark'
-      : mainType === 'dragon'
-      ? 'bg-background-type-dragon'
-      : mainType === 'fairy'
-      ? 'bg-background-type-fairy'
-      : mainType === 'fighting'
-      ? 'bg-background-type-fighting'
-      : mainType === 'fire'
-      ? 'bg-background-type-fire'
-      : mainType === 'ghost'
-      ? 'bg-background-type-ghost'
-      : mainType === 'bug'
-      ? 'bg-background-type-bug'
-      : mainType === 'ground'
-      ? 'bg-background-type-ground'
-      : mainType === 'normal'
-      ? 'bg-background-type-normal'
-      : mainType === 'poison'
-      ? 'bg-background-type-poison'
-      : mainType === 'psychic'
-      ? 'bg-background-type-psychic'
-      : mainType === 'steel'
-      ? 'bg-background-type-steel'
-      : mainType === 'water'
-      ? 'bg-background-type-water'
-      : mainType === 'electric'
-      ? 'bg-background-type-electric'
-      : mainType === 'flying'
-      ? 'bg-background-type-flying'
-      : mainType === 'ice'
-      ? 'bg-background-type-ice'
-      : 'bg-background-type-rock';
-
+  
       const TextNameColorTernary =
     mainType === 'grass'
-      ? 'text-[#8bbe8a]'
+      ? 'text-background-type-grass'
       : mainType === 'dark'
-      ? 'text-[#6f6e78]'
+      ? 'text-background-type-dark'
       : mainType === 'dragon'
-      ? 'text-[#7383b9]'
+      ? 'text-background-type-dragon'
       : mainType === 'fairy'
-      ? 'text-[#eba8c3]'
+      ? 'text-background-type-fairy'
       : mainType === 'fighting'
-      ? 'text-[#eb4971]'
+      ? 'text-background-type-fighting'
       : mainType === 'fire'
-      ? 'text-[#ffa756]'
+      ? 'text-background-type-fire'
       : mainType === 'ghost'
-      ? 'text-[#8571be]'
+      ? 'text-background-type-ghost'
       : mainType === 'bug'
-      ? 'text-[#6bd674]'
+      ? 'text-background-type-bug'
       : mainType === 'ground'
-      ? 'text-[#f78551]'
+      ? 'text-background-type-ground'
       : mainType === 'normal'
-      ? 'text-[#b5b9c4]'
+      ? 'text-background-type-normal'
       : mainType === 'poison'
-      ? 'text-[#9f6397]'
+      ? 'text-background-type-poison'
       : mainType === 'psychic'
-      ? 'text-[#ff6568]'
+      ? 'text-background-type-psychic'
       : mainType === 'steel'
-      ? 'text-[#4c91b2]'
+      ? 'text-background-type-steel'
       : mainType === 'water'
-      ? 'text-[#58abf6]'
+      ? 'text-background-type-water'
       : mainType === 'electric'
-      ? 'text-[#d4ba79]'
+      ? 'text-background-type-electric'
       : mainType === 'flying'
-      ? 'text-[#83a2e3]'
+      ? 'text-background-type-flying'
       : mainType === 'ice'
-      ? 'text-[#91d8df]'
-      : 'text-[#d4c294]';
+      ? 'text-background-type-ice'
+      : 'text-background-type-rock';
 
       const ColorGradientTernary =
-    mainType === 'grass'
-      ? 'from-[#8bbe8a]'
+      mainType === 'grass'
+      ? 'from-[#8bbe8a] dark:from-[#2a6233]'
       : mainType === 'dark'
-      ? 'from-[#6f6e78]'
+      ? 'from-[#6f6e78] dark:from-[#23222A]'
       : mainType === 'dragon'
-      ? 'from-[#7383b9]'
+      ? 'from-[#7383b9] dark:from-[#36426C]'
       : mainType === 'fairy'
-      ? 'from-[#eba8c3]'
+      ? 'from-[#eba8c3] dark:from-[#945469]'
       : mainType === 'fighting'
-      ? 'from-[#eb4971]'
+      ? 'from-[#eb4971] dark:from-[#85001F]'
       : mainType === 'fire'
-      ? 'from-[#ffa756]'
+      ? 'from-[#ffa756] dark:from-[#B15A16]'
       : mainType === 'ghost'
-      ? 'from-[#8571be]'
+      ? 'from-[#8571be] dark:from-[#33245F]'
       : mainType === 'bug'
-      ? 'from-[#6bd674]'
+      ? 'from-[#6bd674] dark:from-[#2A8032]'
       : mainType === 'ground'
-      ? 'from-[#f78551]'
+      ? 'from-[#f78551] dark:from-[#872C06]'
       : mainType === 'normal'
-      ? 'from-[#b5b9c4]'
+      ? 'from-[#b5b9c4] dark:from-[#61636E]'
       : mainType === 'poison'
-      ? 'from-[#9f6397]'
+      ? 'from-[#9f6397] dark:from-[#4D145A]'
       : mainType === 'psychic'
-      ? 'from-[#ff6568]'
+      ? 'from-[#ff6568] dark:from-[#A70D0F]'
       : mainType === 'steel'
-      ? 'from-[#4c91b2]'
+      ? 'from-[#4c91b2] dark:from-[#073A52]'
       : mainType === 'water'
-      ? 'from-[#58abf6]'
+      ? 'from-[#58abf6] dark:from-[#155295]'
       : mainType === 'electric'
-      ? 'from-[#d4ba79]'
+      ? 'from-[#d4ba79] dark:from-[#7F6A35]'
       : mainType === 'flying'
-      ? 'from-[#83a2e3]'
+      ? 'from-[#83a2e3] dark:from-[#354E81]'
       : mainType === 'ice'
-      ? 'from-[#91d8df]'
-      : 'from-[#d4c294]';
+      ? 'from-[#91d8df] dark:from-[#427B81]'
+      : 'from-[#d4c294] dark:from-[#7E6642]';
 
   const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`;
 
   return (
     <div
-      className={`relative pb-8 pt-20 flex flex-row justify-evenly items-center overflow-hidden
-       `}
+      className={`relative pb-8 pt-20 flex flex-row justify-evenly items-center overflow-hidden`}
     >
       {/*pokemon name with gradient and animation */}
       <div
@@ -132,7 +95,8 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
          w-max`}
       >
         <p className={`${TextNameColorTernary} outline-title opacity-40 animate-textAnimation`}>{name}</p>
-        <div className={`w-full h-[140px] relative top-[-90px] right-[-10%] bg-gradient-to-t ${ColorGradientTernary} from-80% z-10`}></div>
+        <div className={`w-[450px] h-[140px] relative top-[-90px] bg-gradient-to-t ${ColorGradientTernary}
+         from-80% z-10`}></div>
       </div>
 
       {/* Pokemon Photo*/}
@@ -152,25 +116,25 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
 
       {/*pokemon info (name, type, etc...) */}
       <div className='flex flex-col z-20'>
-        <span className='text-slate-900 font-extrabold'>{idCondicional}</span>
-        <span className='font-extrabold text-3xl text-slate-100 capitalize drop-shadow'>{name}</span>
+        <span className='text-zinc-900 font-extrabold'>{idCondicional}</span>
+        <span className='font-extrabold text-3xl text-zinc-100 capitalize drop-shadow'>{name}</span>
         <div>
           {typesLength === 1 ? (
             <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded bg-type-${mainType}`}>
               <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
-              <span className={`text-slate-100 text-sm capitalize `}>{mainType}</span>
+              <span className={`text-zinc-100 text-sm capitalize `}>{mainType}</span>
             </div>
           ) : (
             <div className='flex flex-row gap-2'>
               <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded bg-type-${mainType}`}>
                 <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
-                <span className={`bg-type-${mainType} text-sm text-slate-100 capitalize`}>
+                <span className={`bg-type-${mainType} text-sm text-zinc-100 capitalize`}>
                   {mainType}
                 </span>{' '}
               </div>
               <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded bg-type-${secondType}`}>
                 <img src={`src/assets/TypesIcons/${secondType}.png`} alt='typeImage' className='w-3.5' />
-                <span className={`bg-type-${secondType} text-sm text-slate-100 capitalize`}>
+                <span className={`bg-type-${secondType} text-sm text-zinc-100 capitalize`}>
                   {secondType}
                 </span>
               </div>

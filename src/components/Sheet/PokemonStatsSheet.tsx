@@ -31,41 +31,41 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
   // console.log(pokemonTypes?.data?.damage_relations);
 
   const textColorTernary =
-    mainType === 'grass'
-      ? 'text-type-grass'
-      : mainType === 'dark'
-      ? 'text-type-dark'
-      : mainType === 'dragon'
-      ? 'text-type-dragon'
-      : mainType === 'fairy'
-      ? 'text-type-fairy'
-      : mainType === 'fighting'
-      ? 'text-type-fighting'
-      : mainType === 'fire'
-      ? 'text-type-fire'
-      : mainType === 'ghost'
-      ? 'text-type-ghost'
-      : mainType === 'bug'
-      ? 'text-type-bug'
-      : mainType === 'ground'
-      ? 'text-type-ground'
-      : mainType === 'normal'
-      ? 'text-type-normal'
-      : mainType === 'poison'
-      ? 'text-type-poison'
-      : mainType === 'psychic'
-      ? 'text-type-psychic'
-      : mainType === 'steel'
-      ? 'text-type-steel'
-      : mainType === 'water'
-      ? 'text-type-water'
-      : mainType === 'electric'
-      ? 'text-type-electric'
-      : mainType === 'flying'
-      ? 'text-type-flying'
-      : mainType === 'ice'
-      ? 'text-type-ice'
-      : 'text-type-rock';
+  mainType === 'grass'
+    ? 'text-background-light-type-grass'
+    : mainType === 'dark'
+    ? 'text-background-light-type-dark'
+    : mainType === 'dragon'
+    ? 'text-background-light-type-dragon'
+    : mainType === 'fairy'
+    ? 'text-background-light-type-fairy'
+    : mainType === 'fighting'
+    ? 'text-background-light-type-fighting'
+    : mainType === 'fire'
+    ? 'text-background-light-type-fire'
+    : mainType === 'ghost'
+    ? 'text-background-light-type-ghost'
+    : mainType === 'bug'
+    ? 'text-background-light-type-bug'
+    : mainType === 'ground'
+    ? 'text-background-light-type-ground'
+    : mainType === 'normal'
+    ? 'text-background-light-type-normal'
+    : mainType === 'poison'
+    ? 'text-background-light-type-poison'
+    : mainType === 'psychic'
+    ? 'text-background-light-type-psychic'
+    : mainType === 'steel'
+    ? 'text-background-light-type-steel'
+    : mainType === 'water'
+    ? 'text-background-light-type-water'
+    : mainType === 'electric'
+    ? 'text-background-light-type-electric'
+    : mainType === 'flying'
+    ? 'text-background-light-type-flying'
+    : mainType === 'ice'
+    ? 'text-background-light-type-ice'
+    : 'text-background-light-type-rock';
 
   const pokemonName = name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -83,7 +83,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{hp}</span>
         </div>
 
-        <Progress value={hp} className='w-[66%] h-1.5' fill={`background-type-${mainType}`} />
+        <Progress value={hp} className='w-[66%] h-1.5 bg-zinc-700' fill={`background-type-${mainType}`} />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -91,7 +91,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{attack}</span>
         </div>
 
-        <Progress value={attack} className='w-[66%] h-1.5' fill={`background-type-${mainType}`} />
+        <Progress value={attack} className='w-[66%] h-1.5 bg-zinc-700' fill={`background-type-${mainType}`} />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -99,7 +99,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{defense}</span>
         </div>
 
-        <Progress value={defense} className='w-[66%] h-1.5' fill={`background-type-${mainType}`} />
+        <Progress value={defense} className='w-[66%] h-1.5 bg-zinc-700' fill={`background-type-${mainType}`} />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -107,7 +107,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{spAttack}</span>
         </div>
 
-        <Progress value={spAttack} className='w-[66%] h-1.5' fill={`background-type-${mainType}`} />
+        <Progress value={spAttack} className='w-[66%] h-1.5 bg-zinc-700' fill={`background-type-${mainType}`} />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -115,7 +115,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{spDefense}</span>
         </div>
 
-        <Progress value={spDefense} className='w-[66%] h-1.5' fill={`background-type-${mainType}`} />
+        <Progress value={spDefense} className='w-[66%] h-1.5 bg-zinc-700' fill={`background-type-${mainType}`} />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -123,12 +123,12 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{speed}</span>
         </div>
 
-        <Progress value={speed} className='w-[66%] h-1.5' fill={`background-type-${mainType}`} />
+        <Progress value={speed} className='w-[66%] h-1.5 bg-zinc-700' fill={`background-type-${mainType}`} />
       </div>
 
       <div>
         <h2 className={`font-medium text-xl pt-3 pb-1 ${textColorTernary}`}>Type Defenses</h2>
-        <p className='text-gray-500'>{`The effectiveness of each type on ${pokemonName}.`}</p>
+        <p className='text-text-grey dark:text-zinc-300'>{`The effectiveness of each type on ${pokemonName}.`}</p>
 
         <div>
           <h3 className={`font-medium mt-6 mb-1 ${textColorTernary}`}>Double Damage From</h3>
@@ -161,7 +161,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <h3 className={`font-medium mt-6 mb-1 ${textColorTernary}`}>No Damage From</h3>
           <div className='flex flex-row'>
             {noDamageFromArray?.length === 0 ? (
-              <div className='bg-neutral-50 p-1 rounded mr-2'></div>
+              <div className='bg-background-color p-1 rounded mr-2'></div>
             ) : (
               noDamageFromArray?.map((noDamageItem, index) => (
                 <div className={`bg-type-${noDamageItem.name} p-1 rounded mr-2`} key={index}>

@@ -123,8 +123,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, id, image, mainType, ty
        before:right-2/4 before:top-0`}
     >
       <div className='flex flex-col'>
-        <span className='text-slate-700 font-bold text-sm dark:text-slate-100'>{idCondicional}</span>
-        <span className='pokemonName text-slate-100 capitalize drop-shadow will-change-transform'>
+        <span className='text-gray-100 font-bold text-sm drop-shadow'>{idCondicional}</span>
+        <span className='pokemonName text-gray-100 capitalize drop-shadow'>
           {name}
         </span>
         <div>

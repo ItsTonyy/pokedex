@@ -78,9 +78,9 @@
 
     --background-color: 255, 255, 255;
     --background-default-input: 242, 242, 242;
-    --background-pressed-input: 226, 226, 226;
     --background-modal: rgb(var(--that-black-color) / 0.5);
 
+    --text: 255, 255, 255
     --text-white: 255, 255, 255;
     --text-black: 23, 23, 27;
     --text-grey: 116, 116, 118;
@@ -176,11 +176,31 @@
     --background-type-steel: 7, 58, 82;
     --background-type-water: 21, 82, 149;
 
+    --background-light-type-bug: 107, 214, 116;
+    --background-light-type-dark: 111, 110, 120;
+    --background-light-type-dragon: 115, 131, 185;
+    --background-light-type-electric: 212, 186, 121;
+    --background-light-type-fairy: 235, 168, 195;
+    --background-light-type-fighting: 235, 73, 113;
+    --background-light-type-fire: 255, 167, 86;
+    --background-light-type-flying: 131, 162, 227;
+    --background-light-type-ghost: 133, 113, 190;
+    --background-light-type-grass: 139, 190, 138;
+    --background-light-type-ground: 247, 133, 81;
+    --background-light-type-ice: 145, 216, 223;
+    --background-light-type-normal: 181, 185, 196;
+    --background-light-type-poison: 159, 99, 151;
+    --background-light-type-psychic: 255, 101, 104;
+    --background-light-type-rock: 212, 194, 148;
+    --background-light-type-steel: 76, 145, 178;
+    --background-light-type-water: 88, 171, 246;
+
     --background-color: 34, 34, 34;
     --background-default-input: 242, 242, 242;
     --background-pressed-input: 226, 226, 226;
     --background-modal: rgb(var(--that-black-color) / 0.5);
 
+    --text: 15, 23, 42;
     --text-white: 255, 255, 255;
     --text-black: 23, 23, 27;
     --text-grey: 116, 116, 118;
@@ -200,7 +220,7 @@
     --weight-heavy: 60, 110, 128;
 
     --female: 186, 84, 151;
-    --male: 42, 151, 201;
+    --male: 2, 111, 219;
   }
 }
 
