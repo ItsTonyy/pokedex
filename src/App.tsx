@@ -1,8 +1,9 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
-import { Search } from 'lucide-react';
+import { Search, Sun, Moon } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PokemonCard from './components/PokemonCard';
@@ -20,28 +21,23 @@ import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
 function App() {
   const [pokemonName, setPokemonName] = useState('');
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
-
   const [about, setAbout] = useState(true);
   const [stats, setStats] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
+  const [theme, setTheme] = useState(null)
 
   //console.log(pokemonsDefault[0].data)
 
   useEffect(() => {
     PokemonsDefaultObject();
-
-    const selectedTheme = localStorage.getItem('theme');
-
-    if(selectedTheme) {
-      document.body.classList.add(selectedTheme);
-    } else if(window.matchMedia('(prefers-color-scheme: dark)')) {
-      document.body.classList.add('dark')
+    if (localStorage.theme === 'dark') {
+      document.documentElement.classList.add('dark')
+      localStorage.theme = 'dark'
     } else {
-      document.body.classList.add('light')
+      document.documentElement.classList.remove('dark')
+      localStorage.theme = 'light'
     }
-
-
   }, []);
 
   const PokemonsDefaultObject = async () => {
@@ -107,6 +103,18 @@ function App() {
     setStats(false);
   };
 
+  const handleThemeSwitch = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+
+    if(theme === 'dark') {
+      localStorage.theme = 'light'
+      document.documentElement.classList.remove('dark')
+    } else {
+      localStorage.theme = 'dark'
+      document.documentElement.classList.add('dark')
+    }
+  }
+
   return (
     <InfiniteScroll
       dataLength={pokemonsDefault.length}
@@ -118,10 +126,13 @@ function App() {
         className='bg-background-color min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
         bg-pokeball-white dark:bg-pokeball-dark bg-no-repeat bg-top bg-75% antialiased scroll-smooth'
       >
-        <div className='flex flex-col xl:min-w-full '>
-          <header>
+        <div className='flex flex-col xl:min-w-full relative'>
+          <header className='flex flex-col'>
             <h1 className='title'>Pokédex</h1>
-            <p className='text-xl -mt-3'>Search for Pokémon by name or using the National Pokédex Number</p>
+            <div className='flex justify-between items-center'>
+              <p className='text-xl -mt-3'>Search for Pokémon by name or using the National Pokédex Number</p>
+              <Button onClick={handleThemeSwitch}>{localStorage.theme === 'dark' ? <Sun /> : <Moon />}</Button>
+            </div>
           </header>
 
           <div className='relative'>

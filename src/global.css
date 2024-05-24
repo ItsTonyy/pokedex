@@ -138,6 +138,7 @@
     --ring: 240 4.9% 83.9%;
 
     /* My stuff */
+    --type-bug: 107, 143, 21;
     --type-dark: 50, 50, 57;
     --type-dragon: 0, 68, 121;
     --type-electric: 151, 117, 12;
@@ -145,12 +146,12 @@
     --type-fighting: 116, 0, 27;
     --type-fire: 139, 61, 0;
     --type-flying: 29, 53, 103;
-    --type-ghost: 19, 36, 92;
-    --type-grass: 21, 99, 22;
+    --type-ghost: 4, 22, 82;
+    --type-grass: 10, 71, 11;
     --type-ground: 96, 23, 0;
-    --type-ice: 24, 91, 81;
+    --type-ice: 5, 102, 88;
     --type-normal: 71, 73, 83;
-    --type-poison: 77, 10, 113;
+    --type-poison: 57, 8, 84;
     --type-psychic: 126, 0, 3;
     --type-rock: 98, 74, 40;
     --type-steel: 0, 27, 49;
@@ -208,7 +209,7 @@
     @apply border-border font-roboto m-0 p-0;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors ease-out;
   }
 }
 
@@ -267,3 +268,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+

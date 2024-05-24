@@ -81,8 +81,8 @@ module.exports = {
         'weight-normal': 'rgb(var(--weight-normal))',
         'weight-heavy': 'rgb(var(--weight-heavy))',
 
-        'female': 'rgb(var(--female))',
-        'male': 'rgb(var(--male))',
+        female: 'rgb(var(--female))',
+        male: 'rgb(var(--male))',
 
         /* --- shadcn --- */
         border: 'hsl(var(--border))',
@@ -126,7 +126,7 @@ module.exports = {
       },
       brightness: {
         80: '.8',
-        85: '.85'
+        85: '.85',
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
@@ -147,8 +147,8 @@ module.exports = {
           to: { height: '0' },
         },
         myAnimation: {
-          from: {transform: 'translateX(30%)'},
-          to: {transform: 'translateX(-45%)'},
+          from: { transform: 'translateX(30%)' },
+          to: { transform: 'translateX(-45%)' },
         },
       },
       animation: {
@@ -158,7 +158,7 @@ module.exports = {
       },
       height: {
         screen: ['100vh', '100svh'],
-        1.5: '0.375rem'
+        1.5: '0.375rem',
       },
       width: {
         3.5: '0.875rem',
@@ -166,12 +166,10 @@ module.exports = {
       backgroundImage: {
         'pokeball-white': 'url(assets/BackgroundImages/bg-pokeball-white.svg)',
         'pokeball-dark': 'url(assets/BackgroundImages/bg-pokeball-dark.svg)',
-        'card-pokeball-white':
-          'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
+        'card-pokeball-white': 'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
         '6x3-grad': 'url(assets/BackgroundImages/6x3-grad.svg)',
         searchIcon: 'url(assets/Other/search.svg)',
-        'pokeball-white-sheet':
-          'url(assets/BackgroundImages/bg-pokeball-white-sheet.svg)',
+        'pokeball-white-sheet': 'url(assets/BackgroundImages/bg-pokeball-white-sheet.svg)',
       },
       backgroundSize: {
         auto: 'auto',
@@ -187,11 +185,11 @@ module.exports = {
         pokemonNumber: '0.75rem',
         pokemonType: '0.75rem',
 
-        'specialSmall': '0.8rem',
+        specialSmall: '0.8rem',
       },
       scale: {
-        '115': '1.15'
-      }
+        115: '1.15',
+      },
     },
     backgroundSize: {
       '10%': '10%',
@@ -204,7 +202,17 @@ module.exports = {
       '70%': '70%',
       '75%': '75%',
       '80%': '80%',
-    }
+    },
+  },
+  transitionDuration: {
+    DEFAULT: '500ms',
+    75: '75ms',
+    100: '100ms',
+    200: '200ms',
+    300: '300ms',
+    500: '500ms',
+    700: '700ms',
+    1000: '1000ms',
   },
   plugins: [require('tailwindcss-animate')],
 };

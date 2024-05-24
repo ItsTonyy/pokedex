@@ -1,14 +1,6 @@
 import { PokemonCardProps } from '@/types/types';
 
-const PokemonCard: React.FC<PokemonCardProps> = ({
-  name,
-  id,
-  image,
-  mainType,
-  typesLength,
-  secondType,
-}) => {
-
+const PokemonCard: React.FC<PokemonCardProps> = ({ name, id, image, mainType, typesLength, secondType }) => {
   const backgroundColorTernary =
     mainType === 'grass'
       ? 'bg-background-type-grass'
@@ -46,7 +38,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-background-type-ice'
       : 'bg-background-type-rock';
 
-      const Type1ColorTernary =
+  const Type1ColorTernary =
     mainType === 'grass'
       ? 'bg-type-grass'
       : mainType === 'dark'
@@ -120,70 +112,36 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
       ? 'bg-type-ice'
       : 'bg-type-rock';
 
-  
-  const idCondicional =
-    id < 10
-      ? `#000${id}`
-      : id < 100
-      ? `#00${id}`
-      : id < 1000
-      ? `#0${id}`
-      : `#${id}`;
-      
+  const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`;
+
   return (
     <div
       className={`${backgroundColorTernary} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-800 rounded-lg cursor-pointer lg:min-w-72
+       shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72
        bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
        before:right-2/4 before:top-0`}
     >
       <div className='flex flex-col'>
-        <span className='text-slate-700 font-bold text-sm dark:text-gray-100'>
-          {idCondicional}
-        </span>
+        <span className='text-slate-700 font-bold text-sm dark:text-slate-100'>{idCondicional}</span>
         <span className='pokemonName text-slate-100 capitalize drop-shadow will-change-transform'>
           {name}
         </span>
         <div>
           {typesLength === 1 ? (
-            <div
-              className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}
-            >
-              <img
-                src={`src/assets/TypesIcons/${mainType}.png`}
-                alt='typeImage'
-                className='w-3.5'
-              />
-              <span className={`text-slate-100 text-sm capitalize `}>
-                {mainType}
-              </span>
+            <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}>
+              <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
+              <span className={`text-slate-100 text-sm capitalize `}>{mainType}</span>
             </div>
           ) : (
             <div className='flex flex-row gap-2'>
-              <div
-                className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}
-              >
-                <img
-                  src={`src/assets/TypesIcons/${mainType}.png`}
-                  alt='typeImage'
-                  className='w-3.5'
-                />
-                <span className={`text-sm text-slate-100 capitalize`}>
-                  {mainType}
-                </span>{' '}
+              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}>
+                <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
+                <span className={`text-sm text-slate-100 capitalize`}>{mainType}</span>{' '}
               </div>
-              <div
-                className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type2ColorTernary}`}
-              >
-                <img
-                  src={`src/assets/TypesIcons/${secondType}.png`}
-                  alt='typeImage'
-                  className='w-3.5'
-                />
-                <span className={`text-sm text-slate-100 capitalize`}>
-                  {secondType}
-                </span>
+              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type2ColorTernary}`}>
+                <img src={`src/assets/TypesIcons/${secondType}.png`} alt='typeImage' className='w-3.5' />
+                <span className={`text-sm text-slate-100 capitalize`}>{secondType}</span>
               </div>
             </div>
           )}
@@ -202,4 +160,4 @@ const PokemonCard: React.FC<PokemonCardProps> = ({
   );
 };
 
-export default PokemonCard
+export default PokemonCard;
