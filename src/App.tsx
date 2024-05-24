@@ -34,10 +34,8 @@ function App() {
     PokemonsDefaultObject();
     if (localStorage.theme === 'dark') {
       document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.theme = 'light';
     }
   }, []);
 
@@ -107,12 +105,12 @@ function App() {
   const handleThemeSwitch = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
 
-    if (theme === 'dark') {
-      localStorage.theme = 'light';
+    if (document.documentElement.classList.contains('dark')) {
       document.documentElement.classList.remove('dark');
+      localStorage.theme = 'light';
     } else {
-      localStorage.theme = 'dark';
       document.documentElement.classList.add('dark');
+      localStorage.theme = 'dark';
     }
   };
 

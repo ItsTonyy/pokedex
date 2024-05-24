@@ -95,7 +95,7 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
          w-max`}
       >
         <p className={`${TextNameColorTernary} outline-title opacity-40 animate-textAnimation`}>{name}</p>
-        <div className={`w-[450px] h-[140px] relative top-[-90px] bg-gradient-to-t ${ColorGradientTernary}
+        <div className={`w-[450px] h-[140px] relative top-[-95px] bg-gradient-to-t ${ColorGradientTernary}
          from-80% z-10`}></div>
       </div>
 
