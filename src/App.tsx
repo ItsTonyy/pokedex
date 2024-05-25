@@ -1,10 +1,17 @@
 import { useState, useEffect, KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetDescription,
+  SheetTitle,
+  SheetHeader,
+} from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from './components/ui/tooltip';
 import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
-import { Search, Sun, Moon } from 'lucide-react';
+import { Search, Sun, Moon, SlidersHorizontal } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PokemonCard from './components/PokemonCard';
@@ -40,6 +47,18 @@ function App() {
   }, []);
 
   const PokemonsDefaultObject = async () => {
+    const endpoints = [];
+    for (let i = 1; i < 21; i++) {
+      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const response = await axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((res) => setPokemonsDefault(res));
+  };
+
+  const PokemonsFilteredObject = async () => {
     const endpoints = [];
     for (let i = 1; i < 21; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
@@ -127,24 +146,89 @@ function App() {
       >
         <div className='flex flex-col xl:min-w-full relative'>
           <header className='flex flex-col'>
-            <h1 className='title drop-shadow-lg'>Pokédex</h1>
+            <h1 className='title drop-shadow-xl'>Pokédex</h1>
             <div className='flex justify-between items-center'>
               <p className='text-xl'>Search for Pokémon by name or using the National Pokédex Number</p>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Button
-                      onClick={handleThemeSwitch}
-                      className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
-                    >
-                      {localStorage.theme === 'dark' ? <Sun /> : <Moon />}
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{localStorage.theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode'}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              {/*Main Page Buttons */}
+              <div className='space-x-3'>
+
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button
+                        onClick={handleThemeSwitch}
+                        className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
+                      >
+                        {localStorage.theme === 'dark' ? <Sun /> : <Moon />}
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className='font-medium'>{localStorage.theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode'}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+
+                      <Sheet>
+                        <SheetTrigger>
+                          <Button className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'>
+                            <SlidersHorizontal />
+                          </Button>
+                        </SheetTrigger>
+                        <SheetContent side={'bottom'} className='pt-16'>
+                          <SheetHeader>
+                            <SheetTitle className='text-3xl drop-shadow-lg'>Filters</SheetTitle>
+                            <SheetDescription className='text-lg'>
+                              Use advanced search to explore Pokémon by type and colors!
+                            </SheetDescription>
+
+                            <div>
+                              <h2 className='text-lg'>Types</h2>
+
+                              <div className='flex flex-row gap-3 mt-2'>
+                              <button className={`bg-background-type-bug py-1 px-3 rounded shadow-lg`}>Bug</button>
+                              <button className={`bg-background-type-dark py-1 px-3 rounded shadow-lg`}>Dark</button>
+                              <button className={`bg-background-type-dragon py-1 px-3 rounded shadow-lg`}>Dragon</button>
+                              <button className={`bg-background-type-electric py-1 px-3 rounded shadow-lg`}>Electric</button>
+                              <button className={`bg-background-type-fairy py-1 px-3 rounded shadow-lg`}>Fairy</button>
+                              <button className={`bg-background-type-fighting py-1 px-3 rounded shadow-lg`}>Fighting</button>
+                              <button className={`bg-background-type-fire py-1 px-3 rounded shadow-lg`}>Fire</button>
+                              <button className={`bg-background-type-flying py-1 px-3 rounded shadow-lg`}>Flying</button>
+                              <button className={`bg-background-type-ghost py-1 px-3 rounded shadow-lg`}>Ghost</button>
+                              <button className={`bg-background-type-grass py-1 px-3 rounded shadow-lg`}>Grass</button>
+                              <button className={`bg-background-type-ground py-1 px-3 rounded shadow-lg`}>Ground</button>
+                              <button className={`bg-background-type-ice py-1 px-3 rounded shadow-lg`}>Ice</button>
+                              <button className={`bg-background-type-normal py-1 px-3 rounded shadow-lg`}>Normal</button>
+                              <button className={`bg-background-type-poison py-1 px-3 rounded shadow-lg`}>Poison</button>
+                              <button className={`bg-background-type-psychic py-1 px-3 rounded shadow-lg`}>Psychic</button>
+                              <button className={`bg-background-type-rock py-1 px-3 rounded shadow-lg`}>Rock</button>
+                              <button className={`bg-background-type-steel py-1 px-3 rounded shadow-lg`}>Steel</button>
+                              <button className={`bg-background-type-water py-1 px-3 rounded shadow-lg`}>Water</button>
+                              </div>
+                            </div>
+
+                            <div>
+                              <h2 className='text-lg'>Colors</h2>
+                            </div>
+
+                            <div>
+                              <h2 className='text-lg'>Heights</h2>
+                            </div>
+                          </SheetHeader>
+                        </SheetContent>
+                      </Sheet>
+
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className='font-medium'>Apply Filters</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                
+              </div>
             </div>
           </header>
 
