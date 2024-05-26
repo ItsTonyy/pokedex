@@ -114,10 +114,19 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, id, image, mainType, ty
 
   const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`;
 
+  function limitName(name: string) {
+    // Regex para capturar tudo antes do segundo hífen
+    const match = name.match(/^([^-\n]*-[^-]*)/);
+    if (match) {
+        return match[1];
+    }
+    return name;
+}
+
   return (
     <div
       className={`${backgroundColorTernary} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72
+       shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72 max-h-[114px]
        bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
        before:right-2/4 before:top-0`}
@@ -125,7 +134,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, id, image, mainType, ty
       <div className='flex flex-col'>
         <span className='text-gray-100 font-bold text-sm drop-shadow'>{idCondicional}</span>
         <span className='pokemonName text-gray-100 capitalize drop-shadow'>
-          {name}
+          {limitName(name)}
         </span>
         <div>
           {typesLength === 1 ? (

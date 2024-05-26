@@ -247,6 +247,13 @@ interface damageRelationsType {
   url: string;
 }
 
+export interface pokemonType {
+  pokemon: {
+    name: string,
+    url: string
+  }
+}
+
 interface pokemonTypesData {
   damage_relations: {
     double_damage_from: damageRelationsType[];
@@ -263,7 +270,7 @@ interface pokemonTypesData {
   name: string;
   names: object[];
   past_damage_relations: [];
-  pokemon: object[];
+  pokemon: pokemonType[];
 }
 
 export interface PokemonTypesType {

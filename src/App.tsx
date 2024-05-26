@@ -11,8 +11,10 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from './components/ui/tooltip';
 import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
+import { PokemonTypesType } from './types/types';
+import { pokemonType } from './types/types';
 import { Search, Sun, Moon, SlidersHorizontal } from 'lucide-react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PokemonCard from './components/PokemonCard';
 import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
@@ -33,12 +35,13 @@ function App() {
   const [stats, setStats] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState<null | string>(null);
 
   //console.log(pokemonsDefault[0].data)
 
   useEffect(() => {
     PokemonsDefaultObject();
+
     if (localStorage.theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -58,6 +61,7 @@ function App() {
       .then((res) => setPokemonsDefault(res));
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const PokemonsFilteredObject = async () => {
     const endpoints = [];
     for (let i = 1; i < 21; i++) {
@@ -133,6 +137,48 @@ function App() {
     }
   };
 
+  const pokemon_types = [
+    'bug',
+    'dark',
+    'dragon',
+    'electric',
+    'fairy',
+    'fighting',
+    'fire',
+    'flying',
+    'ghost',
+    'grass',
+    'ground',
+    'ice',
+    'normal',
+    'poison',
+    'psychic',
+    'rock',
+    'steel',
+    'water',
+  ];
+
+  const handleFilterType = async (type: string) => {
+    const typeEndpoint: string[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    let typeObject: PokemonTypesType = [];
+    const endpoints: string[] = [];
+
+    typeEndpoint.push(`https://pokeapi.co/api/v2/type/${type}`);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const fetchTypeEndpoint = await axios.get(typeEndpoint).then((res) => (typeObject = res));
+
+    for (let i = 0; i < typeObject?.data?.pokemon.length; i++) {
+      endpoints.push(typeObject?.data?.pokemon[i].pokemon.url);
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const response = await axios
+      .all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((res) => setPokemonsDefault(res));
+  };
+
   return (
     <InfiniteScroll
       dataLength={pokemonsDefault.length}
@@ -151,7 +197,6 @@ function App() {
               <p className='text-xl'>Search for Pokémon by name or using the National Pokédex Number</p>
               {/*Main Page Buttons */}
               <div className='space-x-3'>
-
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
@@ -163,7 +208,9 @@ function App() {
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className='font-medium'>{localStorage.theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode'}</p>
+                      <p className='font-medium'>
+                        {localStorage.theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode'}
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -171,10 +218,12 @@ function App() {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
-
                       <Sheet>
                         <SheetTrigger>
-                          <Button className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'>
+                          <Button
+                            className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950
+                           dark:hover:bg-zinc-100'
+                          >
                             <SlidersHorizontal />
                           </Button>
                         </SheetTrigger>
@@ -189,24 +238,22 @@ function App() {
                               <h2 className='text-lg'>Types</h2>
 
                               <div className='flex flex-row gap-3 mt-2'>
-                              <button className={`bg-background-type-bug py-1 px-3 rounded shadow-lg`}>Bug</button>
-                              <button className={`bg-background-type-dark py-1 px-3 rounded shadow-lg`}>Dark</button>
-                              <button className={`bg-background-type-dragon py-1 px-3 rounded shadow-lg`}>Dragon</button>
-                              <button className={`bg-background-type-electric py-1 px-3 rounded shadow-lg`}>Electric</button>
-                              <button className={`bg-background-type-fairy py-1 px-3 rounded shadow-lg`}>Fairy</button>
-                              <button className={`bg-background-type-fighting py-1 px-3 rounded shadow-lg`}>Fighting</button>
-                              <button className={`bg-background-type-fire py-1 px-3 rounded shadow-lg`}>Fire</button>
-                              <button className={`bg-background-type-flying py-1 px-3 rounded shadow-lg`}>Flying</button>
-                              <button className={`bg-background-type-ghost py-1 px-3 rounded shadow-lg`}>Ghost</button>
-                              <button className={`bg-background-type-grass py-1 px-3 rounded shadow-lg`}>Grass</button>
-                              <button className={`bg-background-type-ground py-1 px-3 rounded shadow-lg`}>Ground</button>
-                              <button className={`bg-background-type-ice py-1 px-3 rounded shadow-lg`}>Ice</button>
-                              <button className={`bg-background-type-normal py-1 px-3 rounded shadow-lg`}>Normal</button>
-                              <button className={`bg-background-type-poison py-1 px-3 rounded shadow-lg`}>Poison</button>
-                              <button className={`bg-background-type-psychic py-1 px-3 rounded shadow-lg`}>Psychic</button>
-                              <button className={`bg-background-type-rock py-1 px-3 rounded shadow-lg`}>Rock</button>
-                              <button className={`bg-background-type-steel py-1 px-3 rounded shadow-lg`}>Steel</button>
-                              <button className={`bg-background-type-water py-1 px-3 rounded shadow-lg`}>Water</button>
+                                <button
+                                  onClick={() => PokemonsDefaultObject()}
+                                  className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
+                                     hover:scale-105 will-change-transform duration-300 '
+                                >
+                                  All
+                                </button>
+                                {pokemon_types.map((pokemonType) => (
+                                  <button
+                                    className={`bg-background-type-${pokemonType} py-1 px-3 rounded shadow-lg
+                                     hover:scale-105 will-change-transform duration-300 capitalize`}
+                                    onClick={() => handleFilterType(pokemonType)}
+                                  >
+                                    {pokemonType}
+                                  </button>
+                                ))}
                               </div>
                             </div>
 
@@ -220,14 +267,12 @@ function App() {
                           </SheetHeader>
                         </SheetContent>
                       </Sheet>
-
                     </TooltipTrigger>
                     <TooltipContent>
                       <p className='font-medium'>Apply Filters</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                
               </div>
             </div>
           </header>
