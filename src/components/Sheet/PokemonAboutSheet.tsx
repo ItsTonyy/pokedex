@@ -43,8 +43,12 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
 
   const flavorTextFixed = filteredFlavorText
     ?.replace('POKéMON', 'pokémon')
-    .replace('DIGLETT', 'diglett')
+    .replace('DIGLETT', 'Diglett')
     .replace('TELEPORT', 'teleport')
+    .replace('RAYQUAZA', 'Rayquaza')
+    .replace('LATIOS', 'Latios')
+    .replace('SHELGON', 'Shelgon')
+    .replace('FLYGON', 'Flygon')
     .replace(/\f/g, '\n')
     .replace(/\u00ad\n/g, '')
     .replace(/\u00ad/g, '')

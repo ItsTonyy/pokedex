@@ -38,52 +38,63 @@
     --that-black-color: 23 23 27;
 
     /* My stuff*/
-    --type-bug: 140, 178, 48;
-    --type-dark: 88, 87, 95;
-    --type-dragon: 15, 106, 192;
-    --type-electric: 230, 191, 73;
-    --type-fairy: 237, 110, 199;
-    --type-fighting: 208, 65, 100;
-    --type-fire: 253, 125, 36;
-    --type-flying: 116, 143, 201;
-    --type-ghost: 85, 106, 174;
-    --type-grass: 98, 185, 87;
-    --type-ground: 221, 119, 72;
-    --type-ice: 97, 206, 192;
-    --type-normal: 157, 160, 170;
-    --type-poison: 165, 82, 204;
-    --type-psychic: 234, 93, 96;
-    --type-rock: 186, 171, 130;
-    --type-steel: 65, 125, 154;
-    --type-water: 74, 144, 218;
+    --type-bug: 140 178 48;
+    --type-dark: 88 87 95;
+    --type-dragon: 15 106 192;
+    --type-electric: 230 191 73;
+    --type-fairy: 237 110 199;
+    --type-fighting: 208 65 100;
+    --type-fire: 253 125 36;
+    --type-flying: 116 143 201;
+    --type-ghost: 85 106 174;
+    --type-grass: 98 185 87;
+    --type-ground: 221 119 72;
+    --type-ice: 97 206 192;
+    --type-normal: 157 160 170;
+    --type-poison: 165 82 204;
+    --type-psychic: 234 93 96;
+    --type-rock: 186 171 130;
+    --type-steel: 65 125 154;
+    --type-water: 74 144 218;
 
-    --background-type-bug: 107, 214, 116;
-    --background-type-dark: 111, 110, 120;
-    --background-type-dragon: 115, 131, 185;
-    --background-type-electric: 212, 186, 121;
-    --background-type-fairy: 235, 168, 195;
-    --background-type-fighting: 235, 73, 113;
-    --background-type-fire: 255, 167, 86;
-    --background-type-flying: 131, 162, 227;
-    --background-type-ghost: 133, 113, 190;
-    --background-type-grass: 139, 190, 138;
-    --background-type-ground: 247, 133, 81;
-    --background-type-ice: 145, 216, 223;
-    --background-type-normal: 181, 185, 196;
-    --background-type-poison: 159, 99, 151;
-    --background-type-psychic: 255, 101, 104;
-    --background-type-rock: 212, 194, 148;
-    --background-type-steel: 76, 145, 178;
-    --background-type-water: 88, 171, 246;
+    --background-type-bug: 107 214 116;
+    --background-type-dark: 111 110 120;
+    --background-type-dragon: 115 131 185;
+    --background-type-electric: 212 186 121;
+    --background-type-fairy: 235 168 195;
+    --background-type-fighting: 235 73 113;
+    --background-type-fire: 255 167 86;
+    --background-type-flying: 131 162 227;
+    --background-type-ghost: 133 113 190;
+    --background-type-grass: 139 190 138;
+    --background-type-ground: 247 133 81;
+    --background-type-ice: 145 216 223;
+    --background-type-normal: 181 185 196;
+    --background-type-poison: 159 99 151;
+    --background-type-psychic: 255 101 104;
+    --background-type-rock: 212 194 148;
+    --background-type-steel: 76 145 178;
+    --background-type-water: 88 171 246;
 
-    --background-color: 255, 255, 255;
-    --background-default-input: 242, 242, 242;
+    --background-color-black: 80, 80, 82;
+    --background-color-blue: 88 171 246;
+    --background-color-brown: 74, 46, 1;
+    --background-color-gray: 181 185 196;
+    --background-color-green:  107 214 116;
+    --background-color-pink: 235 168 195;
+    --background-color-purple: 159 99 151;
+    --background-color-red: 255 101 104;
+    --background-color-white: 228, 230, 235;
+    --background-color-yellow: 240 187 55;
+
+    --background-color: 255 255 255;
+    --background-default-input: 242 242 242;
     --background-modal: rgb(var(--that-black-color) / 0.5);
 
-    --text: 255, 255, 255
-    --text-white: 255, 255, 255;
-    --text-black: 23, 23, 27;
-    --text-grey: 116, 116, 118;
+    --text: 255 255 255
+    --text-white: 255 255 255;
+    --text-black: 23 23 27;
+    --text-grey: 116 116 118;
     --text-number: rgb(var(--that-black-color) / 0.6);
 
     --gradient-vector: bg-gradient-to-b from-gray-50 to-zinc-100;
@@ -91,16 +102,16 @@
     --gradient-vector-grey: bg-gradient-to-br from-gray-300 to-zinc-50;
     --gradient-pokeball-grey: bg-gradient-to-br from-gray-300 to-gray-100;
 
-    --height-short: 255, 197, 230;
-    --height-medium: 174, 191, 215;
-    --height-tall: 170, 172, 184;
+    --height-short: 255 197 230;
+    --height-medium: 174 191 215;
+    --height-tall: 170 172 184;
 
-    --weight-light: 153, 205, 124;
-    --weight-normal: 87, 178, 220;
-    --weight-heavy: 90, 146, 165;
+    --weight-light: 153 205 124;
+    --weight-normal: 87 178 220;
+    --weight-heavy: 90 146 165;
 
-    --female: 229, 118, 191;
-    --male: 66, 192, 251;
+    --female: 229 118 191;
+    --male: 66 192 251;
   }
 
   body {
@@ -138,72 +149,83 @@
     --ring: 240 4.9% 83.9%;
 
     /* My stuff */
-    --type-bug: 107, 143, 21;
-    --type-dark: 50, 50, 57;
-    --type-dragon: 0, 68, 121;
-    --type-electric: 151, 117, 12;
-    --type-fairy: 151, 26, 119;
-    --type-fighting: 116, 0, 27;
-    --type-fire: 139, 61, 0;
-    --type-flying: 29, 53, 103;
-    --type-ghost: 4, 22, 82;
-    --type-grass: 10, 71, 11;
-    --type-ground: 96, 23, 0;
-    --type-ice: 5, 102, 88;
-    --type-normal: 71, 73, 83;
-    --type-poison: 57, 8, 84;
-    --type-psychic: 126, 0, 3;
-    --type-rock: 98, 74, 40;
-    --type-steel: 0, 27, 49;
-    --type-water: 5, 56, 111;
+    --type-bug: 107 143 21;
+    --type-dark: 50 50 57;
+    --type-dragon: 0 68 121;
+    --type-electric: 151 117 12;
+    --type-fairy: 151 26 119;
+    --type-fighting: 116 0 27;
+    --type-fire: 139 61 0;
+    --type-flying: 29 53 103;
+    --type-ghost: 4 22 82;
+    --type-grass: 10 71 11;
+    --type-ground: 96 23 0;
+    --type-ice: 5 102 88;
+    --type-normal: 71 73 83;
+    --type-poison: 57 8 84;
+    --type-psychic: 126 0 3;
+    --type-rock: 98 74 40;
+    --type-steel: 0 27 49;
+    --type-water: 5 56 111;
 
-    --background-type-bug: 42, 128, 50;
-    --background-type-dark: 35, 34, 42;
-    --background-type-dragon: 54, 66, 108;
-    --background-type-electric: 127, 106, 53;
-    --background-type-fairy: 148, 84, 105;
-    --background-type-fighting: 133, 0, 31;
-    --background-type-fire: 177, 90, 22;
-    --background-type-flying: 53, 78, 129;
-    --background-type-ghost: 51, 36, 95;
-    --background-type-grass: 42, 98, 51;
-    --background-type-ground: 135, 44, 6;
-    --background-type-ice: 66, 123, 129;
-    --background-type-normal: 97, 99, 110;
-    --background-type-poison: 77, 20, 90;
-    --background-type-psychic: 167, 13, 15;
-    --background-type-rock: 126, 102, 66;
-    --background-type-steel: 7, 58, 82;
-    --background-type-water: 21, 82, 149;
+    --background-type-bug: 42 128 50;
+    --background-type-dark: 35 34 42;
+    --background-type-dragon: 54 66 108;
+    --background-type-electric: 127 106 53;
+    --background-type-fairy: 173, 71, 112;
+    --background-type-fighting: 133 0 31;
+    --background-type-fire: 177 90 22;
+    --background-type-flying: 53 78 129;
+    --background-type-ghost: 51 36 95;
+    --background-type-grass: 42 98 51;
+    --background-type-ground: 135 44 6;
+    --background-type-ice: 66 123 129;
+    --background-type-normal: 97 99 110;
+    --background-type-poison: 77 20 90;
+    --background-type-psychic: 167 13 15;
+    --background-type-rock: 126 102 66;
+    --background-type-steel: 7 58 82;
+    --background-type-water: 21 82 149;
 
-    --background-light-type-bug: 107, 214, 116;
-    --background-light-type-dark: 111, 110, 120;
-    --background-light-type-dragon: 115, 131, 185;
-    --background-light-type-electric: 212, 186, 121;
-    --background-light-type-fairy: 235, 168, 195;
-    --background-light-type-fighting: 235, 73, 113;
-    --background-light-type-fire: 255, 167, 86;
-    --background-light-type-flying: 131, 162, 227;
-    --background-light-type-ghost: 133, 113, 190;
-    --background-light-type-grass: 139, 190, 138;
-    --background-light-type-ground: 247, 133, 81;
-    --background-light-type-ice: 145, 216, 223;
-    --background-light-type-normal: 181, 185, 196;
-    --background-light-type-poison: 159, 99, 151;
-    --background-light-type-psychic: 255, 101, 104;
-    --background-light-type-rock: 212, 194, 148;
-    --background-light-type-steel: 76, 145, 178;
-    --background-light-type-water: 88, 171, 246;
+    --background-light-type-bug: 107 214 116;
+    --background-light-type-dark: 111 110 120;
+    --background-light-type-dragon: 115 131 185;
+    --background-light-type-electric: 212 186 121;
+    --background-light-type-fairy: 235 168 195;
+    --background-light-type-fighting: 235 73 113;
+    --background-light-type-fire: 255 167 86;
+    --background-light-type-flying: 131 162 227;
+    --background-light-type-ghost: 133 113 190;
+    --background-light-type-grass: 139 190 138;
+    --background-light-type-ground: 247 133 81;
+    --background-light-type-ice: 145 216 223;
+    --background-light-type-normal: 181 185 196;
+    --background-light-type-poison: 159 99 151;
+    --background-light-type-psychic: 255 101 104;
+    --background-light-type-rock: 212 194 148;
+    --background-light-type-steel: 76 145 178;
+    --background-light-type-water: 88 171 246;
 
-    --background-color: 34, 34, 34;
-    --background-default-input: 242, 242, 242;
-    --background-pressed-input: 226, 226, 226;
+    --background-color-black: 25, 25, 26;
+    --background-color-blue: 21 82 149;
+    --background-color-brown: 46, 28, 0;
+    --background-color-gray: 97 99 110;
+    --background-color-green: 42 128 50;
+    --background-color-pink: 173, 71, 112;
+    --background-color-purple: 77 20 90;
+    --background-color-red: 133 0 31;
+    --background-color-white: 181 185 196;
+    --background-color-yellow: 191, 141, 17;
+
+    --background-color: 34 34 34;
+    --background-default-input: 242 242 242;
+    --background-pressed-input: 226 226 226;
     --background-modal: rgb(var(--that-black-color) / 0.5);
 
-    --text: 15, 23, 42;
-    --text-white: 255, 255, 255;
-    --text-black: 23, 23, 27;
-    --text-grey: 116, 116, 118;
+    --text: 15 23 42;
+    --text-white: 255 255 255;
+    --text-black: 23 23 27;
+    --text-grey: 116 116 118;
     --text-number: rgb(var(--that-black-color) / 0.6);
 
     --gradient-vector: bg-gradient-to-b from-gray-50 to-zinc-100;
@@ -211,16 +233,16 @@
     --gradient-vector-grey: bg-gradient-to-br from-gray-300 to-zinc-50;
     --gradient-pokeball-grey: bg-gradient-to-br from-gray-300 to-gray-100;
 
-    --height-short: 214, 163, 192;
-    --height-medium: 129, 143, 163;
-    --height-tall: 132, 134, 145;
+    --height-short: 214 163 192;
+    --height-medium: 129 143 163;
+    --height-tall: 132 134 145;
 
-    --weight-light: 116, 156, 93;
-    --weight-normal: 44, 122, 158;
-    --weight-heavy: 60, 110, 128;
+    --weight-light: 116 156 93;
+    --weight-normal: 44 122 158;
+    --weight-heavy: 60 110 128;
 
-    --female: 186, 84, 151;
-    --male: 2, 111, 219;
+    --female: 186 84 151;
+    --male: 2 111 219;
   }
 }
 

@@ -77,6 +77,17 @@ module.exports = {
         'background-light-type-steel': 'rgb(var(--background-light-type-steel))',
         'background-light-type-water': 'rgb(var(--background-light-type-water))',
 
+        'background-color-black': 'rgb(var(--background-color-black))',
+        'background-color-blue': 'rgb(var(--background-color-blue))',
+        'background-color-brown': 'rgb(var(--background-color-brown))',
+        'background-color-gray': 'rgb(var(--background-color-gray))',
+        'background-color-green': 'rgb(var(--background-color-green))',
+        'background-color-pink': 'rgb(var(--background-color-pink))',
+        'background-color-purple':'rgb(var(--background-color-purple))',
+        'background-color-red': 'rgb(var(--background-color-red))',
+        'background-color-white': 'rgb(var(--background-color-white))',
+        'background-color-yellow': 'rgb(var(--background-color-yellow))',
+
         'background-color': 'rgb(var(--background-color))',
         'background-default-input': 'rgb(var(--background-default))',
         'background-modal': 'rgb(var(--that-black-color) / .50 )',

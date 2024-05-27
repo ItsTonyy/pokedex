@@ -12,9 +12,9 @@ import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from './comp
 import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
 import { PokemonTypesType } from './types/types';
-import { pokemonType } from './types/types';
+import { PokemonColorType } from './types/types';
 import { Search, Sun, Moon, SlidersHorizontal } from 'lucide-react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PokemonCard from './components/PokemonCard';
 import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
@@ -50,19 +50,6 @@ function App() {
   }, []);
 
   const PokemonsDefaultObject = async () => {
-    const endpoints = [];
-    for (let i = 1; i < 21; i++) {
-      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios
-      .all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((res) => setPokemonsDefault(res));
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const PokemonsFilteredObject = async () => {
     const endpoints = [];
     for (let i = 1; i < 21; i++) {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
@@ -137,7 +124,7 @@ function App() {
     }
   };
 
-  const pokemon_types = [
+  const pokemonTypes = [
     'bug',
     'dark',
     'dragon',
@@ -158,25 +145,59 @@ function App() {
     'water',
   ];
 
+  const pokemonColors = [
+    'black',
+    'blue',
+    'brown',
+    'gray',
+    'green',
+    'pink',
+    'purple',
+    'red',
+    'white',
+    'yellow',
+  ];
+
   const handleFilterType = async (type: string) => {
-    const typeEndpoint: string[] = [];
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let typeObject: PokemonTypesType = [];
-    const endpoints: string[] = [];
+    const typeEndpoint = `https://pokeapi.co/api/v2/type/${type}`;
+    let typeObject: PokemonTypesType;
 
-    typeEndpoint.push(`https://pokeapi.co/api/v2/type/${type}`);
+    try {
+      const fetchTypeEndpoint = await axios.get(typeEndpoint);
+      typeObject = fetchTypeEndpoint;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const fetchTypeEndpoint = await axios.get(typeEndpoint).then((res) => (typeObject = res));
+      const endpoints = typeObject.data.pokemon.map((pokemonObject) => pokemonObject.pokemon.url);
 
-    for (let i = 0; i < typeObject?.data?.pokemon.length; i++) {
-      endpoints.push(typeObject?.data?.pokemon[i].pokemon.url);
+      const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
+
+      setPokemonsDefault(response);
+    } catch (error) {
+      console.log('Error fetching filterType data: ', error);
     }
+  };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios
-      .all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((res) => setPokemonsDefault(res));
+  const handleFilterColor = async (color: string) => {
+    const colorEndpoint = `https://pokeapi.co/api/v2/pokemon-color/${color}`;
+    let colorObject: PokemonColorType;
+
+    try {
+      const fetchColorEndpoint = await axios.get(colorEndpoint);
+      colorObject = fetchColorEndpoint;
+
+      const endpoints = colorObject.data.pokemon_species.map((species) =>
+        species.url.replace(
+          /https:\/\/pokeapi\.co\/api\/v2\/pokemon-species\/(\d+)\//,
+          'https://pokeapi.co/api/v2/pokemon/$1/'
+        )
+      );
+
+      const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
+      console.log(response);
+
+      setPokemonsDefault(response);
+    } catch (error) {
+      console.log('Error fetching filterColor data: ', error);
+    }
   };
 
   return (
@@ -245,7 +266,7 @@ function App() {
                                 >
                                   All
                                 </button>
-                                {pokemon_types.map((pokemonType) => (
+                                {pokemonTypes.map((pokemonType) => (
                                   <button
                                     className={`bg-background-type-${pokemonType} py-1 px-3 rounded shadow-lg
                                      hover:scale-105 will-change-transform duration-300 capitalize`}
@@ -259,6 +280,45 @@ function App() {
 
                             <div>
                               <h2 className='text-lg'>Colors</h2>
+
+                              <div className='flex flex-row gap-3 mt-2'>
+                                <button
+                                  onClick={() => PokemonsDefaultObject()}
+                                  className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
+                                     hover:scale-105 will-change-transform duration-300 '
+                                >
+                                  All
+                                </button>
+                                {pokemonColors.map((pokemonColor) => (
+                                  <button
+                                    className={`${
+                                      pokemonColor === 'black'
+                                        ? 'bg-background-color-black'
+                                        : pokemonColor === 'blue'
+                                        ? 'bg-background-color-blue'
+                                        : pokemonColor === 'brown'
+                                        ? 'bg-background-color-brown'
+                                        : pokemonColor === 'gray'
+                                        ? 'bg-background-color-gray'
+                                        : pokemonColor === 'green'
+                                        ? 'bg-background-color-green'
+                                        : pokemonColor === 'pink'
+                                        ? 'bg-background-color-pink'
+                                        : pokemonColor === 'purple'
+                                        ? 'bg-background-color-purple'
+                                        : pokemonColor === 'red'
+                                        ? 'bg-background-color-red'
+                                        : pokemonColor === 'yellow'
+                                        ? 'bg-background-color-yellow'
+                                        : 'bg-background-color-white'
+                                    } py-1 px-3 rounded shadow-lg
+                                     hover:scale-105 will-change-transform duration-300 capitalize`}
+                                    onClick={() => handleFilterColor(pokemonColor)}
+                                  >
+                                    {pokemonColor}
+                                  </button>
+                                ))}
+                              </div>
                             </div>
 
                             <div>
@@ -299,7 +359,7 @@ function App() {
                     <PokemonCard
                       name={pokemon.data.name}
                       id={pokemon.data.id}
-                      mainType={pokemon.data.types[0].type.name}
+                      mainType={pokemon.data.types[0]?.type.name}
                       secondType={pokemon.data.types[1]?.type.name}
                       typesLength={pokemon.data.types.length}
                       image={pokemon.data.sprites.other['official-artwork'].front_default}
@@ -314,7 +374,7 @@ function App() {
                     <PokemonHeaderSheet
                       name={pokemon.data.name}
                       id={pokemon.data.id}
-                      mainType={pokemon.data.types[0].type.name}
+                      mainType={pokemon.data.types[0]?.type.name}
                       secondType={pokemon.data.types[1]?.type.name}
                       typesLength={pokemon.data.types.length}
                       image={pokemon.data.sprites.other['official-artwork'].front_default}
@@ -391,5 +451,4 @@ function App() {
     </InfiniteScroll>
   );
 }
-
 export default App;

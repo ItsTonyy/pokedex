@@ -1,6 +1,6 @@
 interface NameAPIResource {
-  name: string,
-  url: string
+  name: string;
+  url: string;
 }
 
 interface pokemonStats {
@@ -136,7 +136,7 @@ export interface dataSpeciesType {
   base_happiness: number;
   capture_rate: number;
   color: object;
-  egg_groups: NameAPIResource[]
+  egg_groups: NameAPIResource[];
   evolution_chain: { url: string };
   evolves_from_species: object;
   flavor_text_entries: flavorTextProps[];
@@ -247,11 +247,16 @@ interface damageRelationsType {
   url: string;
 }
 
-export interface pokemonType {
+interface pokemonType {
   pokemon: {
-    name: string,
-    url: string
-  }
+    name: string;
+    url: string;
+  };
+}
+
+interface colorObject {
+  name: string,
+  url: string
 }
 
 interface pokemonTypesData {
@@ -276,6 +281,22 @@ interface pokemonTypesData {
 export interface PokemonTypesType {
   config: object;
   data: pokemonTypesData;
+  headers: object;
+  request?: XMLHttpRequest;
+  status: number;
+  statusText: string;
+}
+
+interface PokemonColorData {
+  id: number;
+  name: string;
+  names: [];
+  pokemon_species: colorObject[];
+}
+
+export interface PokemonColorType {
+  config: object;
+  data: PokemonColorData;
   headers: object;
   request?: XMLHttpRequest;
   status: number;
