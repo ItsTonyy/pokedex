@@ -236,103 +236,94 @@ function App() {
                   </Tooltip>
                 </TooltipProvider>
 
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Sheet>
-                        <SheetTrigger>
-                          <Button
-                            className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950
+                <Sheet>
+                  <SheetTrigger>
+                    <Button
+                      className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950
                            dark:hover:bg-zinc-100'
+                    >
+                      <SlidersHorizontal />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side={'bottom'} className='pt-16'>
+                    <SheetHeader>
+                      <SheetTitle className='text-3xl drop-shadow-lg'>Filters</SheetTitle>
+                      <SheetDescription className='text-lg'>
+                        Use advanced search to explore Pokémon by type and colors!
+                      </SheetDescription>
+
+                      <div>
+                        <h2 className='text-lg'>Types</h2>
+
+                        <div className='flex flex-row gap-3 mt-2'>
+                          <button
+                            onClick={() => PokemonsDefaultObject()}
+                            className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
+                                     hover:scale-105 will-change-transform duration-300 '
                           >
-                            <SlidersHorizontal />
-                          </Button>
-                        </SheetTrigger>
-                        <SheetContent side={'bottom'} className='pt-16'>
-                          <SheetHeader>
-                            <SheetTitle className='text-3xl drop-shadow-lg'>Filters</SheetTitle>
-                            <SheetDescription className='text-lg'>
-                              Use advanced search to explore Pokémon by type and colors!
-                            </SheetDescription>
-
-                            <div>
-                              <h2 className='text-lg'>Types</h2>
-
-                              <div className='flex flex-row gap-3 mt-2'>
-                                <button
-                                  onClick={() => PokemonsDefaultObject()}
-                                  className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
-                                     hover:scale-105 will-change-transform duration-300 '
-                                >
-                                  All
-                                </button>
-                                {pokemonTypes.map((pokemonType) => (
-                                  <button
-                                    className={`bg-background-type-${pokemonType} py-1 px-3 rounded shadow-lg
+                            All
+                          </button>
+                          {pokemonTypes.map((pokemonType) => (
+                            <button
+                              className={`bg-background-type-${pokemonType} py-1 px-3 rounded shadow-lg
                                      hover:scale-105 will-change-transform duration-300 capitalize`}
-                                    onClick={() => handleFilterType(pokemonType)}
-                                  >
-                                    {pokemonType}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
+                              onClick={() => handleFilterType(pokemonType)}
+                            >
+                              {pokemonType}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
 
-                            <div>
-                              <h2 className='text-lg'>Colors</h2>
+                      <div>
+                        <h2 className='text-lg'>Colors</h2>
 
-                              <div className='flex flex-row gap-3 mt-2'>
-                                <button
-                                  onClick={() => PokemonsDefaultObject()}
-                                  className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
+                        <div className='flex flex-row gap-3 mt-2'>
+                          <button
+                            onClick={() => PokemonsDefaultObject()}
+                            className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
                                      hover:scale-105 will-change-transform duration-300 '
-                                >
-                                  All
-                                </button>
-                                {pokemonColors.map((pokemonColor) => (
-                                  <button
-                                    className={`${
-                                      pokemonColor === 'black'
-                                        ? 'bg-background-color-black'
-                                        : pokemonColor === 'blue'
-                                        ? 'bg-background-color-blue'
-                                        : pokemonColor === 'brown'
-                                        ? 'bg-background-color-brown'
-                                        : pokemonColor === 'gray'
-                                        ? 'bg-background-color-gray'
-                                        : pokemonColor === 'green'
-                                        ? 'bg-background-color-green'
-                                        : pokemonColor === 'pink'
-                                        ? 'bg-background-color-pink'
-                                        : pokemonColor === 'purple'
-                                        ? 'bg-background-color-purple'
-                                        : pokemonColor === 'red'
-                                        ? 'bg-background-color-red'
-                                        : pokemonColor === 'yellow'
-                                        ? 'bg-background-color-yellow'
-                                        : 'bg-background-color-white'
-                                    } py-1 px-3 rounded shadow-lg
+                          >
+                            All
+                          </button>
+                          {pokemonColors.map((pokemonColor) => (
+                            <button
+                              className={`${
+                                pokemonColor === 'black'
+                                  ? 'bg-background-color-black'
+                                  : pokemonColor === 'blue'
+                                  ? 'bg-background-color-blue'
+                                  : pokemonColor === 'brown'
+                                  ? 'bg-background-color-brown'
+                                  : pokemonColor === 'gray'
+                                  ? 'bg-background-color-gray'
+                                  : pokemonColor === 'green'
+                                  ? 'bg-background-color-green'
+                                  : pokemonColor === 'pink'
+                                  ? 'bg-background-color-pink'
+                                  : pokemonColor === 'purple'
+                                  ? 'bg-background-color-purple'
+                                  : pokemonColor === 'red'
+                                  ? 'bg-background-color-red'
+                                  : pokemonColor === 'yellow'
+                                  ? 'bg-background-color-yellow'
+                                  : 'bg-background-color-white'
+                              } py-1 px-3 rounded shadow-lg
                                      hover:scale-105 will-change-transform duration-300 capitalize`}
-                                    onClick={() => handleFilterColor(pokemonColor)}
-                                  >
-                                    {pokemonColor}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
+                              onClick={() => handleFilterColor(pokemonColor)}
+                            >
+                              {pokemonColor}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
 
-                            <div>
-                              <h2 className='text-lg'>Heights</h2>
-                            </div>
-                          </SheetHeader>
-                        </SheetContent>
-                      </Sheet>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className='font-medium'>Apply Filters</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                      <div>
+                        <h2 className='text-lg'>Heights</h2>
+                      </div>
+                    </SheetHeader>
+                  </SheetContent>
+                </Sheet>
               </div>
             </div>
           </header>

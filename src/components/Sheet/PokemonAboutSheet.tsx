@@ -56,8 +56,9 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     .replace(/-\n/g, '-')
     .replace(/\n/g, ' ');
 
-  function addPoint(num: number | undefined): string | undefined {
-    const numToString = num?.toString();
+  function addPoint(num: number): string {
+    const realNumber = num / 10
+    const numToString = realNumber?.toString();
 
     return numToString?.replace(/(\d)(?=\d$)/, '$1.');
   }
