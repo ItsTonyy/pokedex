@@ -8,8 +8,6 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
   typesLength,
   secondType,
 }) => {
-  
-  
       const TextNameColorTernary =
     mainType === 'grass'
       ? 'text-background-type-grass'

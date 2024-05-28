@@ -1,5 +1,5 @@
 import { PokemonAboutSheetType } from '@/types/types';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { PokemonSpeciesType } from '@/types/types';
 import { PokemonTypesType } from '@/types/types';
 import axios from 'axios';
@@ -20,21 +20,17 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     PokemonsTypesObject(mainType);
   }, [id]);
 
-  const PokemonsTypesObject = useCallback(async (mainType: string) => {
-    const endpoints = [];
-    endpoints.push(`https://pokeapi.co/api/v2/type/${mainType}`);
+  const PokemonsTypesObject = async (mainType: string) => {
+    const endpoints = `https://pokeapi.co/api/v2/type/${mainType}`;
+    const response = await axios.get(endpoints)
+    setPokemonTypes(response)
+  };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios.get(endpoints[0]).then((res) => setPokemonTypes(res));
-  }, []);
-
-  const PokemonsSpeciesObject = useCallback(async (id: number) => {
-    const endpoints = [];
-    endpoints.push(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios.get(endpoints[0]).then((res) => setPokemonsSpecies(res));
-  }, []);
+  const PokemonsSpeciesObject = async (id: number) => {
+    const endpoints = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+    const response = await axios.get(endpoints)
+    setPokemonsSpecies(response)
+  };
 
   // getting only the flavor texts in english
   const filteredFlavorText = pokemonsSpecies?.data?.flavor_text_entries.filter(
@@ -58,7 +54,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
 
   function addPoint(num: number): string {
     const realNumber = num / 10
-    const numToString = realNumber?.toString();
+    const numToString = realNumber.toString();
 
     return numToString?.replace(/(\d)(?=\d$)/, '$1.');
   }

@@ -1,6 +1,7 @@
 import { PokemonCardProps } from '@/types/types';
+import { memo } from 'react';
 
-const PokemonCard: React.FC<PokemonCardProps> = ({ name, id, image, mainType, typesLength, secondType }) => {
+const PokemonCard: React.FC<PokemonCardProps> = memo(({ name, id, image, mainType, typesLength, secondType }) => {
   const backgroundColorTernary =
     mainType === 'grass'
       ? 'bg-background-type-grass'
@@ -167,6 +168,6 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, id, image, mainType, ty
       </div>
     </div>
   );
-};
+});
 
 export default PokemonCard;

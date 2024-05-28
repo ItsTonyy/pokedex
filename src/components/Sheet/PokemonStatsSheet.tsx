@@ -21,14 +21,10 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
   }, []);
 
   const PokemonsTypesObject = async (mainType: string) => {
-    const endpoints = [];
-    endpoints.push(`https://pokeapi.co/api/v2/type/${mainType}`);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios.get(endpoints[0]).then((res) => setPokemonTypes(res));
+    const endpoints = `https://pokeapi.co/api/v2/type/${mainType}`;
+    const response = await axios.get(endpoints)
+    setPokemonTypes(response)
   };
-
-  // console.log(pokemonTypes?.data?.damage_relations);
 
   const textColorTernary =
   mainType === 'grass'

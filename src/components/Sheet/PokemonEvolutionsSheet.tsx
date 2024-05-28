@@ -22,23 +22,18 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
     speciesUrl: string;
   }
 
-  const PokemonsEvoObject = useCallback(async () => {
-    const speciesUrls: string[] = [];
-    let speciesObject: PokemonSpeciesType[] = [];
-    const endpoint = [];
+  const PokemonsEvoObject = async () => {
+    const speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+    try {
+      const speciesObject: PokemonSpeciesType = await axios.get(speciesUrl);
+      const endpoint = speciesObject.data.evolution_chain.url;
 
-    speciesUrls.push(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const fetchSpeciesObject = await axios
-      .all(speciesUrls.map((speciesUrl) => axios.get(speciesUrl)))
-      .then((res) => (speciesObject = res));
-
-    endpoint.push(speciesObject[0].data.evolution_chain.url);
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const fetchEndpointsUrls = await axios.get(endpoint[0]).then((res) => setPokemonEvo([res.data]));
-  }, [id]);
+      const fetchEndpointsUrls = await axios.get(endpoint);
+      setPokemonEvo([fetchEndpointsUrls.data]);
+    } catch (error) {
+      console.log('Error fetching pokemonEvoObject: ', error);
+    }
+  };
 
   const getNestedEvolutions = (pokemonEvo: PokemonEvoDataType[]) => {
     const evoChain = [];
@@ -58,7 +53,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
 
   const evolutionsObject = getNestedEvolutions(pokemonEvo);
 
-  const getPokemonsImage = useCallback(async (evolutionsObject: evolutionObjectType[]): Promise<string[]> => {
+  const getPokemonsImage = async (evolutionsObject: evolutionObjectType[]) => {
     const endpoints = [];
     let pokemonSpritesUrl: string[] = [];
 
@@ -66,57 +61,55 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
       const pokemonName = evolutionsObject[i]?.speciesName;
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     }
-    // O problema está aqui embaixo
+
     const fetchEndpointToGetImages = await axios
       .all(endpoints?.map((endpoint) => axios.get(endpoint)))
       .then((res) => {
         pokemonSpritesUrl = res.map((pokemon) => pokemon.data.sprites.front_default);
         setPokemonSprites(pokemonSpritesUrl);
-        return;
       })
       .catch((error) => {
         console.log(`Error fetching pokemon data: ${error}`);
-        return;
       });
     return fetchEndpointToGetImages;
-  }, []);
+  };
 
   const textColorTernary =
-  mainType === 'grass'
-    ? 'text-background-light-type-grass'
-    : mainType === 'dark'
-    ? 'text-background-light-type-dark'
-    : mainType === 'dragon'
-    ? 'text-background-light-type-dragon'
-    : mainType === 'fairy'
-    ? 'text-background-light-type-fairy'
-    : mainType === 'fighting'
-    ? 'text-background-light-type-fighting'
-    : mainType === 'fire'
-    ? 'text-background-light-type-fire'
-    : mainType === 'ghost'
-    ? 'text-background-light-type-ghost'
-    : mainType === 'bug'
-    ? 'text-background-light-type-bug'
-    : mainType === 'ground'
-    ? 'text-background-light-type-ground'
-    : mainType === 'normal'
-    ? 'text-background-light-type-normal'
-    : mainType === 'poison'
-    ? 'text-background-light-type-poison'
-    : mainType === 'psychic'
-    ? 'text-background-light-type-psychic'
-    : mainType === 'steel'
-    ? 'text-background-light-type-steel'
-    : mainType === 'water'
-    ? 'text-background-light-type-water'
-    : mainType === 'electric'
-    ? 'text-background-light-type-electric'
-    : mainType === 'flying'
-    ? 'text-background-light-type-flying'
-    : mainType === 'ice'
-    ? 'text-background-light-type-ice'
-    : 'text-background-light-type-rock';
+    mainType === 'grass'
+      ? 'text-background-light-type-grass'
+      : mainType === 'dark'
+      ? 'text-background-light-type-dark'
+      : mainType === 'dragon'
+      ? 'text-background-light-type-dragon'
+      : mainType === 'fairy'
+      ? 'text-background-light-type-fairy'
+      : mainType === 'fighting'
+      ? 'text-background-light-type-fighting'
+      : mainType === 'fire'
+      ? 'text-background-light-type-fire'
+      : mainType === 'ghost'
+      ? 'text-background-light-type-ghost'
+      : mainType === 'bug'
+      ? 'text-background-light-type-bug'
+      : mainType === 'ground'
+      ? 'text-background-light-type-ground'
+      : mainType === 'normal'
+      ? 'text-background-light-type-normal'
+      : mainType === 'poison'
+      ? 'text-background-light-type-poison'
+      : mainType === 'psychic'
+      ? 'text-background-light-type-psychic'
+      : mainType === 'steel'
+      ? 'text-background-light-type-steel'
+      : mainType === 'water'
+      ? 'text-background-light-type-water'
+      : mainType === 'electric'
+      ? 'text-background-light-type-electric'
+      : mainType === 'flying'
+      ? 'text-background-light-type-flying'
+      : mainType === 'ice'
+      ? 'text-background-light-type-ice'
+      : 'text-background-light-type-rock';
 
   return (
     <div>

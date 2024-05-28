@@ -1,4 +1,4 @@
-import { useState, useEffect, KeyboardEvent } from 'react';
+import { useState, useEffect, KeyboardEvent, useMemo } from 'react';
 import { Input } from '@/components/ui/input';
 import {
   Sheet,
@@ -22,12 +22,6 @@ import PokemonStatsSheet from './components/Sheet/PokemonStatsSheet';
 import PokemonAboutSheet from './components/Sheet/PokemonAboutSheet';
 import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
 
-//const PokemonCard = lazy(() => import('./components/PokemonCard'));
-//const PokemonHeaderSheet = lazy(() => import('./components/Sheet/PokemonHeaderSheet'));
-//const PokemonStatsSheet = lazy(() => import('./components/Sheet/PokemonStatsSheet'));
-//const PokemonAboutSheet = lazy(() => import('./components/Sheet/PokemonAboutSheet'));
-//const PokemonEvolutionsSheet = lazy(() => import('./components/Sheet/PokemonEvolutionsSheet'));
-
 function App() {
   const [pokemonName, setPokemonName] = useState('');
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
@@ -42,7 +36,7 @@ function App() {
   useEffect(() => {
     PokemonsDefaultObject();
 
-    if (localStorage.theme === 'dark') {
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
@@ -55,10 +49,9 @@ function App() {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios
-      .all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((res) => setPokemonsDefault(res));
+    const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      
+    setPokemonsDefault(response)
   };
 
   const PokemonsDefaultObjectInfiniteScroll = async () => {
@@ -67,10 +60,9 @@ function App() {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const response = await axios
-      .all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((res) => setPokemonsDefault((pokemonsDefault) => [...pokemonsDefault, ...res]));
+    const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      
+    setPokemonsDefault((pokemonsDefault) => [...pokemonsDefault, ...response])
   };
 
   async function pokemonSubmit() {
@@ -223,7 +215,7 @@ function App() {
                     <TooltipTrigger>
                       <Button
                         onClick={handleThemeSwitch}
-                        className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
+                        className='bg-zinc-700 dark:bg-zinc-200 w-10 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
                       >
                         {localStorage.theme === 'dark' ? <Sun /> : <Moon />}
                       </Button>
@@ -239,8 +231,8 @@ function App() {
                 <Sheet>
                   <SheetTrigger>
                     <Button
-                      className='bg-zinc-700 dark:bg-zinc-200 w-12 p-0 hover:bg-zinc-950
-                           dark:hover:bg-zinc-100'
+                      className='bg-zinc-700 dark:bg-zinc-200 w-10 p-0 hover:bg-zinc-950
+                      dark:hover:bg-zinc-100'
                     >
                       <SlidersHorizontal />
                     </Button>
@@ -316,10 +308,6 @@ function App() {
                             </button>
                           ))}
                         </div>
-                      </div>
-
-                      <div>
-                        <h2 className='text-lg'>Heights</h2>
                       </div>
                     </SheetHeader>
                   </SheetContent>
