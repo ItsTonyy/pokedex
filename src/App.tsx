@@ -86,24 +86,6 @@ function App() {
     }
   };
 
-  const aboutClicked = () => {
-    setAbout(true);
-    setStats(false);
-    setEvolutions(false);
-  };
-
-  const statsClicked = () => {
-    setStats(true);
-    setAbout(false);
-    setEvolutions(false);
-  };
-
-  const evolutionsClicked = () => {
-    setEvolutions(true);
-    setAbout(false);
-    setStats(false);
-  };
-
   const handleThemeSwitch = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
 
@@ -115,40 +97,6 @@ function App() {
       localStorage.theme = 'dark';
     }
   };
-
-  const pokemonTypes = [
-    'bug',
-    'dark',
-    'dragon',
-    'electric',
-    'fairy',
-    'fighting',
-    'fire',
-    'flying',
-    'ghost',
-    'grass',
-    'ground',
-    'ice',
-    'normal',
-    'poison',
-    'psychic',
-    'rock',
-    'steel',
-    'water',
-  ];
-
-  const pokemonColors = [
-    'black',
-    'blue',
-    'brown',
-    'gray',
-    'green',
-    'pink',
-    'purple',
-    'red',
-    'white',
-    'yellow',
-  ];
 
   const handleFilterType = async (type: string) => {
     const typeEndpoint = `https://pokeapi.co/api/v2/type/${type}`;
@@ -191,6 +139,58 @@ function App() {
       console.log('Error fetching filterColor data: ', error);
     }
   };
+
+  const aboutClicked = () => {
+    setAbout(true);
+    setStats(false);
+    setEvolutions(false);
+  };
+
+  const statsClicked = () => {
+    setStats(true);
+    setAbout(false);
+    setEvolutions(false);
+  };
+
+  const evolutionsClicked = () => {
+    setEvolutions(true);
+    setAbout(false);
+    setStats(false);
+  };
+
+  const pokemonTypes = [
+    'bug',
+    'dark',
+    'dragon',
+    'electric',
+    'fairy',
+    'fighting',
+    'fire',
+    'flying',
+    'ghost',
+    'grass',
+    'ground',
+    'ice',
+    'normal',
+    'poison',
+    'psychic',
+    'rock',
+    'steel',
+    'water',
+  ];
+
+  const pokemonColors = [
+    'black',
+    'blue',
+    'brown',
+    'gray',
+    'green',
+    'pink',
+    'purple',
+    'red',
+    'white',
+    'yellow',
+  ];
 
   return (
     <InfiniteScroll
@@ -251,14 +251,14 @@ function App() {
                           <button
                             onClick={() => PokemonsDefaultObject()}
                             className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
-                                     hover:scale-105 will-change-transform duration-300 '
+                            hover:scale-105 will-change-transform duration-300 '
                           >
                             All
                           </button>
                           {pokemonTypes.map((pokemonType) => (
                             <button
                               className={`bg-background-type-${pokemonType} py-1 px-3 rounded shadow-lg
-                                     hover:scale-105 will-change-transform duration-300 capitalize`}
+                              hover:scale-105 will-change-transform duration-300 capitalize`}
                               onClick={() => handleFilterType(pokemonType)}
                             >
                               {pokemonType}
@@ -274,7 +274,7 @@ function App() {
                           <button
                             onClick={() => PokemonsDefaultObject()}
                             className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
-                                     hover:scale-105 will-change-transform duration-300 '
+                            hover:scale-105 will-change-transform duration-300 '
                           >
                             All
                           </button>
@@ -301,7 +301,7 @@ function App() {
                                   ? 'bg-background-color-yellow'
                                   : 'bg-background-color-white'
                               } py-1 px-3 rounded shadow-lg
-                                     hover:scale-105 will-change-transform duration-300 capitalize`}
+                              hover:scale-105 will-change-transform duration-300 capitalize`}
                               onClick={() => handleFilterColor(pokemonColor)}
                             >
                               {pokemonColor}

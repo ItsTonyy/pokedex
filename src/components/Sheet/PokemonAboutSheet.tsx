@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { PokemonSpeciesType } from '@/types/types';
 import { PokemonTypesType } from '@/types/types';
 import axios from 'axios';
+import { textColorTernary } from '@/utils/utils';
 
 const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   height,
@@ -59,43 +60,6 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     return numToString?.replace(/(\d)(?=\d$)/, '$1.');
   }
 
-  const textColorTernary =
-    mainType === 'grass'
-      ? 'text-background-type-grass dark:text-background-light-type-grass'
-      : mainType === 'dark'
-      ? 'text-background-type-dark dark:text-background-light-type-dark'
-      : mainType === 'dragon'
-      ? 'text-background-type-dragon dark:text-background-light-type-dragon'
-      : mainType === 'fairy'
-      ? 'text-background-type-fairy dark:text-background-light-type-fairy'
-      : mainType === 'fighting'
-      ? 'text-background-type-fighting dark:text-background-light-type-fighting'
-      : mainType === 'fire'
-      ? 'text-background-type-fire dark:text-background-light-type-fire'
-      : mainType === 'ghost'
-      ? 'text-background-type-ghost dark:text-background-light-type-ghost'
-      : mainType === 'bug'
-      ? 'text-background-type-bug dark:text-background-light-type-bug'
-      : mainType === 'ground'
-      ? 'text-background-type-ground dark:text-background-light-type-ground'
-      : mainType === 'normal'
-      ? 'text-background-type-normal dark:text-background-light-type-normal'
-      : mainType === 'poison'
-      ? 'text-background-type-poison dark:text-background-light-type-poison'
-      : mainType === 'psychic'
-      ? 'text-background-type-psychic dark:text-background-light-type-psychic'
-      : mainType === 'steel'
-      ? 'text-background-type-steel dark:text-background-light-type-steel'
-      : mainType === 'water'
-      ? 'text-background-type-water dark:text-background-light-type-water'
-      : mainType === 'electric'
-      ? 'text-background-light-type-electric dark:text-background-light-type-electric'
-      : mainType === 'flying'
-      ? 'text-background-type-flying dark:text-background-light-type-flying'
-      : mainType === 'ice'
-      ? 'text-background-type-ice dark:text-background-light-type-ice'
-      : 'text-background-type-rock dark:text-background-light-type-rock';
-
   const doubleDamageFromArray = pokemonTypes?.data?.damage_relations?.double_damage_from;
   const eggGroups = pokemonsSpecies?.data?.egg_groups;
   const hatchCounter = pokemonsSpecies?.data?.hatch_counter;
@@ -106,7 +70,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed}</p>
       </div>
 
-      <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Data</h2>
+      <h2 className={`font-medium text-xl pt-3 ${textColorTernary(mainType)}`}>Data</h2>
 
       <div className='flex'>
         <span className='pr-2 font-light text-zinc-900 dark:text-zinc-100'>Height:</span>
@@ -137,7 +101,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         ))}
       </div>
 
-      <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Training</h2>
+      <h2 className={`font-medium text-xl pt-3 ${textColorTernary(mainType)}`}>Training</h2>
 
       <div className='flex'>
         <span className='pr-2 font-light text-zinc-900 dark:text-zinc-100'>Capture Rate:</span>
@@ -158,7 +122,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         </span>
       </div>
 
-      <h2 className={`font-medium text-xl pt-3 ${textColorTernary}`}>Breeding</h2>
+      <h2 className={`font-medium text-xl pt-3 ${textColorTernary(mainType)}`}>Breeding</h2>
 
       <div className='flex flex-row'>
         <span className='pr-2 font-light text-zinc-900 dark:text-zinc-100'>Gender:</span>

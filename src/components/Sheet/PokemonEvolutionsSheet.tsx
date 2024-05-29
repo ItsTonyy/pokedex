@@ -4,6 +4,7 @@ import { PokemonSpeciesType } from '@/types/types';
 import axios from 'axios';
 import { useEffect, useState, useCallback } from 'react';
 import { CircleArrowRight } from 'lucide-react';
+import { textColorTernary } from '@/utils/utils';
 
 const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType }) => {
   const [pokemonEvo, setPokemonEvo] = useState<PokemonEvoDataType[]>([]);
@@ -74,46 +75,10 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
     return fetchEndpointToGetImages;
   };
 
-  const textColorTernary =
-    mainType === 'grass'
-      ? 'text-background-light-type-grass'
-      : mainType === 'dark'
-      ? 'text-background-light-type-dark'
-      : mainType === 'dragon'
-      ? 'text-background-light-type-dragon'
-      : mainType === 'fairy'
-      ? 'text-background-light-type-fairy'
-      : mainType === 'fighting'
-      ? 'text-background-light-type-fighting'
-      : mainType === 'fire'
-      ? 'text-background-light-type-fire'
-      : mainType === 'ghost'
-      ? 'text-background-light-type-ghost'
-      : mainType === 'bug'
-      ? 'text-background-light-type-bug'
-      : mainType === 'ground'
-      ? 'text-background-light-type-ground'
-      : mainType === 'normal'
-      ? 'text-background-light-type-normal'
-      : mainType === 'poison'
-      ? 'text-background-light-type-poison'
-      : mainType === 'psychic'
-      ? 'text-background-light-type-psychic'
-      : mainType === 'steel'
-      ? 'text-background-light-type-steel'
-      : mainType === 'water'
-      ? 'text-background-light-type-water'
-      : mainType === 'electric'
-      ? 'text-background-light-type-electric'
-      : mainType === 'flying'
-      ? 'text-background-light-type-flying'
-      : mainType === 'ice'
-      ? 'text-background-light-type-ice'
-      : 'text-background-light-type-rock';
-
+  
   return (
     <div>
-      <h2 className={`font-medium text-xl mb-2 ${textColorTernary}`}>Evolution Chain</h2>
+      <h2 className={`font-medium text-xl mb-2 ${textColorTernary(mainType)}`}>Evolution Chain</h2>
       <div className='mt-2 flex flex-row w-full justify-center'>
         {pokemonSprites?.length > 1
           ? pokemonSprites?.map((imageUrl, index) => {
@@ -128,7 +93,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
                         className='w-[100px] h-full hover:scale-110 duration-500 ease-in-out max-w-max max-h-max'
                       />
 
-                      <span className='font-light text-sm'>{name}</span>
+                      <span className='font-medium text-sm capitalize drop-shadow-md'>{name}</span>
                     </div>
                   ) : (
                     <>
@@ -139,7 +104,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
                           className='w-[138px] h-full hover:scale-110 duration-500 ease-in-out max-w-max max-h-max'
                         />
 
-                        <span className='font-light text-sm'>{name}</span>
+                        <span className='font-medium text-sm capitalize drop-shadow-md'>{name}</span>
                       </div>
 
                       <CircleArrowRight className='max-w-max max-h-max' />
