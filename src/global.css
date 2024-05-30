@@ -217,7 +217,7 @@
     --background-color-white: 181 185 196;
     --background-color-yellow: 191, 141, 17;
 
-    --background-color: 34 34 34;
+    --background-color: 23, 23, 23;
     --background-default-input: 242 242 242;
     --background-pressed-input: 226 226 226;
     --background-modal: rgb(var(--that-black-color) / 0.5);
@@ -293,8 +293,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #ffffff00;
-  border-radius: 5px;
+  background: rgb(var(--background-color));
 }
 
 /* Handle */

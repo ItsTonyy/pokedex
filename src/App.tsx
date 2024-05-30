@@ -1,4 +1,4 @@
-import { useState, useEffect, KeyboardEvent, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import {
   Sheet,
@@ -22,11 +22,12 @@ import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
 import PokemonStatsSheet from './components/Sheet/PokemonStatsSheet';
 import PokemonAboutSheet from './components/Sheet/PokemonAboutSheet';
 import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
-import { SearchResultsList } from './components/SearchResultsList';
+import useOutsideClick from './components/UseOutsideClick';
 
 function App() {
-  const [pokemonResults, setPokemonResults] = useState([]);
+  const [pokemonInputResults, setPokemonInputResults] = useState<pokemonStringUrl[]>([]);
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
+  const [pokemonInputObject, setPokemonInputObject] = useState<pokemonDefaultType | undefined>();
   const [about, setAbout] = useState(true);
   const [stats, setStats] = useState(false);
   const [evolutions, setEvolutions] = useState(false);
@@ -128,8 +129,14 @@ function App() {
         const results = json.results.filter((pokemon: pokemonStringUrl) => {
           return value && pokemon && pokemon.name.toLowerCase().includes(value);
         });
-        setPokemonResults(results);
+        setPokemonInputResults(results);
       });
+  };
+
+  const fetchResultUrl = async (url: string) => {
+    const endpoint = `${url}`;
+    const response = await axios.get(endpoint);
+    setPokemonInputObject(response);
   };
 
   const handleInputChange = (value: string) => {
@@ -187,6 +194,9 @@ function App() {
     'white',
     'yellow',
   ];
+
+  const impactRef = useRef();
+  useOutsideClick(impactRef, () => setPokemonInputResults([])); //Change my dropdown state to close when clicked outside
 
   return (
     <InfiniteScroll
@@ -322,10 +332,104 @@ function App() {
               id='inputPokemon'
               onChange={(e) => handleInputChange(e.target.value)}
             />
-            {pokemonResults.length === 0 ? (
+            {pokemonInputResults.length === 0 ? (
               <div className='hidden'></div>
             ) : (
-              <SearchResultsList results={pokemonResults} />
+              <div
+                className='flex flex-col bg-zinc-100 dark:bg-neutral-900 border border-zinc-600 
+                dark:border-zinc-400 w-full absolute z-10 rounded-lg -mt-3 max-h-80 overflow-y-auto'
+                ref={impactRef}
+              >
+                {pokemonInputResults.map((result: pokemonStringUrl) => (
+                  <Sheet>
+                    <SheetTrigger className='flex  border-zinc-600 dark:border-zinc-400 border-b-[1px] last:border-none
+                      hover:bg-zinc-200 dark:hover:bg-neutral-950 cursor-pointer'>
+                      <div
+                        onClick={() => fetchResultUrl(result.url)}
+                      >
+                        <div className='text-lg font-light py-2 px-6 capitalize'>{result?.name}</div>
+                      </div>
+                    </SheetTrigger>
+
+                    <SheetContent
+                      className={`p-0 m-0 border-none bg-background-type-${pokemonInputObject?.data.types[0].type.name}`}
+                    >
+                      <div>
+                        <PokemonHeaderSheet
+                          name={pokemonInputObject?.data?.name}
+                          id={pokemonInputObject?.data?.id}
+                          mainType={pokemonInputObject?.data?.types[0]?.type.name}
+                          secondType={pokemonInputObject?.data?.types[1]?.type.name}
+                          typesLength={pokemonInputObject?.data?.types.length}
+                          image={pokemonInputObject?.data?.sprites.other['official-artwork'].front_default}
+                        />
+                      </div>
+
+                      <div className='flex justify-between px-6'>
+                        <button
+                          onClick={aboutClicked}
+                          className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
+                    duration-300 ease-in-out hover:font-bold focus:font-bold
+                    focus:scale-115 focus:outline-none'
+                        >
+                          About
+                        </button>
+
+                        <button
+                          onClick={statsClicked}
+                          className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
+                    duration-300 ease-in-out hover:font-bold focus:font-bold
+                    focus:scale-115 focus:outline-none'
+                        >
+                          Stats
+                        </button>
+
+                        <button
+                          onClick={evolutionsClicked}
+                          className='text-white py-1 px-3 cursor-pointer mb-2 hover:scale-115
+                    duration-300 ease-in-out hover:font-bold focus:font-bold
+                    focus:scale-115 focus:outline-none'
+                        >
+                          Evolutions
+                        </button>
+                      </div>
+
+                      {about ? (
+                        <div className='h-full bg-background-color rounded-t-4xl p-8'>
+                          <PokemonAboutSheet
+                            id={pokemonInputObject?.data?.id}
+                            height={pokemonInputObject?.data?.height}
+                            weight={pokemonInputObject?.data?.weight}
+                            baseExp={pokemonInputObject?.data?.base_experience}
+                            mainType={pokemonInputObject?.data?.types[0].type.name}
+                            abilities={pokemonInputObject?.data?.abilities}
+                          />
+                        </div>
+                      ) : stats ? (
+                        <div className='bg-background-color h-full rounded-t-4xl p-8'>
+                          <PokemonStatsSheet
+                            name={pokemonInputObject?.data?.name}
+                            mainType={pokemonInputObject?.data?.types[0].type.name}
+                            hp={pokemonInputObject?.data?.stats[0].base_stat}
+                            attack={pokemonInputObject?.data?.stats[1].base_stat}
+                            defense={pokemonInputObject?.data?.stats[2].base_stat}
+                            spAttack={pokemonInputObject?.data?.stats[3].base_stat}
+                            spDefense={pokemonInputObject?.data?.stats[4].base_stat}
+                            speed={pokemonInputObject?.data?.stats[5].base_stat}
+                          />
+                        </div>
+                      ) : (
+                        <div className='bg-background-color h-full rounded-t-4xl p-8'>
+                          <PokemonEvolutionsSheet
+                            id={pokemonInputObject?.data?.id}
+                            mainType={pokemonInputObject?.data?.types[0].type.name}
+                          />
+                        </div>
+                      )}
+                    </SheetContent>
+                  </Sheet>
+                ))}
+              </div>
             )}
           </div>
 

@@ -31,11 +31,11 @@ export interface dataPokemonDefaultType {
   game_indices: [];
   height: number;
   held_items: [];
-  id: number;
+  id: number | undefined;
   is_default: boolean;
   location_area_encounters: string;
   moves: [];
-  name: string;
+  name: string | undefined;
   order: number;
   past_abilities: [];
   past_types: [];
@@ -118,12 +118,12 @@ export interface flavorTextProps {
 }
 
 export interface PokemonSheetProps {
-  name: string;
-  id: number;
-  mainType: string;
-  secondType: string;
-  typesLength: number;
-  image: string;
+  name: string | undefined;
+  id: number | undefined;
+  mainType: string | undefined;
+  secondType: string | undefined;
+  typesLength: number | undefined;
+  image: string | undefined;
   //hp: Record<number, pokemonStats>,
   //attack: Record<number, pokemonStats>,
   //defense: Record<number, pokemonStats>,
@@ -175,26 +175,26 @@ export interface PokemonSpeciesType {
 }
 
 export interface PokemonStatsSheetType {
-  name: string;
-  mainType: string;
-  hp: number;
-  attack: number;
-  defense: number;
-  spAttack: number;
-  spDefense: number;
-  speed: number;
+  name: string | undefined;
+  mainType: string | undefined;
+  hp: number | undefined;
+  attack: number | undefined;
+  defense: number | undefined;
+  spAttack: number | undefined;
+  spDefense: number | undefined;
+  speed: number | undefined;
 }
 
 export interface PokemonAboutSheetType {
-  height: number;
-  weight: number;
-  captureRate?: number;
-  baseHappiness?: number;
-  baseExp: number;
-  growthRate?: string;
-  id: number;
-  mainType: string;
-  abilities: abilityType[];
+  height: number | undefined;
+  weight: number | undefined;
+  captureRate?: number | undefined;
+  baseHappiness?: number | undefined;
+  baseExp: number | undefined;
+  growthRate?: string | undefined;
+  id: number | undefined;
+  mainType: string | undefined;
+  abilities: abilityType[] | undefined;
 }
 
 export interface PokemonEvoDataType {
@@ -229,8 +229,8 @@ export interface PokemonEvoType {
 }
 
 export interface PokemonEvoSheetType {
-  id: number;
-  mainType: string;
+  id: number | undefined;
+  mainType: string | undefined;
 }
 
 export interface abilityType {
@@ -312,5 +312,9 @@ export interface pokemonInputType {
   count: number,
   next: null | boolean,
   previous: null | boolean,
+  results: pokemonStringUrl[]
+}
+
+export interface resultsType {
   results: pokemonStringUrl[]
 }

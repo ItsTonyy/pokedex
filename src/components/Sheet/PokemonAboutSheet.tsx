@@ -21,13 +21,13 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     PokemonsTypesObject(mainType);
   }, [id]);
 
-  const PokemonsTypesObject = async (mainType: string) => {
+  const PokemonsTypesObject = async (mainType: string | undefined) => {
     const endpoints = `https://pokeapi.co/api/v2/type/${mainType}`;
     const response = await axios.get(endpoints);
     setPokemonTypes(response);
   };
 
-  const PokemonsSpeciesObject = async (id: number) => {
+  const PokemonsSpeciesObject = async (id: number | undefined) => {
     const endpoints = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
     const response = await axios.get(endpoints);
     setPokemonsSpecies(response);
@@ -67,7 +67,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   return (
     <div className='space-y-[0.5rem] flex flex-col'>
       <div>
-        <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed}</p>
+        <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed ? flavorTextFixed : 'No text.'}</p>
       </div>
 
       <h2 className={`font-medium text-xl pt-3 ${textColorTernary(mainType)}`}>Data</h2>
@@ -83,7 +83,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
       <div className='flex flex-row'>
         <span className='pr-2 font-light text-zinc-900 dark:text-zinc-100'>Abilities:</span>
         <div className='flex flex-col'>
-          {abilities.map((ability, index) => (
+          {abilities?.map((ability, index) => (
             <span className='text-zinc-500 dark:text-zinc-400' key={index}>
               {ability.is_hidden === false
                 ? `${index + 1}. ${ability.ability.name}`
