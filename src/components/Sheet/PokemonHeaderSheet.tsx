@@ -1,5 +1,5 @@
 import { PokemonSheetProps } from '@/types/types';
-import { TextNameColorTernary, ColorGradientTernary } from '@/utils/utils';
+import { textNameColorTernary, colorGradientTernary } from '@/utils/utils';
 
 const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
   name,
@@ -21,9 +21,13 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
         className={`absolute top-[-20px] left-[-10%] text-[120px] uppercase font-bold 
          w-max`}
       >
-        <p className={`${TextNameColorTernary(mainType)} outline-title opacity-40 animate-textAnimation`}>{name}</p>
-        <div className={`w-[450px] h-[140px] relative top-[-98px] bg-gradient-to-t ${ColorGradientTernary(mainType)}
-         from-80% z-10`}></div>
+        <p className={`${textNameColorTernary(mainType)} outline-title opacity-40 animate-textAnimation`}>
+          {name}
+        </p>
+        <div
+          className={`w-[450px] h-[140px] relative top-[-98px] bg-gradient-to-t ${colorGradientTernary(mainType)}
+         from-80% z-10`}
+        ></div>
       </div>
 
       {/* Pokemon Photo*/}
@@ -61,9 +65,7 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
               </div>
               <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded bg-type-${secondType}`}>
                 <img src={`src/assets/TypesIcons/${secondType}.png`} alt='typeImage' className='w-3.5' />
-                <span className={`bg-type-${secondType} text-sm text-zinc-100 capitalize`}>
-                  {secondType}
-                </span>
+                <span className={`bg-type-${secondType} text-sm text-zinc-100 capitalize`}>{secondType}</span>
               </div>
             </div>
           )}

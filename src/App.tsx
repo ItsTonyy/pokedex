@@ -13,6 +13,7 @@ import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
 import { PokemonTypesType } from './types/types';
 import { PokemonColorType } from './types/types';
+import { pokemonStringUrl } from './types/types';
 import { Search, Sun, Moon, SlidersHorizontal } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -21,22 +22,23 @@ import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
 import PokemonStatsSheet from './components/Sheet/PokemonStatsSheet';
 import PokemonAboutSheet from './components/Sheet/PokemonAboutSheet';
 import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
+import { SearchResultsList } from './components/SearchResultsList';
 
 function App() {
-  const [pokemonName, setPokemonName] = useState('');
+  const [pokemonResults, setPokemonResults] = useState([]);
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
   const [about, setAbout] = useState(true);
   const [stats, setStats] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [evolutions, setEvolutions] = useState(false);
   const [theme, setTheme] = useState<null | string>(null);
-
-  //console.log(pokemonsDefault[0].data)
 
   useEffect(() => {
     PokemonsDefaultObject();
 
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
@@ -49,9 +51,9 @@ function App() {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
-    const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      
-    setPokemonsDefault(response)
+    const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
+
+    setPokemonsDefault(response);
   };
 
   const PokemonsDefaultObjectInfiniteScroll = async () => {
@@ -60,30 +62,9 @@ function App() {
       endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
     }
 
-    const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      
-    setPokemonsDefault((pokemonsDefault) => [...pokemonsDefault, ...response])
-  };
+    const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
 
-  async function pokemonSubmit() {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
-
-      if (!response.ok) {
-        throw new Error('could not fetch resource');
-      }
-
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleKeyUp = (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      pokemonSubmit();
-    }
+    setPokemonsDefault((pokemonsDefault) => [...pokemonsDefault, ...response]);
   };
 
   const handleThemeSwitch = () => {
@@ -138,6 +119,21 @@ function App() {
     } catch (error) {
       console.log('Error fetching filterColor data: ', error);
     }
+  };
+
+  const fetchInputData = (value: string) => {
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
+      .then((response) => response.json())
+      .then((json) => {
+        const results = json.results.filter((pokemon: pokemonStringUrl) => {
+          return value && pokemon && pokemon.name.toLowerCase().includes(value);
+        });
+        setPokemonResults(results);
+      });
+  };
+
+  const handleInputChange = (value: string) => {
+    fetchInputData(value);
   };
 
   const aboutClicked = () => {
@@ -200,7 +196,7 @@ function App() {
       loader={<h2></h2>}
     >
       <div
-        className='bg-background-color min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
+        className='bg-white dark:bg-neutral-900 min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
         bg-pokeball-white dark:bg-pokeball-dark bg-no-repeat bg-top bg-75% antialiased scroll-smooth'
       >
         <div className='flex flex-col xl:min-w-full relative'>
@@ -208,6 +204,7 @@ function App() {
             <h1 className='title drop-shadow-xl'>Pokédex</h1>
             <div className='flex justify-between items-center'>
               <p className='text-xl'>Search for Pokémon by name or using the National Pokédex Number</p>
+
               {/*Main Page Buttons */}
               <div className='space-x-3'>
                 <TooltipProvider>
@@ -284,22 +281,22 @@ function App() {
                                 pokemonColor === 'black'
                                   ? 'bg-background-color-black'
                                   : pokemonColor === 'blue'
-                                  ? 'bg-background-color-blue'
-                                  : pokemonColor === 'brown'
-                                  ? 'bg-background-color-brown'
-                                  : pokemonColor === 'gray'
-                                  ? 'bg-background-color-gray'
-                                  : pokemonColor === 'green'
-                                  ? 'bg-background-color-green'
-                                  : pokemonColor === 'pink'
-                                  ? 'bg-background-color-pink'
-                                  : pokemonColor === 'purple'
-                                  ? 'bg-background-color-purple'
-                                  : pokemonColor === 'red'
-                                  ? 'bg-background-color-red'
-                                  : pokemonColor === 'yellow'
-                                  ? 'bg-background-color-yellow'
-                                  : 'bg-background-color-white'
+                                    ? 'bg-background-color-blue'
+                                    : pokemonColor === 'brown'
+                                      ? 'bg-background-color-brown'
+                                      : pokemonColor === 'gray'
+                                        ? 'bg-background-color-gray'
+                                        : pokemonColor === 'green'
+                                          ? 'bg-background-color-green'
+                                          : pokemonColor === 'pink'
+                                            ? 'bg-background-color-pink'
+                                            : pokemonColor === 'purple'
+                                              ? 'bg-background-color-purple'
+                                              : pokemonColor === 'red'
+                                                ? 'bg-background-color-red'
+                                                : pokemonColor === 'yellow'
+                                                  ? 'bg-background-color-yellow'
+                                                  : 'bg-background-color-white'
                               } py-1 px-3 rounded shadow-lg
                               hover:scale-105 will-change-transform duration-300 capitalize`}
                               onClick={() => handleFilterColor(pokemonColor)}
@@ -323,9 +320,13 @@ function App() {
              focus:bg-zinc-100 text-base shadow-md dark:border-zinc-400 dark:border-2 dark:focus:bg-zinc-800'
               placeholder='What Pokémon are you looking for?'
               id='inputPokemon'
-              onChange={(event) => setPokemonName(event.target.value)}
-              onKeyUp={handleKeyUp}
+              onChange={(e) => handleInputChange(e.target.value)}
             />
+            {pokemonResults.length === 0 ? (
+              <div className='hidden'></div>
+            ) : (
+              <SearchResultsList results={pokemonResults} />
+            )}
           </div>
 
           {/* ------ Main Part of the App ------*/}

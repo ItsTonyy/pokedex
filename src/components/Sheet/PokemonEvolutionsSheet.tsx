@@ -75,7 +75,6 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
     return fetchEndpointToGetImages;
   };
 
-  
   return (
     <div>
       <h2 className={`font-medium text-xl mb-2 ${textColorTernary(mainType)}`}>Evolution Chain</h2>

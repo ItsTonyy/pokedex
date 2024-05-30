@@ -302,3 +302,15 @@ export interface PokemonColorType {
   status: number;
   statusText: string;
 }
+
+export interface pokemonStringUrl {
+  name: string,
+  url: string
+}
+
+export interface pokemonInputType {
+  count: number,
+  next: null | boolean,
+  previous: null | boolean,
+  results: pokemonStringUrl[]
+}

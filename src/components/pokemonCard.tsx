@@ -1,173 +1,65 @@
 import { PokemonCardProps } from '@/types/types';
 import { memo } from 'react';
+import { backgroundColorTernary } from '@/utils/utils';
+import { type1ColorTernary, type2ColorTernary } from '@/utils/utils';
 
-const PokemonCard: React.FC<PokemonCardProps> = memo(({ name, id, image, mainType, typesLength, secondType }) => {
-  const backgroundColorTernary =
-    mainType === 'grass'
-      ? 'bg-background-type-grass'
-      : mainType === 'dark'
-      ? 'bg-background-type-dark'
-      : mainType === 'dragon'
-      ? 'bg-background-type-dragon'
-      : mainType === 'fairy'
-      ? 'bg-background-type-fairy'
-      : mainType === 'fighting'
-      ? 'bg-background-type-fighting'
-      : mainType === 'fire'
-      ? 'bg-background-type-fire'
-      : mainType === 'ghost'
-      ? 'bg-background-type-ghost'
-      : mainType === 'bug'
-      ? 'bg-background-type-bug'
-      : mainType === 'ground'
-      ? 'bg-background-type-ground'
-      : mainType === 'normal'
-      ? 'bg-background-type-normal'
-      : mainType === 'poison'
-      ? 'bg-background-type-poison'
-      : mainType === 'psychic'
-      ? 'bg-background-type-psychic'
-      : mainType === 'steel'
-      ? 'bg-background-type-steel'
-      : mainType === 'water'
-      ? 'bg-background-type-water'
-      : mainType === 'electric'
-      ? 'bg-background-type-electric'
-      : mainType === 'flying'
-      ? 'bg-background-type-flying'
-      : mainType === 'ice'
-      ? 'bg-background-type-ice'
-      : 'bg-background-type-rock';
+const PokemonCard: React.FC<PokemonCardProps> = memo(
+  ({ name, id, image, mainType, typesLength, secondType }) => { 
 
-  const Type1ColorTernary =
-    mainType === 'grass'
-      ? 'bg-type-grass'
-      : mainType === 'dark'
-      ? 'bg-type-dark'
-      : mainType === 'dragon'
-      ? 'bg-type-dragon'
-      : mainType === 'fairy'
-      ? 'bg-type-fairy'
-      : mainType === 'fighting'
-      ? 'bg-type-fighting'
-      : mainType === 'fire'
-      ? 'bg-type-fire'
-      : mainType === 'ghost'
-      ? 'bg-type-ghost'
-      : mainType === 'bug'
-      ? 'bg-type-bug'
-      : mainType === 'ground'
-      ? 'bg-type-ground'
-      : mainType === 'normal'
-      ? 'bg-type-normal'
-      : mainType === 'poison'
-      ? 'bg-type-poison'
-      : mainType === 'psychic'
-      ? 'bg-type-psychic'
-      : mainType === 'steel'
-      ? 'bg-type-steel'
-      : mainType === 'water'
-      ? 'bg-type-water'
-      : mainType === 'electric'
-      ? 'bg-type-electric'
-      : mainType === 'flying'
-      ? 'bg-type-flying'
-      : mainType === 'ice'
-      ? 'bg-type-ice'
-      : 'bg-type-rock';
+    const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`;
 
-  const Type2ColorTernary =
-    secondType === 'grass'
-      ? 'bg-type-grass'
-      : secondType === 'dark'
-      ? 'bg-type-dark'
-      : secondType === 'dragon'
-      ? 'bg-type-dragon'
-      : secondType === 'fairy'
-      ? 'bg-type-fairy'
-      : secondType === 'fighting'
-      ? 'bg-type-fighting'
-      : secondType === 'fire'
-      ? 'bg-type-fire'
-      : secondType === 'ghost'
-      ? 'bg-type-ghost'
-      : secondType === 'bug'
-      ? 'bg-type-bug'
-      : secondType === 'ground'
-      ? 'bg-type-ground'
-      : secondType === 'normal'
-      ? 'bg-type-normal'
-      : secondType === 'poison'
-      ? 'bg-type-poison'
-      : secondType === 'psychic'
-      ? 'bg-type-psychic'
-      : secondType === 'steel'
-      ? 'bg-type-steel'
-      : secondType === 'water'
-      ? 'bg-type-water'
-      : secondType === 'electric'
-      ? 'bg-type-electric'
-      : secondType === 'flying'
-      ? 'bg-type-flying'
-      : secondType === 'ice'
-      ? 'bg-type-ice'
-      : 'bg-type-rock';
-
-  const idCondicional = id < 10 ? `#000${id}` : id < 100 ? `#00${id}` : id < 1000 ? `#0${id}` : `#${id}`;
-
-  function limitName(name: string) {
-    // Regex para capturar tudo antes do segundo hífen
-    const match = name.match(/^([^-\n]*-[^-]*)/);
-    if (match) {
+    function limitName(name: string) {
+      // Regex para capturar tudo antes do segundo hífen
+      const match = name.match(/^([^-\n]*-[^-]*)/);
+      if (match) {
         return match[1];
+      }
+      return name;
     }
-    return name;
-}
 
-  return (
-    <div
-      className={`${backgroundColorTernary} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
+    return (
+      <div
+        className={`${backgroundColorTernary(mainType)} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
        shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72 max-h-[114px]
        bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
        before:right-2/4 before:top-0`}
-    >
-      <div className='flex flex-col'>
-        <span className='text-gray-100 font-bold text-sm drop-shadow'>{idCondicional}</span>
-        <span className='pokemonName text-gray-100 capitalize drop-shadow'>
-          {limitName(name)}
-        </span>
-        <div>
-          {typesLength === 1 ? (
-            <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}>
-              <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
-              <span className={`text-slate-100 text-sm capitalize `}>{mainType}</span>
-            </div>
-          ) : (
-            <div className='flex flex-row gap-2'>
-              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type1ColorTernary}`}>
+      >
+        <div className='flex flex-col'>
+          <span className='text-gray-100 font-bold text-sm drop-shadow'>{idCondicional}</span>
+          <span className='pokemonName text-gray-100 capitalize drop-shadow'>{limitName(name)}</span>
+          <div>
+            {typesLength === 1 ? (
+              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${type1ColorTernary(mainType)}`}>
                 <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
-                <span className={`text-sm text-slate-100 capitalize`}>{mainType}</span>{' '}
+                <span className={`text-slate-100 text-sm capitalize `}>{mainType}</span>
               </div>
-              <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${Type2ColorTernary}`}>
-                <img src={`src/assets/TypesIcons/${secondType}.png`} alt='typeImage' className='w-3.5' />
-                <span className={`text-sm text-slate-100 capitalize`}>{secondType}</span>
+            ) : (
+              <div className='flex flex-row gap-2'>
+                <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${type1ColorTernary(mainType)}`}>
+                  <img src={`src/assets/TypesIcons/${mainType}.png`} alt='typeImage' className='w-3.5' />
+                  <span className={`text-sm text-slate-100 capitalize`}>{mainType}</span>{' '}
+                </div>
+                <div className={`w-fit gap-1 flex flex-row items-center p-1 rounded ${type2ColorTernary(secondType)}`}>
+                  <img src={`src/assets/TypesIcons/${secondType}.png`} alt='typeImage' className='w-3.5' />
+                  <span className={`text-sm text-slate-100 capitalize`}>{secondType}</span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+        </div>
+
+        <div className='absolute right-0 bottom-2'>
+          <img
+            src={image}
+            alt='Pokemon Photo'
+            className='w-[130px] h-[130px] group-hover:scale-110 group-hover:rotate-6 duration-500
+           ease-in-out filter saturate-110 dark:filter dark:saturate-110 dark:brightness-85 dark:contrast-125'
+          />
         </div>
       </div>
-
-      <div className='absolute right-0 bottom-2'>
-        <img
-          src={image}
-          alt='Pokemon Photo'
-          className='w-[130px] h-[130px] group-hover:scale-110 group-hover:rotate-6 duration-500
-           ease-in-out filter saturate-110 dark:filter dark:saturate-110 dark:brightness-85 dark:contrast-125'
-        />
-      </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default PokemonCard;

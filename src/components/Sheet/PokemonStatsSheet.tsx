@@ -23,10 +23,9 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
 
   const PokemonsTypesObject = async (mainType: string) => {
     const endpoints = `https://pokeapi.co/api/v2/type/${mainType}`;
-    const response = await axios.get(endpoints)
-    setPokemonTypes(response)
+    const response = await axios.get(endpoints);
+    setPokemonTypes(response);
   };
-
 
   const pokemonName = name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -44,7 +43,11 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{hp}</span>
         </div>
 
-        <Progress value={hp} className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700' fill={`background-type-${mainType}`} />
+        <Progress
+          value={hp}
+          className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700'
+          fill={`background-type-${mainType}`}
+        />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -52,7 +55,11 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{attack}</span>
         </div>
 
-        <Progress value={attack} className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700' fill={`background-type-${mainType}`} />
+        <Progress
+          value={attack}
+          className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700'
+          fill={`background-type-${mainType}`}
+        />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -60,7 +67,11 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{defense}</span>
         </div>
 
-        <Progress value={defense} className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700' fill={`background-type-${mainType}`} />
+        <Progress
+          value={defense}
+          className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700'
+          fill={`background-type-${mainType}`}
+        />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -68,7 +79,11 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{spAttack}</span>
         </div>
 
-        <Progress value={spAttack} className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700' fill={`background-type-${mainType}`} />
+        <Progress
+          value={spAttack}
+          className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700'
+          fill={`background-type-${mainType}`}
+        />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -76,7 +91,11 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{spDefense}</span>
         </div>
 
-        <Progress value={spDefense} className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700' fill={`background-type-${mainType}`} />
+        <Progress
+          value={spDefense}
+          className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700'
+          fill={`background-type-${mainType}`}
+        />
       </div>
       <div className='flex flex-row justify-between items-center '>
         <div className='flex justify-between items-center w-[33%] mr-4'>
@@ -84,7 +103,11 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
           <span className='text-zinc-500'>{speed}</span>
         </div>
 
-        <Progress value={speed} className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700' fill={`background-type-${mainType}`} />
+        <Progress
+          value={speed}
+          className='w-[66%] h-1.5 bg-zinc-200 dark:bg-zinc-700'
+          fill={`background-type-${mainType}`}
+        />
       </div>
 
       <div>

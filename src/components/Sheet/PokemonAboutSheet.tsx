@@ -23,14 +23,14 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
 
   const PokemonsTypesObject = async (mainType: string) => {
     const endpoints = `https://pokeapi.co/api/v2/type/${mainType}`;
-    const response = await axios.get(endpoints)
-    setPokemonTypes(response)
+    const response = await axios.get(endpoints);
+    setPokemonTypes(response);
   };
 
   const PokemonsSpeciesObject = async (id: number) => {
     const endpoints = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
-    const response = await axios.get(endpoints)
-    setPokemonsSpecies(response)
+    const response = await axios.get(endpoints);
+    setPokemonsSpecies(response);
   };
 
   // getting only the flavor texts in english
@@ -54,7 +54,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     .replace(/\n/g, ' ');
 
   function addPoint(num: number): string {
-    const realNumber = num / 10
+    const realNumber = num / 10;
     const numToString = realNumber.toString();
 
     return numToString?.replace(/(\d)(?=\d$)/, '$1.');
@@ -136,7 +136,9 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
             </div>
             <div className='flex flex-row items-center gap-2'>
               <img src='\src\assets\male.png' alt='Male Icon' className='w-4 h-4' />
-              <span className='text-male font-medium'>{100 - 12.5 * pokemonsSpecies?.data?.gender_rate}%</span>
+              <span className='text-male font-medium'>
+                {100 - 12.5 * pokemonsSpecies?.data?.gender_rate}%
+              </span>
             </div>
           </div>
         )}
@@ -151,7 +153,10 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
               ))
             : eggGroups?.map((eggGroup, index) =>
                 index === 0 ? (
-                  <span className='text-zinc-500 dark:text-zinc-400 capitalize'> {`${eggGroup?.name}, `}</span>
+                  <span className='text-zinc-500 dark:text-zinc-400 capitalize'>
+                    {' '}
+                    {`${eggGroup?.name}, `}
+                  </span>
                 ) : (
                   <span className='text-zinc-500 dark:text-zinc-400 capitalize'> {` ${eggGroup?.name}`}</span>
                 )
