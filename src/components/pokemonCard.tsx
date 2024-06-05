@@ -21,7 +21,7 @@ const PokemonCard: React.FC<PokemonCardProps> = memo(
       <div
         className={`${backgroundColorTernary(mainType)} relative group hover:scale-105 duration-300 ease-in-out p-3 flex flex-row mb-3
        shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72 max-h-[114px]
-       bg-card-pokeball-white bg-no-repeat bg-45% bg-right 
+       bg-card-pokeball-white bg-no-repeat bg-40% sm:bg-45% bg-right 
        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
        before:right-2/4 before:top-0`}
       >

@@ -206,14 +206,16 @@ function App() {
       loader={<h2></h2>}
     >
       <div
-        className='bg-white dark:bg-neutral-900 min-w-80 flex py-14 px-10 2xl:px-56 xl:px-36 lg:px-16 justify-center
+        className='bg-white dark:bg-neutral-900 min-w-80 flex py-14 px-6 min-[440px]:px-12 sm:px-16 2xl:px-56 xl:px-36 lg:px-16 justify-center
         bg-pokeball-white dark:bg-pokeball-dark bg-no-repeat bg-top bg-75% antialiased scroll-smooth'
       >
         <div className='flex flex-col xl:min-w-full relative'>
           <header className='flex flex-col'>
-            <h1 className='title drop-shadow-xl'>Pokédex</h1>
-            <div className='flex justify-between items-center'>
-              <p className='text-xl'>Search for Pokémon by name or using the National Pokédex Number</p>
+            <h1 className='sm:title drop-shadow-xl font-bold text-6xl'>Pokédex</h1>
+            <div className='flex lg:justify-between lg:items-center lg:flex-row flex-col gap-4'>
+              <p className='sm:text-xl text-lg'>
+                Search for Pokémon by name or using the National Pokédex Number
+              </p>
 
               {/*Main Page Buttons */}
               <div className='space-x-3'>
@@ -244,27 +246,29 @@ function App() {
                       <SlidersHorizontal />
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side={'bottom'} className='pt-16'>
+
+                  <SheetContent side={'bottom'} className='pt-16 pb-10'>
                     <SheetHeader>
                       <SheetTitle className='text-3xl drop-shadow-lg'>Filters</SheetTitle>
                       <SheetDescription className='text-lg'>
                         Use advanced search to explore Pokémon by type and colors!
                       </SheetDescription>
 
-                      <div>
-                        <h2 className='text-lg'>Types</h2>
+                      <div className='pt-3'>
+                        <h2 className='text-lg flex justify-start font-semibold'>Types</h2>
 
-                        <div className='flex flex-row gap-3 mt-2'>
+                        <div className='flex flex-row gap-3 mt-2 flex-wrap'>
                           <button
                             onClick={() => PokemonsDefaultObject()}
-                            className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
+                            className=' bg-white text-black border-2 border-black dark:bg-black 
+                            dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
                             hover:scale-105 will-change-transform duration-300 '
                           >
                             All
                           </button>
                           {pokemonTypes.map((pokemonType) => (
                             <button
-                              className={`bg-background-type-${pokemonType} py-1 px-3 rounded shadow-lg
+                              className={`bg-background-type-${pokemonType} min-w-20 py-1 px-3 rounded shadow-lg
                               hover:scale-105 will-change-transform duration-300 capitalize`}
                               onClick={() => handleFilterType(pokemonType)}
                             >
@@ -274,13 +278,14 @@ function App() {
                         </div>
                       </div>
 
-                      <div>
-                        <h2 className='text-lg'>Colors</h2>
+                      <div className='pt-3'>
+                        <h2 className='text-lg flex justify-start font-semibold'>Colors</h2>
 
-                        <div className='flex flex-row gap-3 mt-2'>
+                        <div className='flex flex-row gap-3 mt-2 flex-wrap'>
                           <button
                             onClick={() => PokemonsDefaultObject()}
-                            className=' bg-white text-black border-2 border-black dark:bg-black dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
+                            className=' bg-white text-black border-2 border-black dark:bg-black 
+                            dark:text-white dark:border-2 dark:border-zinc-300 py-1 px-3 rounded shadow-lg
                             hover:scale-105 will-change-transform duration-300 '
                           >
                             All
@@ -308,7 +313,7 @@ function App() {
                                                   ? 'bg-background-color-yellow'
                                                   : 'bg-background-color-white'
                               } py-1 px-3 rounded shadow-lg
-                              hover:scale-105 will-change-transform duration-300 capitalize`}
+                              hover:scale-105 will-change-transform duration-300 capitalize min-w-20`}
                               onClick={() => handleFilterColor(pokemonColor)}
                             >
                               {pokemonColor}
@@ -326,7 +331,7 @@ function App() {
           <div className='relative'>
             <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-900 dark:text-zinc-300' />
             <Input
-              className='pl-11 w-full min-w-[300px] my-8 md:h-14 bg-background-default-input
+              className='pl-11 w-full min-w-[300px] my-8 h-14 bg-background-default-input
              focus:bg-zinc-100 text-base shadow-md dark:border-zinc-400 dark:border-2 dark:focus:bg-zinc-800'
               placeholder='What Pokémon are you looking for?'
               id='inputPokemon'
@@ -342,11 +347,11 @@ function App() {
               >
                 {pokemonInputResults.map((result: pokemonStringUrl) => (
                   <Sheet>
-                    <SheetTrigger className='flex  border-zinc-600 dark:border-zinc-400 border-b-[1px] last:border-none
-                      hover:bg-zinc-200 dark:hover:bg-neutral-950 cursor-pointer'>
-                      <div
-                        onClick={() => fetchResultUrl(result.url)}
-                      >
+                    <SheetTrigger
+                      className='flex border-zinc-600 dark:border-zinc-400 border-b-[1px] last:border-none
+                      hover:bg-zinc-200 dark:hover:bg-neutral-950 cursor-pointer'
+                    >
+                      <div onClick={() => fetchResultUrl(result.url)}>
                         <div className='text-lg font-light py-2 px-6 capitalize'>{result?.name}</div>
                       </div>
                     </SheetTrigger>
@@ -435,7 +440,7 @@ function App() {
 
           {/* ------ Main Part of the App ------*/}
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5'>
+          <div className='grid min-[700px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5'>
             {pokemonsDefault?.map((pokemon) => (
               <Sheet key={pokemon.data.id}>
                 <SheetTrigger asChild onClick={aboutClicked}>

@@ -92,10 +92,10 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
           ))}
         </div>
       </div>
-      <div className='flex items-center'>
+      <div className='flex items-center flex-wrap'>
         <span className='pr-2 font-light text-zinc-900 dark:text-zinc-100'>Weaknesses:</span>
         {doubleDamageFromArray?.map((doubleDamageItem, index) => (
-          <div className={`bg-type-${doubleDamageItem.name} p-1 rounded mr-2`} key={index}>
+          <div className={`bg-type-${doubleDamageItem.name} p-1 rounded mr-2 min-w-7 max-[495px]:mt-2`} key={index}>
             <img src={`src/assets/TypesIcons/${doubleDamageItem.name}.png`} alt='DoubleDamageImage' />
           </div>
         ))}
