@@ -13,7 +13,7 @@ const PokemonHeaderSheet: React.FC<PokemonSheetProps> = ({
 
   return (
     <div
-      className={`relative pb-8 pt-20 flex flex-row justify-evenly items-center overflow-hidden
+      className={`relative pb-8 pt-20 flex flex-row justify-evenly items-center overflow-hidden select-none
        `}
     >
       {/*pokemon name with gradient and animation */}

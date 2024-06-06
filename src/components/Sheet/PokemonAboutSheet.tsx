@@ -21,13 +21,13 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     PokemonsTypesObject(mainType);
   }, [id]);
 
-  const PokemonsTypesObject = async (mainType: string | undefined) => {
+  const PokemonsTypesObject = async (mainType: string) => {
     const endpoints = `https://pokeapi.co/api/v2/type/${mainType}`;
     const response = await axios.get(endpoints);
     setPokemonTypes(response);
   };
 
-  const PokemonsSpeciesObject = async (id: number | undefined) => {
+  const PokemonsSpeciesObject = async (id: number) => {
     const endpoints = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
     const response = await axios.get(endpoints);
     setPokemonsSpecies(response);
@@ -46,6 +46,12 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
     .replace('LATIOS', 'Latios')
     .replace('SHELGON', 'Shelgon')
     .replace('FLYGON', 'Flygon')
+    .replace('SABLEYE', 'Sableye')
+    .replace('POOCHYENA', 'Poochyena')
+    .replace('SHARPEDO', 'Sharpedo')
+    .replace('CACTURNE', 'Cacturne')
+    .replace('CRAWDAUNT', 'Crawdaunt')
+    .replace('ABSOL', 'Absol')
     .replace(/\f/g, '\n')
     .replace(/\u00ad\n/g, '')
     .replace(/\u00ad/g, '')
@@ -65,7 +71,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
   const hatchCounter = pokemonsSpecies?.data?.hatch_counter;
 
   return (
-    <div className='space-y-[0.5rem] flex flex-col'>
+    <div className='space-y-[0.5rem] flex flex-col select-none'>
       <div>
         <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed ? flavorTextFixed : 'No text.'}</p>
       </div>
@@ -173,6 +179,7 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
         </span>
       </div>
     </div>
+    
   );
 };
 

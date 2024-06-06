@@ -34,7 +34,7 @@ const PokemonStatsSheet: React.FC<PokemonStatsSheetType> = ({
   const noDamageFromArray = pokemonTypes?.data?.damage_relations?.no_damage_from;
 
   return (
-    <div className='space-y-3 flex flex-col'>
+    <div className='space-y-3 flex flex-col select-none'>
       <h2 className={`font-medium text-xl ${textColorTernary(mainType)}`}>Base Stats</h2>
 
       <div className='flex flex-row items-center'>

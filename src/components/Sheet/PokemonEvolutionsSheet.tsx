@@ -2,7 +2,7 @@ import { PokemonEvoSheetType } from '@/types/types';
 import { PokemonEvoDataType } from '@/types/types';
 import { PokemonSpeciesType } from '@/types/types';
 import axios from 'axios';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { CircleArrowRight } from 'lucide-react';
 import { textColorTernary } from '@/utils/utils';
 
@@ -76,7 +76,7 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
   };
 
   return (
-    <div>
+    <div className='select-none'>
       <h2 className={`font-medium text-xl mb-2 ${textColorTernary(mainType)}`}>Evolution Chain</h2>
       <div className='mt-2 flex flex-row w-full justify-center'>
         {pokemonSprites?.length > 1

@@ -27,7 +27,7 @@ import useOutsideClick from './components/UseOutsideClick';
 function App() {
   const [pokemonInputResults, setPokemonInputResults] = useState<pokemonStringUrl[]>([]);
   const [pokemonsDefault, setPokemonsDefault] = useState<pokemonDefaultType[]>([]);
-  const [pokemonInputObject, setPokemonInputObject] = useState<pokemonDefaultType | undefined>();
+  const [pokemonInputObject, setPokemonInputObject] = useState<pokemonDefaultType>();
   const [about, setAbout] = useState(true);
   const [stats, setStats] = useState(false);
   const [evolutions, setEvolutions] = useState(false);
@@ -114,8 +114,6 @@ function App() {
       );
 
       const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
-      console.log(response);
-
       setPokemonsDefault(response);
     } catch (error) {
       console.log('Error fetching filterColor data: ', error);
@@ -195,9 +193,6 @@ function App() {
     'yellow',
   ];
 
-  const impactRef = useRef();
-  useOutsideClick(impactRef, () => setPokemonInputResults([])); //Change my dropdown state to close when clicked outside
-
   return (
     <InfiniteScroll
       dataLength={pokemonsDefault.length}
@@ -266,11 +261,12 @@ function App() {
                           >
                             All
                           </button>
-                          {pokemonTypes.map((pokemonType) => (
+                          {pokemonTypes.map((pokemonType, index) => (
                             <button
                               className={`bg-background-type-${pokemonType} min-w-20 py-1 px-3 rounded shadow-lg
                               hover:scale-105 will-change-transform duration-300 capitalize`}
                               onClick={() => handleFilterType(pokemonType)}
+                              key={index}
                             >
                               {pokemonType}
                             </button>
@@ -290,7 +286,7 @@ function App() {
                           >
                             All
                           </button>
-                          {pokemonColors.map((pokemonColor) => (
+                          {pokemonColors.map((pokemonColor, index) => (
                             <button
                               className={`${
                                 pokemonColor === 'black'
@@ -313,8 +309,9 @@ function App() {
                                                   ? 'bg-background-color-yellow'
                                                   : 'bg-background-color-white'
                               } py-1 px-3 rounded shadow-lg
-                              hover:scale-105 will-change-transform duration-300 capitalize min-w-20`}
+                              hover:scale-105 will-change-transform duration-300 capitalize min-w-[70px]`}
                               onClick={() => handleFilterColor(pokemonColor)}
+                              key={index}
                             >
                               {pokemonColor}
                             </button>
@@ -343,13 +340,13 @@ function App() {
               <div
                 className='flex flex-col bg-zinc-100 dark:bg-neutral-900 border border-zinc-600 
                 dark:border-zinc-400 w-full absolute z-10 rounded-lg -mt-3 max-h-80 overflow-y-auto'
-                ref={impactRef}
               >
-                {pokemonInputResults.map((result: pokemonStringUrl) => (
+                {pokemonInputResults?.map((result: pokemonStringUrl) => (
                   <Sheet>
                     <SheetTrigger
                       className='flex border-zinc-600 dark:border-zinc-400 border-b-[1px] last:border-none
                       hover:bg-zinc-200 dark:hover:bg-neutral-950 cursor-pointer'
+                      onClick={aboutClicked}
                     >
                       <div onClick={() => fetchResultUrl(result.url)}>
                         <div className='text-lg font-light py-2 px-6 capitalize'>{result?.name}</div>
@@ -402,32 +399,32 @@ function App() {
                       {about ? (
                         <div className='h-full bg-background-color rounded-t-4xl p-8'>
                           <PokemonAboutSheet
-                            id={pokemonInputObject?.data?.id}
-                            height={pokemonInputObject?.data?.height}
-                            weight={pokemonInputObject?.data?.weight}
-                            baseExp={pokemonInputObject?.data?.base_experience}
-                            mainType={pokemonInputObject?.data?.types[0].type.name}
-                            abilities={pokemonInputObject?.data?.abilities}
+                            id={pokemonInputObject?.data ? pokemonInputObject.data.id : 0}
+                            height={pokemonInputObject?.data ? pokemonInputObject.data.height : 0}
+                            weight={pokemonInputObject?.data ? pokemonInputObject.data.weight : 0}
+                            baseExp={pokemonInputObject?.data ? pokemonInputObject.data.base_experience : 0}
+                            mainType={pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'}
+                            abilities={pokemonInputObject?.data ? pokemonInputObject.data.abilities : null}
                           />
                         </div>
                       ) : stats ? (
                         <div className='bg-background-color h-full rounded-t-4xl p-8'>
                           <PokemonStatsSheet
-                            name={pokemonInputObject?.data?.name}
-                            mainType={pokemonInputObject?.data?.types[0].type.name}
-                            hp={pokemonInputObject?.data?.stats[0].base_stat}
-                            attack={pokemonInputObject?.data?.stats[1].base_stat}
-                            defense={pokemonInputObject?.data?.stats[2].base_stat}
-                            spAttack={pokemonInputObject?.data?.stats[3].base_stat}
-                            spDefense={pokemonInputObject?.data?.stats[4].base_stat}
-                            speed={pokemonInputObject?.data?.stats[5].base_stat}
+                            name={pokemonInputObject?.data ? pokemonInputObject.data.name : 'null'}
+                            mainType={pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'}
+                            hp={pokemonInputObject?.data ? pokemonInputObject.data.stats[0].base_stat : 0}
+                            attack={pokemonInputObject?.data ? pokemonInputObject.data.stats[1].base_stat : 0}
+                            defense={pokemonInputObject?.data ? pokemonInputObject.data.stats[2].base_stat : 0}
+                            spAttack={pokemonInputObject?.data ? pokemonInputObject.data.stats[3].base_stat : 0}
+                            spDefense={pokemonInputObject?.data ? pokemonInputObject.data.stats[4].base_stat : 0}
+                            speed={pokemonInputObject?.data ? pokemonInputObject.data.stats[5].base_stat : 0}
                           />
                         </div>
                       ) : (
                         <div className='bg-background-color h-full rounded-t-4xl p-8'>
                           <PokemonEvolutionsSheet
-                            id={pokemonInputObject?.data?.id}
-                            mainType={pokemonInputObject?.data?.types[0].type.name}
+                            id={pokemonInputObject?.data ? pokemonInputObject?.data.id : 0}
+                            mainType={pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'}
                           />
                         </div>
                       )}

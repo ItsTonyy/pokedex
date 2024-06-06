@@ -21,7 +21,7 @@ interface typesType {
 }
 
 export interface dataPokemonDefaultType {
-  abilities: abilityType[];
+  abilities: abilityType[] | null;
   base_experience: number;
   cries: {
     latest: string;
@@ -31,11 +31,11 @@ export interface dataPokemonDefaultType {
   game_indices: [];
   height: number;
   held_items: [];
-  id: number | undefined;
+  id: number;
   is_default: boolean;
   location_area_encounters: string;
   moves: [];
-  name: string | undefined;
+  name: string;
   order: number;
   past_abilities: [];
   past_types: [];
@@ -175,26 +175,26 @@ export interface PokemonSpeciesType {
 }
 
 export interface PokemonStatsSheetType {
-  name: string | undefined;
-  mainType: string | undefined;
-  hp: number | undefined;
-  attack: number | undefined;
-  defense: number | undefined;
-  spAttack: number | undefined;
-  spDefense: number | undefined;
-  speed: number | undefined;
+  name: string;
+  mainType: string;
+  hp: number;
+  attack: number;
+  defense: number;
+  spAttack: number;
+  spDefense: number;
+  speed: number;
 }
 
 export interface PokemonAboutSheetType {
-  height: number | undefined;
-  weight: number | undefined;
-  captureRate?: number | undefined;
-  baseHappiness?: number | undefined;
-  baseExp: number | undefined;
-  growthRate?: string | undefined;
-  id: number | undefined;
-  mainType: string | undefined;
-  abilities: abilityType[] | undefined;
+  height: number;
+  weight: number;
+  captureRate?: number;
+  baseHappiness?: number;
+  baseExp: number;
+  growthRate?: string;
+  id: number;
+  mainType: string;
+  abilities: abilityType[] | null;
 }
 
 export interface PokemonEvoDataType {
@@ -229,8 +229,8 @@ export interface PokemonEvoType {
 }
 
 export interface PokemonEvoSheetType {
-  id: number | undefined;
-  mainType: string | undefined;
+  id: number ;
+  mainType: string;
 }
 
 export interface abilityType {
