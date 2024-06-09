@@ -198,6 +198,7 @@ module.exports = {
         'pokeball-dark': 'url(assets/BackgroundImages/bg-pokeball-dark.svg)',
         'card-pokeball-white': 'url(assets/BackgroundImages/bg-card-pokeball-white.svg)',
         '6x3-grad': 'url(assets/BackgroundImages/6x3-grad.svg)',
+        '6x3-grad-generations': 'url(assets/BackgroundImages/6x3-grad-generations.svg)',
         searchIcon: 'url(assets/Other/search.svg)',
         'pokeball-white-sheet': 'url(assets/BackgroundImages/bg-pokeball-white-sheet.svg)',
       },

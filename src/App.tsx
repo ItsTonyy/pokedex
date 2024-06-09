@@ -8,13 +8,13 @@ import {
   SheetTitle,
   SheetHeader,
 } from '@/components/ui/sheet';
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from './components/ui/tooltip';
 import { Button } from './components/ui/button';
 import { pokemonDefaultType } from './types/types';
 import { PokemonTypesType } from './types/types';
 import { PokemonColorType } from './types/types';
 import { pokemonStringUrl } from './types/types';
-import { Search, Sun, Moon, SlidersHorizontal } from 'lucide-react';
+import { GenerationResponse } from './types/types';
+import { Search, Sun, Moon, SlidersHorizontal, LayoutGrid } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PokemonCard from './components/PokemonCard';
@@ -22,7 +22,7 @@ import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
 import PokemonStatsSheet from './components/Sheet/PokemonStatsSheet';
 import PokemonAboutSheet from './components/Sheet/PokemonAboutSheet';
 import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
-import useOutsideClick from './components/UseOutsideClick';
+
 
 function App() {
   const [pokemonInputResults, setPokemonInputResults] = useState<pokemonStringUrl[]>([]);
@@ -120,6 +120,29 @@ function App() {
     }
   };
 
+  const handleGeneration = async (generationId: number) => {
+    const generationEndpoint = `https://pokeapi.co/api/v2/generation/${generationId}`;
+    let generationObject: GenerationResponse;
+
+    try {
+      const fetchGenerationEndpoint = await axios.get(generationEndpoint);
+      console.log(fetchGenerationEndpoint)
+      generationObject = fetchGenerationEndpoint;
+
+      const endpoints = generationObject.data.pokemon_species.map((generation) =>
+        generation.url.replace(
+          /https:\/\/pokeapi\.co\/api\/v2\/pokemon-species\/(\d+)\//,
+          'https://pokeapi.co/api/v2/pokemon/$1/'
+        )
+      );
+
+      const response = await axios.all(endpoints.map((endpoint) => axios.get(endpoint)));
+      setPokemonsDefault(response);
+    } catch (error) {
+      console.log('Error fetching handleGeneration data: ', error);
+    }
+  };
+
   const fetchInputData = (value: string) => {
     fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
       .then((response) => response.json())
@@ -132,14 +155,15 @@ function App() {
   };
 
   const fetchResultUrl = async (url: string) => {
-    const endpoint = `${url}`;
+    const endpoint = url;
     const response = await axios.get(endpoint);
     setPokemonInputObject(response);
   };
 
-  const handleInputChange = (value: string) => {
-    fetchInputData(value);
-  };
+  const handleInputClick = (url: string) => {
+    fetchResultUrl(url);
+    aboutClicked();
+  }
 
   const aboutClicked = () => {
     setAbout(true);
@@ -208,30 +232,21 @@ function App() {
           <header className='flex flex-col'>
             <h1 className='sm:title drop-shadow-xl font-bold text-6xl'>Pokédex</h1>
             <div className='flex lg:justify-between lg:items-center lg:flex-row flex-col gap-4'>
-              <p className='sm:text-xl text-lg'>
+              <p className='sm:text-xl text-base text-zinc-500 dark:text-zinc-300 mt-2'>
                 Search for Pokémon by name or using the National Pokédex Number
               </p>
 
               {/*Main Page Buttons */}
               <div className='space-x-3'>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button
-                        onClick={handleThemeSwitch}
-                        className='bg-zinc-700 dark:bg-zinc-200 w-10 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
-                      >
-                        {localStorage.theme === 'dark' ? <Sun /> : <Moon />}
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className='font-medium'>
-                        {localStorage.theme === 'dark' ? 'Toggle Light Mode' : 'Toggle Dark Mode'}
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                {/*Dark/Light mode*/}
+                <Button
+                  onClick={handleThemeSwitch}
+                  className='bg-zinc-700 dark:bg-zinc-200 w-10 p-0 hover:bg-zinc-950 dark:hover:bg-zinc-100'
+                >
+                  {localStorage.theme === 'dark' ? <Sun /> : <Moon />}
+                </Button>
 
+                {/*Filters Button*/}
                 <Sheet>
                   <SheetTrigger>
                     <Button
@@ -242,7 +257,7 @@ function App() {
                     </Button>
                   </SheetTrigger>
 
-                  <SheetContent side={'bottom'} className='pt-16 pb-10'>
+                  <SheetContent side={'bottom'} className='max-[440px]:max-h-svh pt-16 pb-10'>
                     <SheetHeader>
                       <SheetTitle className='text-3xl drop-shadow-lg'>Filters</SheetTitle>
                       <SheetDescription className='text-lg'>
@@ -321,6 +336,101 @@ function App() {
                     </SheetHeader>
                   </SheetContent>
                 </Sheet>
+
+                {/*Generations Button*/}
+                <Sheet>
+                  <SheetTrigger>
+                    <Button
+                      className='bg-zinc-700 dark:bg-zinc-200 w-10 p-0 hover:bg-zinc-950
+                      dark:hover:bg-zinc-100'
+                    >
+                      <LayoutGrid />
+                    </Button>
+                  </SheetTrigger>
+
+                  <SheetContent side={'bottom'} className='max-[440px]:max-h-svh pt-16 pb-10'>
+                    <SheetHeader>
+                      <SheetTitle className='text-3xl drop-shadow-lg'>Generations</SheetTitle>
+                      <SheetDescription className='text-lg'>
+                        Use search for generations to explore your Pokémon!
+                      </SheetDescription>
+
+                      <div className='pt-3 flex flex-row flex-wrap gap-3'>
+                        <div className='w-24 flex justify-center items-center bg-white text-black border-2 border-black dark:bg-black 
+                        dark:text-white dark:border-2 dark:border-zinc-300 cursor-pointer p-3 rounded-lg hover:scale-105 
+                        will-change-transform duration-300'
+                        onClick={() => PokemonsDefaultObject()}>
+                          <span className='text-lg'>All</span>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(1)}>
+                          <img src="src/assets/Generation-1.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(2)}>
+                          <img src="src/assets/Generation-2.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(3)}>
+                          <img src="src/assets/Generation-3.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(4)}>
+                          <img src="src/assets/Generation-4.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(5)}>
+                          <img src="src/assets/Generation-5.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(6)}>
+                          <img src="src/assets/Generation-6.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(7)}>
+                          <img src="src/assets/Generation-7.png" alt="GenerationImage"/>
+                        </div>
+                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
+                        before:top-0 before:left-4
+                        after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
+                        after:bottom-0 after:right-0'
+                        onClick={() => handleGeneration(8)}>
+                          <img src="src/assets/Generation-8.png" alt="GenerationImage"/>
+                        </div>
+                      </div>
+                    </SheetHeader>
+                  </SheetContent>
+                </Sheet>
+
               </div>
             </div>
           </header>
@@ -332,7 +442,7 @@ function App() {
              focus:bg-zinc-100 text-base shadow-md dark:border-zinc-400 dark:border-2 dark:focus:bg-zinc-800'
               placeholder='What Pokémon are you looking for?'
               id='inputPokemon'
-              onChange={(e) => handleInputChange(e.target.value)}
+              onChange={(e) => fetchInputData(e.target.value)}
             />
             {pokemonInputResults.length === 0 ? (
               <div className='hidden'></div>
@@ -346,9 +456,9 @@ function App() {
                     <SheetTrigger
                       className='flex border-zinc-600 dark:border-zinc-400 border-b-[1px] last:border-none
                       hover:bg-zinc-200 dark:hover:bg-neutral-950 cursor-pointer'
-                      onClick={aboutClicked}
+                      onClick={() => handleInputClick(result.url)}
                     >
-                      <div onClick={() => fetchResultUrl(result.url)}>
+                      <div>
                         <div className='text-lg font-light py-2 px-6 capitalize'>{result?.name}</div>
                       </div>
                     </SheetTrigger>
@@ -403,7 +513,9 @@ function App() {
                             height={pokemonInputObject?.data ? pokemonInputObject.data.height : 0}
                             weight={pokemonInputObject?.data ? pokemonInputObject.data.weight : 0}
                             baseExp={pokemonInputObject?.data ? pokemonInputObject.data.base_experience : 0}
-                            mainType={pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'}
+                            mainType={
+                              pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'
+                            }
                             abilities={pokemonInputObject?.data ? pokemonInputObject.data.abilities : null}
                           />
                         </div>
@@ -411,12 +523,20 @@ function App() {
                         <div className='bg-background-color h-full rounded-t-4xl p-8'>
                           <PokemonStatsSheet
                             name={pokemonInputObject?.data ? pokemonInputObject.data.name : 'null'}
-                            mainType={pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'}
+                            mainType={
+                              pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'
+                            }
                             hp={pokemonInputObject?.data ? pokemonInputObject.data.stats[0].base_stat : 0}
                             attack={pokemonInputObject?.data ? pokemonInputObject.data.stats[1].base_stat : 0}
-                            defense={pokemonInputObject?.data ? pokemonInputObject.data.stats[2].base_stat : 0}
-                            spAttack={pokemonInputObject?.data ? pokemonInputObject.data.stats[3].base_stat : 0}
-                            spDefense={pokemonInputObject?.data ? pokemonInputObject.data.stats[4].base_stat : 0}
+                            defense={
+                              pokemonInputObject?.data ? pokemonInputObject.data.stats[2].base_stat : 0
+                            }
+                            spAttack={
+                              pokemonInputObject?.data ? pokemonInputObject.data.stats[3].base_stat : 0
+                            }
+                            spDefense={
+                              pokemonInputObject?.data ? pokemonInputObject.data.stats[4].base_stat : 0
+                            }
                             speed={pokemonInputObject?.data ? pokemonInputObject.data.stats[5].base_stat : 0}
                           />
                         </div>
@@ -424,7 +544,9 @@ function App() {
                         <div className='bg-background-color h-full rounded-t-4xl p-8'>
                           <PokemonEvolutionsSheet
                             id={pokemonInputObject?.data ? pokemonInputObject?.data.id : 0}
-                            mainType={pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'}
+                            mainType={
+                              pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'
+                            }
                           />
                         </div>
                       )}
@@ -454,7 +576,7 @@ function App() {
                 </SheetTrigger>
 
                 <SheetContent
-                  className={`p-0 m-0 border-none bg-background-type-${pokemon.data.types[0].type.name}`}
+                  className={`p-0 m-0 border-none overflow-y-auto bg-background-type-${pokemon.data.types[0].type.name}`}
                 >
                   <div>
                     <PokemonHeaderSheet

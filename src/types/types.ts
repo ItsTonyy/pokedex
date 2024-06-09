@@ -318,3 +318,24 @@ export interface pokemonInputType {
 export interface resultsType {
   results: pokemonStringUrl[]
 }
+
+interface GenerationObjectType {
+  id: number
+  name: string
+  abilities: []
+  main_region: object
+  moves: []
+  names: []
+  pokemon_species: pokemonStringUrl[]
+  types: []
+  version_groups: []
+}
+
+export interface GenerationResponse {
+  config: object;
+  data: GenerationObjectType;
+  headers: object;
+  request?: XMLHttpRequest;
+  status: number;
+  statusText: string;
+}
