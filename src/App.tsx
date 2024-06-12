@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Input } from '@/components/ui/input';
 import {
   Sheet,
@@ -14,14 +14,17 @@ import { PokemonTypesType } from './types/types';
 import { PokemonColorType } from './types/types';
 import { pokemonStringUrl } from './types/types';
 import { GenerationResponse } from './types/types';
+import { textColorTernary } from './utils/utils';
 import { Search, Sun, Moon, SlidersHorizontal, LayoutGrid } from 'lucide-react';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import PokemonCard from './components/PokemonCard';
 import PokemonHeaderSheet from './components/Sheet/PokemonHeaderSheet';
 import PokemonStatsSheet from './components/Sheet/PokemonStatsSheet';
 import PokemonAboutSheet from './components/Sheet/PokemonAboutSheet';
-import PokemonEvolutionsSheet from './components/Sheet/PokemonEvolutionsSheet';
+const PokemonCard = lazy(() => import('./components/PokemonCard'));
+const PokemonEvolutionsSheet = lazy(() => import('./components/Sheet/PokemonEvolutionsSheet'));
+import PokemonEvoFallback from './components/Fallbacks/PokemonEvoFallback';
+import PokemonCardFallback from './components/Fallbacks/PokemonCardFallback';
 
 
 function App() {
@@ -126,7 +129,7 @@ function App() {
 
     try {
       const fetchGenerationEndpoint = await axios.get(generationEndpoint);
-      console.log(fetchGenerationEndpoint)
+      console.log(fetchGenerationEndpoint);
       generationObject = fetchGenerationEndpoint;
 
       const endpoints = generationObject.data.pokemon_species.map((generation) =>
@@ -163,7 +166,7 @@ function App() {
   const handleInputClick = (url: string) => {
     fetchResultUrl(url);
     aboutClicked();
-  }
+  };
 
   const aboutClicked = () => {
     setAbout(true);
@@ -356,81 +359,98 @@ function App() {
                       </SheetDescription>
 
                       <div className='pt-3 flex flex-row flex-wrap gap-3'>
-                        <div className='w-24 flex justify-center items-center bg-white text-black border-2 border-black dark:bg-black 
+                        <div
+                          className='w-24 flex justify-center items-center bg-white text-black border-2 border-black dark:bg-black 
                         dark:text-white dark:border-2 dark:border-zinc-300 cursor-pointer p-3 rounded-lg hover:scale-105 
                         will-change-transform duration-300'
-                        onClick={() => PokemonsDefaultObject()}>
+                          onClick={() => PokemonsDefaultObject()}
+                        >
                           <span className='text-lg'>All</span>
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(1)}>
-                          <img src="src/assets/Generation-1.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(1)}
+                        >
+                          <img src='src/assets/Generation-1.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(2)}>
-                          <img src="src/assets/Generation-2.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(2)}
+                        >
+                          <img src='src/assets/Generation-2.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(3)}>
-                          <img src="src/assets/Generation-3.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(3)}
+                        >
+                          <img src='src/assets/Generation-3.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(4)}>
-                          <img src="src/assets/Generation-4.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(4)}
+                        >
+                          <img src='src/assets/Generation-4.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(5)}>
-                          <img src="src/assets/Generation-5.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(5)}
+                        >
+                          <img src='src/assets/Generation-5.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(6)}>
-                          <img src="src/assets/Generation-6.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(6)}
+                        >
+                          <img src='src/assets/Generation-6.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(7)}>
-                          <img src="src/assets/Generation-7.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(7)}
+                        >
+                          <img src='src/assets/Generation-7.png' alt='GenerationImage' />
                         </div>
-                        <div className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
+                        <div
+                          className='relative bg-zinc-800 hover:bg-zinc-900 dark:bg-zinc-400/50 focus:bg-red-500 cursor-pointer p-3 rounded-lg hover:scale-105 will-change-transform duration-300 
                         before:bg-6x3-grad dark:before:bg-6x3-grad-generations before:h-6 before:w-[3rem] before:absolute before:bg-cover before:bg-no-repeat 
                         before:top-0 before:left-4
                         after:bg-6x3-grad dark:after:bg-6x3-grad-generations after:h-6 after:w-[3rem] after:absolute after:bg-cover after:bg-no-repeat 
                         after:bottom-0 after:right-0'
-                        onClick={() => handleGeneration(8)}>
-                          <img src="src/assets/Generation-8.png" alt="GenerationImage"/>
+                          onClick={() => handleGeneration(8)}
+                        >
+                          <img src='src/assets/Generation-8.png' alt='GenerationImage' />
                         </div>
                       </div>
                     </SheetHeader>
                   </SheetContent>
                 </Sheet>
-
               </div>
             </div>
           </header>
@@ -541,14 +561,21 @@ function App() {
                           />
                         </div>
                       ) : (
-                        <div className='bg-background-color h-full rounded-t-4xl p-8'>
-                          <PokemonEvolutionsSheet
-                            id={pokemonInputObject?.data ? pokemonInputObject?.data.id : 0}
-                            mainType={
-                              pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null'
-                            }
-                          />
+                        <Suspense fallback={<PokemonEvoFallback />}>
+                          <div className='bg-background-color h-full rounded-t-4xl p-8'>
+                            <h2
+                              className={`font-medium text-xl mb-2 
+                              ${textColorTernary(pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null')}`}
+                            >
+                              Evolution Chain
+                            </h2>
+                            <Suspense fallback={<PokemonEvoFallback />}>
+                              <PokemonEvolutionsSheet
+                                id={pokemonInputObject?.data ? pokemonInputObject?.data.id : 0}
+                              />
+                            </Suspense>
                         </div>
+                        </Suspense>
                       )}
                     </SheetContent>
                   </Sheet>
@@ -564,6 +591,7 @@ function App() {
               <Sheet key={pokemon.data.id}>
                 <SheetTrigger asChild onClick={aboutClicked}>
                   <div>
+                    <Suspense fallback={<PokemonCardFallback />}>
                     <PokemonCard
                       name={pokemon.data.name}
                       id={pokemon.data.id}
@@ -572,6 +600,7 @@ function App() {
                       typesLength={pokemon.data.types.length}
                       image={pokemon.data.sprites.other['official-artwork'].front_default}
                     />
+                    </Suspense>
                   </div>
                 </SheetTrigger>
 
@@ -643,12 +672,19 @@ function App() {
                       />
                     </div>
                   ) : (
-                    <div className='bg-background-color h-full rounded-t-4xl p-8'>
-                      <PokemonEvolutionsSheet
-                        id={pokemon.data.id}
-                        mainType={pokemon.data.types[0].type.name}
-                      />
-                    </div>
+                    <Suspense fallback={<PokemonEvoFallback />}>
+                      <div className='bg-background-color h-full rounded-t-4xl p-8'>
+                        <h2
+                          className={`font-medium text-xl mb-2 
+                          ${textColorTernary(pokemonInputObject?.data ? pokemonInputObject.data.types[0].type.name : 'null')}`}
+                        >
+                          Evolution Chain
+                        </h2>
+                        <Suspense fallback={<PokemonEvoFallback />}>
+                        <PokemonEvolutionsSheet id={pokemon.data.id} />
+                        </Suspense>
+                      </div>
+                    </Suspense>
                   )}
                 </SheetContent>
               </Sheet>

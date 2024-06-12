@@ -19,11 +19,12 @@ const PokemonCard: React.FC<PokemonCardProps> = memo(
 
     return (
       <div
-        className={`${backgroundColorTernary(mainType)} relative group sm:hover:scale-105 sm:duration-300 sm:ease-in-out p-3 flex flex-row mb-3
-       shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72 max-h-[114px]
-       bg-card-pokeball-white bg-no-repeat bg-40% sm:bg-45% bg-right 
-       before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
-       before:right-2/4 before:top-0`}
+        className={`${backgroundColorTernary(mainType)} relative group sm:hover:scale-105 sm:duration-300
+        sm:ease-in-out p-3 flex flex-row mb-3
+        shadow-2xl shadow-gray-400 dark:shadow-none rounded-lg cursor-pointer lg:min-w-72 max-h-[114px]
+        bg-card-pokeball-white bg-no-repeat bg-40% sm:bg-45% bg-right 
+        before:bg-6x3-grad before:h-8 before:w-[5rem] before:absolute before:bg-cover before:bg-no-repeat 
+        before:right-2/3 before:top-0`}
       >
         <div className='flex flex-col'>
           <span className='text-gray-100 font-bold text-sm drop-shadow'>{idCondicional}</span>

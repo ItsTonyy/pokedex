@@ -229,8 +229,7 @@ export interface PokemonEvoType {
 }
 
 export interface PokemonEvoSheetType {
-  id: number ;
-  mainType: string;
+  id: number;
 }
 
 export interface abilityType {

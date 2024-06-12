@@ -178,18 +178,6 @@ const PokemonAboutSheet: React.FC<PokemonAboutSheetType> = ({
           ~({`${hatchCounter * 128} - ${hatchCounter * 257}`}) steps
         </span>
       </div>
-
-      <div>
-        <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed ? flavorTextFixed : 'No text.'}</p>
-      </div>
-
-      <div>
-        <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed ? flavorTextFixed : 'No text.'}</p>
-      </div>
-
-      <div>
-        <p className='text-text-grey dark:text-zinc-300'>{flavorTextFixed ? flavorTextFixed : 'No text.'}</p>
-      </div>
     </div>
   );
 };

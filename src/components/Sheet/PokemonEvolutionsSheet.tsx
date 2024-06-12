@@ -4,9 +4,8 @@ import { PokemonSpeciesType } from '@/types/types';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { CircleArrowRight } from 'lucide-react';
-import { textColorTernary } from '@/utils/utils';
 
-const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType }) => {
+const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id }) => {
   const [pokemonEvo, setPokemonEvo] = useState<PokemonEvoDataType[]>([]);
   const [pokemonSprites, setPokemonSprites] = useState<string[]>([]);
 
@@ -77,7 +76,6 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
 
   return (
     <div className='select-none'>
-      <h2 className={`font-medium text-xl mb-2 ${textColorTernary(mainType)}`}>Evolution Chain</h2>
       <div className='mt-2 flex flex-row w-full justify-center'>
         {pokemonSprites?.length > 1
           ? pokemonSprites?.map((imageUrl, index) => {
@@ -112,11 +110,14 @@ const PokemonEvolutionsSheet: React.FC<PokemonEvoSheetType> = ({ id, mainType })
                 </div>
               );
             })
-          : pokemonSprites?.map((imageUrl) => {
+          : pokemonSprites?.map((imageUrl, index) => {
+            const name = evolutionsObject[index].speciesName;
               return (
-                <div>
+                <div className='flex flex-col justify-center items-center gap-2'>
                   <img src={imageUrl} alt='PokemonSprite' />
+                  <span className='font-medium text-sm capitalize drop-shadow-md'>{name}</span>
                 </div>
+                
               );
             })}
       </div>
