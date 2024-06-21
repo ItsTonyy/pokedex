@@ -29,11 +29,11 @@
 - Showcasing evolutions and variants
 - Data Integration: Connect to the PokeAPI for comprehensive Pokémon data.
 
-### Phase 2: Master Trainer Status (Adding Complexity): ⌛
+### Phase 2: Master Trainer Status (Adding Complexity): ✅
 - Enabling basic user interaction (sorting, favoriting, etc.)
 - Implementing filtering and search options
 
-### Phase 3: Gotta Catch 'Em Mobile (Full Responsiveness): ⌛
+### Phase 3: Gotta Catch 'Em Mobile (Full Responsiveness): ✅
 
 - Responsive Design: Adapt the website to seamlessly function on various screen sizes, ensuring optimal mobile usability.
 - Touch Optimization: Optimize interaction for touchscreens, including buttons, navigation, and scrolling.
